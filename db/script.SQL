@@ -27,6 +27,7 @@ create table users
     last_name  varchar(255) not null,
     username   varchar(255) not null,
     password   varchar(255) not null,
-    is_admin   tinyint(1)   not null
+    is_admin   tinyint(1)   not null,
+    email      varchar(300) not null
 );
 
