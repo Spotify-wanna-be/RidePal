@@ -30,8 +30,8 @@ public class ArtistRestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
         }
     }
-    @PostMapping("")
-    public Artist create(@RequestHeader HttpHeaders headers, @RequestBody ArtistDto artistDto){
+    @PostMapping()
+    public Artist create(@RequestHeader HttpHeaders headers,@Valid @RequestBody ArtistDto artistDto){
         try{
             Artist artist=artistMapper.fromDto(artistDto);
             artistService.create(artist);

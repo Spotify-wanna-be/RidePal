@@ -2,12 +2,14 @@ package com.example.ridepal.service;
 
 import com.example.ridepal.models.Artist;
 import com.example.ridepal.repository.ArtistRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ArtistServiceImpl implements ArtistService {
     private final ArtistRepository artistRepository;
 
+    @Autowired
     public ArtistServiceImpl(ArtistRepository artistRepository) {
         this.artistRepository = artistRepository;
     }

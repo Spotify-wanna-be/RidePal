@@ -40,7 +40,7 @@ public class TrackRepositoryImpl implements TrackRepository{
         try (Session session = sessionFactory.openSession()) {
             Track track = session.get(Track.class, id);
             if (track == null) {
-                throw new EntityNotFoundException("Post", id);
+                throw new EntityNotFoundException("Track", id);
             }
             return track;
         }

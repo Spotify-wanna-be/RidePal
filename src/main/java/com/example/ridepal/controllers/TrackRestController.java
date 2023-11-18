@@ -2,9 +2,14 @@ package com.example.ridepal.controllers;
 
 import com.example.ridepal.exceptions.EntityDuplicateException;
 import com.example.ridepal.exceptions.EntityNotFoundException;
+import com.example.ridepal.helpers.AuthenticationHelper;
+import com.example.ridepal.helpers.TrackMapper;
 import com.example.ridepal.models.Track;
+import com.example.ridepal.models.TrackDto;
+import com.example.ridepal.models.User;
 import com.example.ridepal.service.TrackService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +21,14 @@ import java.util.List;
 @RequestMapping("/api/tracks")
 public class TrackRestController {
     private final TrackService trackService;
+    private final AuthenticationHelper authenticationHelper;
+    private final TrackMapper trackMapper;
 
-    public TrackRestController(TrackService trackService) {
+    @Autowired
+    public TrackRestController(TrackService trackService, AuthenticationHelper authenticationHelper, TrackMapper trackMapper) {
         this.trackService = trackService;
+        this.authenticationHelper = authenticationHelper;
+        this.trackMapper = trackMapper;
     }
 
     @GetMapping
@@ -27,7 +37,7 @@ public class TrackRestController {
     }
 
     @GetMapping("/{id}")
-    public Track get(@PathVariable int id) {
+    public Track getById(@PathVariable int id) {
         try {
             return trackService.getById(id);
         } catch (EntityNotFoundException e) {
@@ -35,18 +45,19 @@ public class TrackRestController {
         }
     }
 
-    @GetMapping("/{albumName}")
-    public List<Track> get(@PathVariable String albumName) {
-        try {
-            return trackService.getAllFromAlbum(albumName);
-        } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-    }
+//    @GetMapping("/{albumName}")
+//    public List<Track> getFromAlbum(@PathVariable String albumName) {
+//        try {
+//            return trackService.getAllFromAlbum(albumName);
+//        } catch (EntityNotFoundException e) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+//        }
+//    }
 
     @PostMapping
-    public Track create(@RequestHeader HttpHeaders headers, @Valid @RequestBody Track track) {
+    public Track create(@RequestHeader HttpHeaders headers, @Valid @RequestBody TrackDto trackDto) {
         try {
+            Track track = trackMapper.fromDto(trackDto);
             trackService.create(track);
             return track;
         } catch (EntityNotFoundException e) {

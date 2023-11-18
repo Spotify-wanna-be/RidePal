@@ -1,5 +1,6 @@
 package com.example.ridepal.service;
 
+import com.example.ridepal.models.Artist;
 import com.example.ridepal.models.Track;
 
 import java.util.List;

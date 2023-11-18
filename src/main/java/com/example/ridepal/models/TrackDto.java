@@ -1,38 +1,16 @@
 package com.example.ridepal.models;
 
-import jakarta.persistence.*;
-
 import java.sql.Time;
-import java.time.Duration;
 
-@Entity
-@Table(name="tracks")
-public class Track {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "track_id")
-    private int id;
-    @Column(name = "title")
+public class TrackDto {
     private String title;
-    @ManyToOne
-    @JoinColumn(name = "artist")
-    private Artist artist;
-    @Column(name = "album")
     private String album;
-    @Column(name = "rank")
     private int rank;
-    @Column(name = "duration")
     private Time duration;
+    private int artist;
 
-    public Track(){
-    }
+    public TrackDto(){
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getTitle() {
@@ -41,14 +19,6 @@ public class Track {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public Artist getArtist() {
-        return artist;
-    }
-
-    public void setArtist(Artist artist) {
-        this.artist = artist;
     }
 
     public String getAlbum() {
@@ -73,5 +43,13 @@ public class Track {
 
     public void setDuration(Time duration) {
         this.duration = duration;
+    }
+
+    public int getArtist() {
+        return artist;
+    }
+
+    public void setArtist(int artist) {
+        this.artist = artist;
     }
 }

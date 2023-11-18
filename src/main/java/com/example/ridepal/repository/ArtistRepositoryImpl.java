@@ -4,6 +4,7 @@ import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.models.Artist;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -11,6 +12,7 @@ public class ArtistRepositoryImpl implements ArtistRepository {
 
     private final SessionFactory sessionFactory;
 
+    @Autowired
     public ArtistRepositoryImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
