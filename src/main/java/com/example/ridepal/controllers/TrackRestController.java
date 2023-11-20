@@ -69,8 +69,9 @@ public class TrackRestController {
     }
 
     @PutMapping("/{id}")
-    public Track update(@RequestHeader HttpHeaders headers, @PathVariable int id, @Valid @RequestBody Track track) {
+    public Track update(@RequestHeader HttpHeaders headers, @PathVariable int id, @Valid @RequestBody TrackDto trackDto) {
         try {
+            Track track = trackMapper.fromDto(id, trackDto);
             trackService.update(track);
             return track;
         } catch (EntityNotFoundException e) {
