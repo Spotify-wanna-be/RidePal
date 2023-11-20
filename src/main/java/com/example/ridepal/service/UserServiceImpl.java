@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
             usernameExist = false;
         }
         if (usernameExist) {
-            throw new EntityDuplicateException("User", "username", user.getEmail());
+            throw new EntityDuplicateException("User", "username", user.getUsername());
         }
         userRepository.updateUser(userToUpdate);
     }

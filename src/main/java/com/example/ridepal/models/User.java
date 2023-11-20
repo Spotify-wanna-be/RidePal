@@ -2,7 +2,6 @@ package com.example.ridepal.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import java.util.Objects;
 
