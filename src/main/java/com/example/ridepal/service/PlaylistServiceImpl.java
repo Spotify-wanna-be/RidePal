@@ -1,9 +1,12 @@
 package com.example.ridepal.service;
 
 import com.example.ridepal.models.Playlist;
+import com.example.ridepal.models.PlaylistFilterOptions;
 import com.example.ridepal.repository.PlaylistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class PlaylistServiceImpl implements PlaylistService {
@@ -12,6 +15,11 @@ public class PlaylistServiceImpl implements PlaylistService {
     @Autowired
     public PlaylistServiceImpl(PlaylistRepository playlistRepository) {
         this.playlistRepository = playlistRepository;
+    }
+
+    @Override
+    public List<Playlist> get(PlaylistFilterOptions playlistFilterOptions) {
+        return playlistRepository.get(playlistFilterOptions);
     }
 
     @Override

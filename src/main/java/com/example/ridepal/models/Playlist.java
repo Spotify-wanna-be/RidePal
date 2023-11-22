@@ -13,7 +13,7 @@ public class Playlist {
     @Column(name = "playlist_id")
     private int id;
 
-    @Column(name="name")
+    @Column(name= "name")
     private  String name;
 
     @Column(name = "duration")

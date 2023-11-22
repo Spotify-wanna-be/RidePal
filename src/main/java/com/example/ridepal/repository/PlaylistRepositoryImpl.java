@@ -3,10 +3,17 @@ package com.example.ridepal.repository;
 import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.models.Artist;
 import com.example.ridepal.models.Playlist;
+import com.example.ridepal.models.PlaylistFilterOptions;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class PlaylistRepositoryImpl implements PlaylistRepository {
@@ -17,6 +24,68 @@ public class PlaylistRepositoryImpl implements PlaylistRepository {
         this.sessionFactory = sessionFactory;
     }
 
+    @Override
+    public List<Playlist> get(PlaylistFilterOptions playlistFilterOptions) {
+        try (Session session = sessionFactory.openSession()) {
+            List<String> filters = new ArrayList<>();
+            Map<String, Object> params = new HashMap<>();
+
+            playlistFilterOptions.getName().ifPresent(value -> {
+                filters.add(" name like :name ");
+                params.put("name", String.format("%%%s%%", value));
+            });
+
+            playlistFilterOptions.getDuration().ifPresent(value -> {
+                filters.add(" duration like :duration ");
+                params.put("duration", String.format("%%%s%%", value));
+            });
+
+            playlistFilterOptions.getGenre().ifPresent(value -> {
+                    filters.add(" genre.type like :genre ");
+                    params.put("genre", String.format("%%%s%%", value));
+            });
+
+            StringBuilder queryString = new StringBuilder("from Playlist ");
+            if (!filters.isEmpty()) {
+                queryString.append(" where ")
+                        .append(String.join(" and ", filters));
+            } else {
+                queryString.append(" order by rank desc");
+            }
+
+
+            queryString.append(generateOrderBy(playlistFilterOptions));
+            Query<Playlist> query = session.createQuery(queryString.toString(), Playlist.class);
+            query.setProperties(params);
+            return query.list();
+        }
+    }
+
+    private String generateOrderBy(PlaylistFilterOptions playlistFilterOptions) {
+        if (playlistFilterOptions.getSortBy().isEmpty()) {
+            return "";
+        }
+        String orderBy = "";
+        switch (playlistFilterOptions.getSortBy().get()) {
+            case "name":
+                orderBy = "name";
+                break;
+            case "duration":
+                orderBy = "duration";
+                break;
+            case "genres":
+                orderBy = "genres.type";
+                break;
+            default:
+                return "";
+        }
+        orderBy = String.format(" order by %s", orderBy);
+        if (playlistFilterOptions.getSortOrder().isPresent()
+                && playlistFilterOptions.getSortOrder().get().equalsIgnoreCase("desc")) {
+            orderBy = String.format("%s desc", orderBy);
+        }
+        return orderBy;
+    }
 
     @Override
     public Playlist getByPlaylistId(int id) {
