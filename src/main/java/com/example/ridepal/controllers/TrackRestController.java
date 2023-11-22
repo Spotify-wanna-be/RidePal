@@ -25,7 +25,9 @@ public class TrackRestController {
     private final TrackMapper trackMapper;
 
     @Autowired
-    public TrackRestController(TrackService trackService, AuthenticationHelper authenticationHelper, TrackMapper trackMapper) {
+    public TrackRestController(TrackService trackService,
+                               AuthenticationHelper authenticationHelper,
+                               TrackMapper trackMapper) {
         this.trackService = trackService;
         this.authenticationHelper = authenticationHelper;
         this.trackMapper = trackMapper;
