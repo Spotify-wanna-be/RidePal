@@ -17,7 +17,7 @@ public class UserMapper {
     }
 
     public User fromDto(int id, RegisterDto dto, User user) {
-        User existingUser = userService.getById(id);
+        User existingUser = userService.get(id);
 
         existingUser.setFirstName(dto.getFirstName());
         existingUser.setLastName(dto.getLastName());
@@ -28,7 +28,7 @@ public class UserMapper {
         return existingUser;
     }
     public User fromDto(int id, UpdateUserDto dto, User user) {
-        User existingUser = userService.getById(id);
+        User existingUser = userService.get(id);
 
         existingUser.setFirstName(dto.getFirstName());
         existingUser.setLastName(dto.getLastName());

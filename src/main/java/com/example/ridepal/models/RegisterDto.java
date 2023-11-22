@@ -5,15 +5,11 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 public class RegisterDto extends LoginDto {
-    @NotEmpty(message = "Password confirmation can't be empty")
-    private String passwordConfirm;
 
     @NotEmpty(message = "Name cannot be empty")
-    @Size(min = 4, max = 32, message = "Name should be between 4 and 32 symbols")
     private String firstName;
 
     @NotEmpty(message = "Last name cannot be empty")
-    @Size(min = 4, max = 32, message = "Name should be between 4 and 32 symbols")
     private String lastName;
 
     @NotEmpty(message = "Email can't be empty")
@@ -24,13 +20,6 @@ public class RegisterDto extends LoginDto {
     public RegisterDto() {
     }
 
-    public String getPasswordConfirm() {
-        return passwordConfirm;
-    }
-
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
-    }
 
     public String getFirstName() {
         return firstName;

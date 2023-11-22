@@ -19,12 +19,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return null;
+    public List<User> getAllUsers(User user) {
+        return userRepository.getAllUsers();
     }
 
     @Override
-    public User getById(int id) {
+    public User get(int id) {
+        return userRepository.getById(id);
+
+    }
+
+    @Override
+    public User getById(int id, User user) {
         return userRepository.getById(id);
     }
 
@@ -65,6 +71,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(int id, User user) {
         //--TODO-- check if user is admin or same user (authorization)
+
         boolean userExists = true;
 
         try {

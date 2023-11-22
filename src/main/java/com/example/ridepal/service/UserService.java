@@ -5,9 +5,10 @@ import com.example.ridepal.models.User;
 import java.util.List;
 
 public interface UserService {
-    List<User> getAllUsers();
+    List<User> getAllUsers(User user);
+    User get(int id);
 
-    User getById(int id);
+    User getById(int id, User user);
 
     User getByUsername(String username);
 
