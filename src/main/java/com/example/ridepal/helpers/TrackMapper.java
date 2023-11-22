@@ -23,7 +23,6 @@ public class TrackMapper {
         existingTrack.setAlbum(dto.getAlbum());
         existingTrack.setDuration(dto.getDuration());
         existingTrack.setRank(dto.getRank());
-        existingTrack.setArtist(artistService.getByArtistId(dto.getArtist()));
 
         return existingTrack;
     }
