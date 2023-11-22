@@ -23,6 +23,12 @@ public class Track {
     private int rank;
     @Column(name = "duration")
     private Time duration;
+    @ManyToOne
+    @JoinColumn(name = "playlist")
+    private Playlist playlist;
+    @ManyToOne
+    @JoinColumn(name = "genre")
+    private Ganre ganre;
 
     public Track(){
     }
