@@ -35,7 +35,7 @@ public class Playlist {
 
     public void setId(int playlistId) {
         this.id = playlistId;
-        
+    }
 
     public String getName() {
         return name;
@@ -44,7 +44,6 @@ public class Playlist {
     public void setName(String name) {
         this.name = name;
     }
-
 
     public Time getDuration() {
         return duration;
@@ -81,5 +80,4 @@ public class Playlist {
         Playlist playlist = (Playlist) obj;
         return id == playlist.id;
     }
-
 }

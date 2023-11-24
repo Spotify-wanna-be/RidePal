@@ -3,7 +3,6 @@ package com.example.ridepal.models;
 import jakarta.persistence.*;
 
 import java.sql.Time;
-import java.time.Duration;
 
 @Entity
 @Table(name="tracks")
@@ -26,9 +25,6 @@ public class Track {
     @ManyToOne
     @JoinColumn(name = "playlist")
     private Playlist playlist;
-    @ManyToOne
-    @JoinColumn(name = "genre")
-    private Ganre ganre;
 
     public Track(){
     }
