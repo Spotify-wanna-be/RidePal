@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.example.ridepal.helpers.CheckPermissions.checkIfSameUser;
+import static com.example.ridepal.helpers.CheckPermissions.checkUserAuthorization;
+
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
@@ -55,7 +58,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(User user, User userToUpdate) {
-        //--TODO-- if user is same
+        checkIfSameUser(user, userToUpdate);
         boolean usernameExist = true;
         try {
             userRepository.getByUsername(userToUpdate.getUsername());
@@ -70,7 +73,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(int id, User user) {
-        //--TODO-- check if user is admin or same user (authorization)
+        checkUserAuthorization(id, user);
 
         boolean userExists = true;
 
