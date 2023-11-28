@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "playlist_id")
+    @Column(name = "genre_id")
     private int id;
     @Column(name = "type")
     private String type;
