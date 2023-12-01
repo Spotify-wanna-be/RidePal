@@ -33,7 +33,7 @@ public class PlaylistServiceImpl implements PlaylistService {
     @Override
     public void create(Playlist playlist, User user, int id) {
         checkUserAuthorization(id, user);
-
+        playlist.setCreatedBy(user);
         playlistRepository.create(playlist);
     }
 

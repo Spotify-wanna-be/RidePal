@@ -27,7 +27,7 @@ public class TravelTimeService {
         return parseTravelTimeFromJson(jsonResponse);
     }
 
-    private Time parseTravelTimeFromJson(String jsonResponse) {
+    public Time parseTravelTimeFromJson(String jsonResponse) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode root = objectMapper.readTree(jsonResponse);

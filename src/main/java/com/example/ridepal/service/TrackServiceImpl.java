@@ -38,8 +38,16 @@ public class TrackServiceImpl implements TrackService {
 
     @Override
     public Track getByTitle(String title) {
-        return trackRepository.getByTitle(title);
+        Track track = trackRepository.getByTitle(title);
+
+        if (track == null) {
+            throw new EntityNotFoundException("Track", "title", title);
+        }
+
+        return track;
+
     }
+
 
     @Override
     public void create(Track track) {

@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.example.ridepal.helpers.CheckPermissions.checkIfSameUser;
-import static com.example.ridepal.helpers.CheckPermissions.checkUserAuthorization;
+import static com.example.ridepal.helpers.CheckPermissions.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -29,13 +28,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User get(int id) {
         return userRepository.getById(id);
-
     }
 
     @Override
     public User getById(int id, User user) {
+        checkIfSameUserOrAdmin(id, user);
         return userRepository.getById(id);
     }
+
 
     @Override
     public User getByUsername(String username) {

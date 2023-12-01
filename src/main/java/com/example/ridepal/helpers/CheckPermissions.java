@@ -24,4 +24,10 @@ public class CheckPermissions {
             throw new UnauthorizedOperationException(AUTH_ERR_MESSAGE);
         }
     }
+
+    public static void checkIfSameUserOrAdmin(int userId, User user) {
+        if (!(userId == user.getId() || user.isAdmin())) {
+            throw new UnauthorizedOperationException(AUTH_ERR_MESSAGE);
+        }
+    }
 }
