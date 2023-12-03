@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>SpotifyWannaBe</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="../static/redMan/img/core-img/favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../static/redMan/style.css">
+
+</head>
+
+<body>
+<!-- Preloader -->
+<div class="preloader d-flex align-items-center justify-content-center">
+    <div class="lds-ellipsis">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+<!-- ##### Header Area Start ##### -->
+<header class="header-area">
+    <!-- Navbar Area -->
+    <div class="oneMusic-main-menu">
+        <div class="classy-nav-container breakpoint-off">
+            <div class="container">
+                <!-- Menu -->
+                <nav class="classy-navbar justify-content-between" id="oneMusicNav">
+
+                    <!-- Nav brand -->
+                    <a href="HomeView.html" class="nav-brand"><img src="../static/redMan/img/core-img/logo.png" alt=""></a>
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="classy-menu">
+
+                        <!-- Close Button -->
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <ul>
+                                <li><a href="HomeView.html">Home</a></li>
+                                <li><a href="BrowsePlaylists.html">Playlists</a></li>
+                                <li><a href="OurMissionPage.html">Our mission</a></li>
+                                <li><a href="TripGenerate.html">Generate Playlist</a></li>
+                                <li><a href="MyPlaylist.html">My Playlists</a></li>
+                                <li><a href="SettingsUser.html">Settings</a></li>
+                                <li><a href="SettingsAdmin.html">Settings</a></li>
+
+
+                            </ul>
+
+                            <!-- Login/Register & Cart Button -->
+                            <div class="login-register-cart-button d-flex align-items-center">
+                                <!-- Login/Register -->
+                                <div class="login-register-btn mr-50">
+                                    <a href="../static/redMan/login.html" id="loginBtn">Login / Register</a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Nav End -->
+
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ##### Header Area End ##### -->
+
+<!-- ##### Breadcumb Area Start ##### -->
+<section class="breadcumb-area bg-img bg-overlay"
+         style="background-image: url(/static/redMan/img/bg-img/breadcumb3.jpg);">
+    <div class="bradcumbContent">
+        <p>See our playlists</p>
+        <h2>Playlists</h2>
+    </div>
+</section>
+<!-- ##### Breadcumb Area End ##### -->
+
+<!-- ##### Miscellaneous Area Start ##### -->
+<section class="miscellaneous-area section-padding-100-0">
+    <div class="container">
+        <div class="row">
+        <!-- ***** New Hits Songs ***** -->
+        <div class="col-12 col-lg-4">
+            <div class="new-hits-area mb-100">
+                <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
+                    <p>See what’s new</p>
+                    <h2>New Hits</h2>
+                </div>
+
+                <!-- Single Top Item -->
+                <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
+                     data-wow-delay="100ms">
+                    <div class="first-part d-flex align-items-center">
+                        <div class="thumbnail">
+                            <img src="../static/redMan/img/bg-img/wt7.jpg" alt="">
+                        </div>
+                        <div class="content-">
+                            <h6>Sam Smith</h6>
+                            <p>Underground</p>
+                        </div>
+                    </div>
+                    <audio preload="auto" controls>
+                        <source src="../static/redMan/audio/dummy-audio.mp3">
+                    </audio>
+                </div>
+
+                <!-- Single Top Item -->
+                <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
+                     data-wow-delay="150ms">
+                    <div class="first-part d-flex align-items-center">
+                        <div class="thumbnail">
+                            <img src="../static/redMan/img/bg-img/wt8.jpg" alt="">
+                        </div>
+                        <div class="content-">
+                            <h6>Power Play</h6>
+                            <p>In my mind</p>
+                        </div>
+                    </div>
+                    <audio preload="auto" controls>
+                        <source src="../static/redMan/audio/dummy-audio.mp3">
+                    </audio>
+                </div>
+
+                <!-- Single Top Item -->
+                <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
+                     data-wow-delay="200ms">
+                    <div class="first-part d-flex align-items-center">
+                        <div class="thumbnail">
+                            <img src="../static/redMan/img/bg-img/wt9.jpg" alt="">
+                        </div>
+                        <div class="content-">
+                            <h6>Cristinne Smith</h6>
+                            <p>My Music</p>
+                        </div>
+                    </div>
+                    <audio preload="auto" controls>
+                        <source src="../static/redMan/audio/dummy-audio.mp3">
+                    </audio>
+                </div>
+
+                <!-- Single Top Item -->
+                <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
+                     data-wow-delay="250ms">
+                    <div class="first-part d-flex align-items-center">
+                        <div class="thumbnail">
+                            <img src="../static/redMan/img/bg-img/wt10.jpg" alt="">
+                        </div>
+                        <div class="content-">
+                            <h6>The Music Band</h6>
+                            <p>Underground</p>
+                        </div>
+                    </div>
+                    <audio preload="auto" controls>
+                        <source src="../static/redMan/audio/dummy-audio.mp3">
+                    </audio>
+                </div>
+
+                <!-- Single Top Item -->
+                <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
+                     data-wow-delay="300ms">
+                    <div class="first-part d-flex align-items-center">
+                        <div class="thumbnail">
+                            <img src="../static/redMan/img/bg-img/wt11.jpg" alt="">
+                        </div>
+                        <div class="content-">
+                            <h6>Creative Lyrics</h6>
+                            <p>Songs and stuff</p>
+                        </div>
+                    </div>
+                    <audio preload="auto" controls>
+                        <source src="../static/redMan/audio/dummy-audio.mp3">
+                    </audio>
+                </div>
+
+                <!-- Single Top Item -->
+                <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
+                     data-wow-delay="350ms">
+                    <div class="first-part d-flex align-items-center">
+                        <div class="thumbnail">
+                            <img src="../static/redMan/img/bg-img/wt12.jpg" alt="">
+                        </div>
+                        <div class="content-">
+                            <h6>The Culture</h6>
+                            <p>Pop Songs</p>
+                        </div>
+                    </div>
+                    <audio preload="auto" controls>
+                        <source src="../static/redMan/audio/dummy-audio.mp3">
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <!-- ***** Popular Artists ***** -->
+        <div class="col-12 col-lg-4">
+            <div class="popular-artists-area mb-100">
+                <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
+                    <p>See what’s new</p>
+                    <h2>Popular Artist</h2>
+                </div>
+
+                <!-- Single Artist -->
+                <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="100ms">
+                    <div class="thumbnail">
+                        <img src="../static/redMan/img/bg-img/pa1.jpg" alt="">
+                    </div>
+                    <div class="content-">
+                        <p>Sam Smith</p>
+                    </div>
+                </div>
+
+                <!-- Single Artist -->
+                <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="150ms">
+                    <div class="thumbnail">
+                        <img src="../static/redMan/img/bg-img/pa2.jpg" alt="">
+                    </div>
+                    <div class="content-">
+                        <p>William Parker</p>
+                    </div>
+                </div>
+
+                <!-- Single Artist -->
+                <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="200ms">
+                    <div class="thumbnail">
+                        <img src="../static/redMan/img/bg-img/pa3.jpg" alt="">
+                    </div>
+                    <div class="content-">
+                        <p>Jessica Walsh</p>
+                    </div>
+                </div>
+
+                <!-- Single Artist -->
+                <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="250ms">
+                    <div class="thumbnail">
+                        <img src="../static/redMan/img/bg-img/pa4.jpg" alt="">
+                    </div>
+                    <div class="content-">
+                        <p>Tha Stoves</p>
+                    </div>
+                </div>
+
+                <!-- Single Artist -->
+                <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="300ms">
+                    <div class="thumbnail">
+                        <img src="../static/redMan/img/bg-img/pa5.jpg" alt="">
+                    </div>
+                    <div class="content-">
+                        <p>DJ Ajay</p>
+                    </div>
+                </div>
+
+                <!-- Single Artist -->
+                <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="350ms">
+                    <div class="thumbnail">
+                        <img src="../static/redMan/img/bg-img/pa6.jpg" alt="">
+                    </div>
+                    <div class="content-">
+                        <p>Radio Vibez</p>
+                    </div>
+                </div>
+
+                <!-- Single Artist -->
+                <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="400ms">
+                    <div class="thumbnail">
+                        <img src="../static/redMan/img/bg-img/pa7.jpg" alt="">
+                    </div>
+                    <div class="content-">
+                        <p>Music 4u</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<!-- ##### Miscellaneous Area End ##### -->
+
+<!-- ##### Newsletter & Testimonials Area Start ##### -->
+<section class="newsletter-testimonials-area">
+    <div class="container">
+        <div class="row">
+
+            <!-- Newsletter Area -->
+            <div class="col-12 col-lg-6">
+                <div class="newsletter-area mb-100">
+                    <div class="section-heading text-left mb-50">
+                        <p>See what’s new</p>
+                        <h2>Subscribe to newsletter</h2>
+                    </div>
+                    <div class="newsletter-form">
+                        <form action="#">
+                            <input type="search" name="search" id="newsletterSearch" placeholder="E-mail">
+                            <button type="submit" class="btn oneMusic-btn">Subscribe <i class="fa fa-angle-double-right"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Newsletter & Testimonials Area End ##### -->
+
+<!-- ##### Footer Area Start ##### -->
+<footer class="footer-area">
+    <div class="container">
+        <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-12 col-md-6">
+                <a href="#"><img src="../static/redMan/img/core-img/logo.png" alt=""></a>
+                <p class="copywrite-text"><a href="#">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                    SpotifyWannaBe |
+                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </p>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="footer-nav">
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Playlists</a></li>
+                        <li><a href="#">Our mission</a></li>
+                        <li><a href="#">Generate Playlist</a></li>
+                        <li><a href="#">My playlists</a></li>
+                        <li><a href="#">Settings</a></li>
+                        <li><a href="#">Settings</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- ##### Footer Area Start ##### -->
+
+<!-- ##### All Javascript Script ##### -->
+<!-- jQuery-2.2.4 js -->
+<script src="../static/redMan/js/jquery/jquery-2.2.4.min.js"></script>
+<!-- Popper js -->
+<script src="../static/redMan/js/bootstrap/popper.min.js"></script>
+<!-- Bootstrap js -->
+<script src="../static/redMan/js/bootstrap/bootstrap.min.js"></script>
+<!-- All Plugins js -->
+<script src="../static/redMan/js/plugins/plugins.js"></script>
+<!-- Active js -->
+<script src="../static/redMan/js/active.js"></script>
+</section>
+</body>
+
+</html>
