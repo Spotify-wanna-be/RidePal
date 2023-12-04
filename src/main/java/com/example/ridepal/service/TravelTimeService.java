@@ -41,7 +41,6 @@ public class TravelTimeService {
                     if (route.has("legs") && route.get("legs").isArray()) {
                         JsonNode legs = route.get("legs");
 
-                        // Check if at least one leg exists
                         if (legs.size() > 0) {
                             JsonNode leg = legs.get(0);
 
@@ -58,11 +57,8 @@ public class TravelTimeService {
                     }
                 }
             }
-
-            // Return null or throw an exception for better handling in your application
             return null;
         } catch (Exception e) {
-            // Handle exceptions (e.g., JsonProcessingException)
             e.printStackTrace();
             return null;
         }

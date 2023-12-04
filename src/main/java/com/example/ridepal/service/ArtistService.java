@@ -9,4 +9,6 @@ public interface ArtistService {
     void update(Artist artist);
 
     void delete(int id);
+
+    Artist getByFirstName(String firstName);
 }

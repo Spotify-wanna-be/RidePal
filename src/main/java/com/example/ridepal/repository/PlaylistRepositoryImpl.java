@@ -49,8 +49,6 @@ public class PlaylistRepositoryImpl implements PlaylistRepository {
             if (!filters.isEmpty()) {
                 queryString.append(" where ")
                         .append(String.join(" and ", filters));
-            } else {
-                queryString.append(" order by rank desc");
             }
 
 

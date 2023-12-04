@@ -4,8 +4,11 @@ import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.models.Artist;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class ArtistRepositoryImpl implements ArtistRepository {
@@ -28,6 +31,19 @@ public class ArtistRepositoryImpl implements ArtistRepository {
                 throw new EntityNotFoundException("Artist", id);
             }
             return artist;
+        }
+    }
+
+    public Artist getByFirstName(String firstName){
+        try (Session session = sessionFactory.openSession()) {
+            Query<Artist> query = session.createQuery("from Artist where firstName = :first_name", Artist.class);
+            query.setParameter("first_name", firstName);
+
+            List<Artist> result = query.list();
+            if (result.isEmpty()) {
+                throw new EntityNotFoundException("Artist", "first_name", firstName);
+            }
+            return result.get(0);
         }
     }
 

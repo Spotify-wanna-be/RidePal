@@ -6,7 +6,6 @@ import com.example.ridepal.helpers.AuthenticationHelper;
 import com.example.ridepal.helpers.TrackMapper;
 import com.example.ridepal.models.Track;
 import com.example.ridepal.models.TrackDto;
-import com.example.ridepal.models.User;
 import com.example.ridepal.service.TrackService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +22,7 @@ public class TrackRestController {
     private final TrackService trackService;
     private final AuthenticationHelper authenticationHelper;
     private final TrackMapper trackMapper;
+
 
     @Autowired
     public TrackRestController(TrackService trackService,

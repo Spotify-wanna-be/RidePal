@@ -10,4 +10,6 @@ public interface ArtistRepository {
 
     void delete(int artistId);
 
+    Artist getByFirstName(String firstName);
+
 }

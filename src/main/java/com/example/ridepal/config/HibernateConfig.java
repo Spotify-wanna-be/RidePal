@@ -7,6 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.web.client.RestTemplate;
 
 import javax.sql.DataSource;
 import java.util.Properties;

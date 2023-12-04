@@ -76,4 +76,5 @@ public class Track {
     public void setDuration(Time duration) {
         this.duration = duration;
     }
+
 }
