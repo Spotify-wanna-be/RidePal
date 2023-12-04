@@ -30,4 +30,9 @@ public class CheckPermissions {
             throw new UnauthorizedOperationException(AUTH_ERR_MESSAGE);
         }
     }
+    public static void checkIfAdmin(User user) {
+        if (!user.isAdmin()) {
+            throw new UnauthorizedOperationException(AUTH_ERR_MESSAGE);
+        }
+    }
 }

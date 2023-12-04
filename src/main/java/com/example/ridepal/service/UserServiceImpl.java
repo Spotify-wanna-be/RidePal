@@ -26,6 +26,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getAllUsers() {
+        return userRepository.getAllUsers();
+    }
+
+    @Override
     public User get(int id) {
         return userRepository.getById(id);
     }
@@ -40,6 +45,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getByUsername(String username) {
         return userRepository.getByUsername(username);
+    }
+
+    @Override
+    public List<User> getAllAdmins() {
+        return userRepository.getAllAdmins();
     }
 
     @Override
@@ -85,6 +95,21 @@ public class UserServiceImpl implements UserService {
         if (userExists) {
             userRepository.deleteUser(id);
         }
+    }
+    @Override
+    public void modifyPermissions(int id, User user, boolean adminFlag) {
 
+        checkIfAdmin(user);
+
+        User userToModify = userRepository.getById(id);
+
+        if (adminFlag) {
+            userToModify.setAdmin(true);
+            userRepository.modifyPermissions(userToModify);
+        }
+        if (!adminFlag) {
+            userToModify.setAdmin(false);
+            userRepository.modifyPermissions(userToModify);
+        }
     }
 }

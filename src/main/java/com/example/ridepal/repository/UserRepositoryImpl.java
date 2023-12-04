@@ -22,12 +22,24 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public List<User> getAllUsers() {
-        try(Session session = sessionFactory.openSession()){
+        try (Session session = sessionFactory.openSession()) {
             Query<User> query = session.createQuery("from User", User.class);
             List<User> users = query.list();
             return users;
         }
     }
+
+    @Override
+    public List<User> getAllAdmins() {
+        try (Session session = sessionFactory.openSession()) {
+            Query<User> query = session.createQuery("from User where isAdmin = :isAdmin", User.class);
+            query.setParameter("isAdmin", true);
+            List<User> result = query.list();
+            if (result.isEmpty()) {
+                throw new EntityNotFoundException("User", "status", "admin");
+            }
+            return result;
+        }    }
 
     @Override
     public void createUser(User user) {
@@ -81,6 +93,15 @@ public class UserRepositoryImpl implements UserRepository {
                 throw new EntityNotFoundException("User", id);
             }
             return user;
+        }
+    }
+
+    @Override
+    public void modifyPermissions(User userToModify) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.merge(userToModify);
+            session.getTransaction().commit();
         }
     }
 }

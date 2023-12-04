@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface UserRepository {
     List<User> getAllUsers();
+    List<User> getAllAdmins();
+
     void createUser(User user);
 
     void updateUser(User user);
@@ -15,4 +17,6 @@ public interface UserRepository {
     User getByUsername(String username);
 
     User getById(int id);
+    void modifyPermissions(User user);
+
 }
