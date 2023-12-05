@@ -1,14 +1,16 @@
 package com.example.ridepal.controllers;
 
+import com.example.ridepal.exceptions.EntityNotFoundException;
+import com.example.ridepal.helpers.AuthenticationHelper;
 import com.example.ridepal.models.Playlist;
 import com.example.ridepal.models.PlaylistFilterOptions;
+import com.example.ridepal.models.User;
 import com.example.ridepal.service.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Time;
 import java.util.List;
@@ -17,10 +19,12 @@ import java.util.List;
 @RequestMapping("/api/playlists")
 public class PlaylistRestController {
     private PlaylistService playlistService;
+    private final AuthenticationHelper authenticationHelper;
 
     @Autowired
-    public PlaylistRestController(PlaylistService playlistService) {
+    public PlaylistRestController(PlaylistService playlistService, AuthenticationHelper authenticationHelper) {
         this.playlistService = playlistService;
+        this.authenticationHelper = authenticationHelper;
     }
 
     @GetMapping
@@ -33,5 +37,14 @@ public class PlaylistRestController {
         PlaylistFilterOptions playlistFilterOptions = new PlaylistFilterOptions
                 (name, duration, genre, sortBy, sortOrder);
         return playlistService.get(playlistFilterOptions);
+    }
+    @DeleteMapping("{id}")
+    public void delete(@RequestHeader HttpHeaders headers, @PathVariable int id){
+        try{
+            User user = authenticationHelper.tryGetUser(headers);
+            playlistService.delete(user,id);
+        }catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
     }
 }

@@ -1,8 +1,6 @@
 package com.example.ridepal;
 
-import com.example.ridepal.models.Artist;
-import com.example.ridepal.models.Track;
-import com.example.ridepal.models.User;
+import com.example.ridepal.models.*;
 
 import java.sql.Time;
 import java.time.Duration;
@@ -26,6 +24,12 @@ public class MockHelpers {
         mockArtist.setLastName("mockLastName");
         return mockArtist;
     }
+    public static Genre createMockGenre() {
+        Genre mockGenre = new Genre();
+        mockGenre.setId(1);
+        mockGenre.setType("MockGenreType");
+        return mockGenre;
+    }
     public static User createMockUser() {
         var mockUser = new User();
         mockUser.setId(1);
@@ -40,5 +44,23 @@ public class MockHelpers {
         User mockUser = createMockUser();
         mockUser.setAdmin(true);
         return mockUser;
+    }
+    public static Playlist createMockPlaylist() {
+        Playlist mockPlaylist = new Playlist();
+        mockPlaylist.setId(1);
+        mockPlaylist.setName("MockPlaylistName");
+        mockPlaylist.setDuration(Time.valueOf("00:30:00"));
+        mockPlaylist.setRank(1);
+        mockPlaylist.setCreatedBy(createMockUser());
+        return mockPlaylist;
+    }
+    public static PlaylistFilterOptions createMockPlaylistFilterOptions() {
+        return new PlaylistFilterOptions(
+                "MockPlaylistName",
+                Time.valueOf("00:30:00"),
+                "MockGenre",
+                "MockSortBy",
+                "MockSortOrder"
+        );
     }
 }

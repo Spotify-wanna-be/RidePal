@@ -33,7 +33,7 @@ public class ArtistServiceImpl implements ArtistService {
     public void delete(int id) {
         artistRepository.delete(id);
     }
-
+    @Override
     public Artist getByFirstName(String firstName){
         return artistRepository.getByFirstName(firstName);
     }
