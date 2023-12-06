@@ -13,7 +13,6 @@ public class Genre {
     private String type;
 
     public Genre() {
-
     }
 
     public int getId() {

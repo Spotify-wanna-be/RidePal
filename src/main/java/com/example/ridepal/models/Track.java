@@ -23,8 +23,8 @@ public class Track {
     @Column(name = "duration")
     private Time duration;
     @ManyToOne
-    @JoinColumn(name = "playlist")
-    private Playlist playlist;
+    @JoinColumn(name = "genre")
+    private Genre genre;
 
     public Track(){
     }
@@ -77,4 +77,11 @@ public class Track {
         this.duration = duration;
     }
 
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
 }

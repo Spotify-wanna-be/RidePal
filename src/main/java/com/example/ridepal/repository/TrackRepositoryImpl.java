@@ -63,7 +63,7 @@ public class TrackRepositoryImpl implements TrackRepository{
     public void create(Track track) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.persist(track);
+            Track mergedTrack = (Track) session.merge(track);
             session.getTransaction().commit();
         }
     }

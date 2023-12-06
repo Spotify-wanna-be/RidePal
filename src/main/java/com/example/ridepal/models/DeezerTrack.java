@@ -19,7 +19,7 @@ public class DeezerTrack {
     private String link;
 
     @JsonProperty("duration")
-    private Time duration;
+    private int duration;
 
     @JsonProperty("rank")
     private int rank;
@@ -27,7 +27,9 @@ public class DeezerTrack {
     @JsonProperty("artist")
     private Artist artist;
 
-    // Add getters and setters
+    @JsonProperty("album_id")
+    private DeezerAlbum album;
+
 
     public int getId() {
         return id;
@@ -53,11 +55,11 @@ public class DeezerTrack {
         this.link = link;
     }
 
-    public Time getDuration() {
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(Time duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
@@ -77,4 +79,11 @@ public class DeezerTrack {
         this.artist = artist;
     }
 
+    public DeezerAlbum getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(DeezerAlbum album) {
+        this.album = album;
+    }
 }

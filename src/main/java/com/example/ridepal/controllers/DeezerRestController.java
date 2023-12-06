@@ -31,4 +31,12 @@ public class DeezerRestController {
         return "Genres saved successfully!";
     }
 
+    @GetMapping("/insert/artists")
+    public String searchAndSaveArtists(){
+        deezerService.fetchAndInsertArtists();
+        return "Artists saved successfully!";
+    }
+
+
+
 }

@@ -2,6 +2,7 @@ package com.example.ridepal.repository;
 
 import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.models.Artist;
+import com.example.ridepal.models.Track;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -51,10 +52,9 @@ public class ArtistRepositoryImpl implements ArtistRepository {
     public void create(Artist artist) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.persist(artist);
+            Artist mergedArtist = (Artist) session.merge(artist);
             session.getTransaction().commit();
         }
-
     }
 
     @Override

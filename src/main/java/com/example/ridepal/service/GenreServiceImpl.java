@@ -14,6 +14,10 @@ public class GenreServiceImpl implements GenreService{
         this.genreRepository = genreRepository;
     }
 
+    public Genre getByGenreId(int id){
+        return genreRepository.getByGenreId(id);
+    }
+
     public void create(Genre genre){
         genreRepository.create(genre);
     }
