@@ -1,5 +1,6 @@
 package com.example.ridepal.service;
 
+import com.example.ridepal.models.UpdateUserDto;
 import com.example.ridepal.models.User;
 
 import java.util.List;
@@ -16,6 +17,8 @@ public interface UserService {
     void createUser(User user);
 
     void updateUser(User user, User userToUpdate);
+    User updateUserV2(User user, User updatedUser, UpdateUserDto updateUserDto);
+
 
     void deleteUser(int id, User user);
 

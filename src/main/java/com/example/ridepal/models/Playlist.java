@@ -3,6 +3,7 @@ package com.example.ridepal.models;
 import jakarta.persistence.*;
 
 import java.sql.Time;
+import java.util.List;
 import java.util.Objects;
 
 @Entity

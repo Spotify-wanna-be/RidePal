@@ -1,4 +1,4 @@
-package com.example.ridepal.controllers;
+package com.example.ridepal.controllers.rest;
 
 import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.helpers.ArtistMapper;

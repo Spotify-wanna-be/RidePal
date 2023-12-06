@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -30,6 +30,17 @@
     </div>
 </div>
 
+<body>
+<!-- Preloader -->
+<div class="preloader d-flex align-items-center justify-content-center">
+    <div class="lds-ellipsis">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
 <!-- ##### Header Area Start ##### -->
 <header class="header-area">
     <!-- Navbar Area -->
@@ -40,8 +51,7 @@
                 <nav class="classy-navbar justify-content-between" id="oneMusicNav">
 
                     <!-- Nav brand -->
-                    <a href="index.html" class="nav-brand"><img src="../static/redMan/img/core-img/logo.png"
-                                                                alt=""></a>
+                    <a href="index.html" class="nav-brand"><img src="../static/redMan/img/core-img/logo.png" alt=""></a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -60,11 +70,13 @@
                         <div class="classynav">
                             <ul>
                                 <li><a href="index.html">Home</a></li>
-                                <li><a href="BrowsePlaylists.html">Playlist</a></li>
-                                <li><a href="OurMissionPage.html">Our Mission</a></li>
-                                <li><a href="TripGenerate.html">Generate playlist</a></li>
+                                <li><a href="BrowsePlaylists.html">Playlists</a></li>
+                                <li><a href="OurMissionPage.html">Our mission</a></li>
+                                <li><a href="TripGenerate.html">Generate Playlist</a></li>
+                                <li><a href="MyPlaylist.html">My Playlists</a></li>
                                 <li><a href="SettingsUser.html">Settings</a></li>
                                 <li><a href="SettingsAdmin.html">Settings</a></li>
+
 
                             </ul>
 
@@ -72,10 +84,12 @@
                             <div class="login-register-cart-button d-flex align-items-center">
                                 <!-- Login/Register -->
                                 <div class="login-register-btn mr-50">
-                                    <a href="login.html" id="loginBtn">Login / Register</a>
+                                    <a href="../static/redMan/login.html" id="loginBtn">Login / Register</a>
                                 </div>
+
                             </div>
                         </div>
+
                         <!-- Nav End -->
 
                     </div>

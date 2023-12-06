@@ -2,6 +2,7 @@ package com.example.ridepal.service;
 
 import com.example.ridepal.exceptions.EntityDuplicateException;
 import com.example.ridepal.exceptions.EntityNotFoundException;
+import com.example.ridepal.models.UpdateUserDto;
 import com.example.ridepal.models.User;
 import com.example.ridepal.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +81,25 @@ public class UserServiceImpl implements UserService {
         }
         userRepository.updateUser(userToUpdate);
     }
+
+    @Override
+    public User updateUserV2(User user, User updatedUser, UpdateUserDto updateUserDto) {
+        checkIfSameUser(user, updatedUser);
+
+        if (updateUserDto.getFirstName() != null) {
+            updatedUser.setFirstName(updateUserDto.getFirstName());
+        }
+        if (updateUserDto.getLastName() != null) {
+            updatedUser.setLastName(updateUserDto.getLastName());
+        }
+        if (updateUserDto.getEmail() != null) {
+            updatedUser.setEmail(updateUserDto.getEmail());
+        }
+        if (updateUserDto.getPassword() != null) {
+            updatedUser.setPassword(updateUserDto.getPassword());
+        }
+        userRepository.updateUser(updatedUser);
+        return updatedUser;    }
 
     @Override
     public void deleteUser(int id, User user) {

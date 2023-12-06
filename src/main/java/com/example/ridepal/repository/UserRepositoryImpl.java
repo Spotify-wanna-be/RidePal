@@ -39,7 +39,8 @@ public class UserRepositoryImpl implements UserRepository {
                 throw new EntityNotFoundException("User", "status", "admin");
             }
             return result;
-        }    }
+        }
+    }
 
     @Override
     public void createUser(User user) {

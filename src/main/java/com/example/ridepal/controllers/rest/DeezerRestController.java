@@ -1,4 +1,4 @@
-package com.example.ridepal.controllers;
+package com.example.ridepal.controllers.rest;
 
 import com.example.ridepal.service.DeezerService;
 import org.springframework.beans.factory.annotation.Autowired;
