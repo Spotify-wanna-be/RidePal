@@ -39,8 +39,7 @@ public class PlaylistServiceImpl implements PlaylistService {
 
     @Override
     public List<Playlist> getHighestRankPlaylist() {
-        return null;
-        //-- TODO --
+        return playlistRepository.getHighestRank();
     }
 
     @Override
