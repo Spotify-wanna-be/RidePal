@@ -36,7 +36,7 @@ public class DeezerService {
         this.genreService = genreService;
         this.artistService = artistService;
     }
-
+//-- TODO this method fetchAndInsertTracksByGenre(String albumId) --
     public void fetchAndInsertTracksByGenre(String albumId) {
         String deezerApiUrl = "https://api.deezer.com/album/" + albumId + "/tracks";
 
@@ -45,7 +45,8 @@ public class DeezerService {
 
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<DeezerTrackListResponse> responseEntity = restTemplate.exchange(deezerApiUrl, HttpMethod.GET, entity, DeezerTrackListResponse.class);
+        ResponseEntity<DeezerTrackListResponse> responseEntity = restTemplate.exchange(deezerApiUrl,
+                HttpMethod.GET, entity, DeezerTrackListResponse.class);
 
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             DeezerTrackListResponse trackListResponse = responseEntity.getBody();
@@ -96,14 +97,19 @@ public class DeezerService {
     }
 
     public void fetchAndInsertGenres() {
-        String deezerApiUrl = "https://api.deezer.com/artist/27/related";
+        String deezerApiUrl = "https://api.deezer.com/genre/";
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + accessToken);
 
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<DeezerGenreListResponse> responseEntity = restTemplate.exchange(deezerApiUrl, HttpMethod.GET, entity, DeezerGenreListResponse.class);
+        ResponseEntity<DeezerGenreListResponse> responseEntity = restTemplate.exchange(deezerApiUrl,
+                HttpMethod.GET, entity, DeezerGenreListResponse.class);
+
+        ResponseEntity<String> stringResponseEntity = restTemplate.exchange(deezerApiUrl,
+                HttpMethod.GET, entity, String.class);
+        System.out.println(stringResponseEntity.getBody());
 
         if (responseEntity.getStatusCode() == HttpStatus.OK) {
             DeezerGenreListResponse genreListResponse = responseEntity.getBody();

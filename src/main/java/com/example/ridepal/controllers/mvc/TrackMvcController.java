@@ -61,6 +61,7 @@ public class TrackMvcController {
         return null;
     }
 
+    //-- TODO this, we don't have page about TrackView --
     @GetMapping
     public String showPostPage(@PathVariable int id, Model model) {
         try {
@@ -70,7 +71,7 @@ public class TrackMvcController {
             return "Post";
 
         } catch (EntityNotFoundException e) {
-            return "Error_Page";
+            return "ErrorView";
         }
     }
 

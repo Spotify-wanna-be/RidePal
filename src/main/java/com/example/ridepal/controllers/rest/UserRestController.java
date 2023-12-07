@@ -20,14 +20,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 public class UserRestController {
-    // -- TODO -- authenticationHelper class and headers
 
     private final UserService userService;
     private final AuthenticationHelper authenticationHelper;
 
     private final UserMapper userMapper;
 
-    //--TODO--
     @Autowired
     public UserRestController(UserService userService, AuthenticationHelper authenticationHelper, UserMapper userMapper) {
         this.userService = userService;
