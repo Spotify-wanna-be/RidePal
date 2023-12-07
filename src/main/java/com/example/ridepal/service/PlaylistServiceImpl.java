@@ -23,6 +23,11 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
+    public List<Playlist> getAll() {
+        return playlistRepository.getAll();
+    }
+
+    @Override
     public List<Playlist> get(PlaylistFilterOptions playlistFilterOptions) {
         return playlistRepository.get(playlistFilterOptions);
     }
@@ -41,6 +46,10 @@ public class PlaylistServiceImpl implements PlaylistService {
     @Override
     public List<Track> generatePlaylist(Map<String, Integer> genrePercentages, int travelDuration) {
         return playlistRepository.generatePlaylist(genrePercentages, travelDuration);
+    }
+
+    public int showPostsCount() {
+        return playlistRepository.getAllCount().size();
     }
 
     @Override

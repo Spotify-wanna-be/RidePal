@@ -22,6 +22,29 @@ public class PlaylistRepositoryImpl implements PlaylistRepository {
         this.sessionFactory = sessionFactory;
     }
 
+    public List<Playlist> getAll(){
+        try (Session session = sessionFactory.openSession()) {
+            Query<Playlist> query = session.createQuery("from Playlist ", Playlist.class);
+            List<Playlist> playlists = query.list();
+            return playlists;
+        }
+    }
+
+    @Override
+    public List<Playlist> getAllCount() {
+        try (Session session = sessionFactory.openSession()) {
+            Query<Playlist> query = session.createQuery("from Playlist ", Playlist.class);
+            return query.list();
+        }
+    }
+
+    public List<Playlist> getHighestRank(){
+        try (Session session = sessionFactory.openSession()) {
+            Query<Playlist> query = session.createQuery("FROM Playlist ORDER BY rank DESC", Playlist.class);
+            return query.list();
+        }
+    }
+
     @Override
     public List<Playlist> get(PlaylistFilterOptions playlistFilterOptions) {
         try (Session session = sessionFactory.openSession()) {

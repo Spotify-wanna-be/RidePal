@@ -42,6 +42,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.getById(id);
     }
 
+    @Override
+    public int showUsersCount() {
+        return getAllUsers().size();
+    }
 
     @Override
     public User getByUsername(String username) {
