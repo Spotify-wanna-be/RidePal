@@ -43,8 +43,8 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
-    public List<Track> generatePlaylist(Map<String, Integer> genrePercentages, int travelDuration) {
-        return playlistRepository.generatePlaylist(genrePercentages, travelDuration);
+    public List<Track> generatePlaylist(Map<String, Integer> genrePercentages, String origin, String destination) {
+        return playlistRepository.generatePlaylist(genrePercentages, origin, destination);
     }
 
     public int showPostsCount() {

@@ -7,8 +7,6 @@ import java.sql.Time;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DeezerTrack {
-
-
     @JsonProperty("id")
     private int id;
 

@@ -1,15 +1,15 @@
 package com.example.ridepal.models;
 
 import jakarta.persistence.*;
+import org.hibernate.validator.constraints.UniqueElements;
 
 @Entity
 @Table(name = "genres")
 public class Genre {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "genre_id")
     private int id;
-    @Column(name = "type")
+    @Column(unique = true, name = "type")
     private String type;
 
     public Genre() {

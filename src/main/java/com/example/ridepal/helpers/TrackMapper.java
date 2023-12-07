@@ -20,7 +20,6 @@ public class TrackMapper {
         Track existingTrack = trackService.getById(id);
 
         existingTrack.setTitle(dto.getTitle());
-        existingTrack.setAlbum(dto.getAlbum());
         existingTrack.setDuration(dto.getDuration());
         existingTrack.setRank(dto.getRank());
 
@@ -31,7 +30,6 @@ public class TrackMapper {
         Track track = new Track();
 
         track.setTitle(dto.getTitle());
-        track.setAlbum(dto.getAlbum());
         track.setDuration(dto.getDuration());
         track.setRank(dto.getRank());
         track.setArtist(artistService.getByArtistId(dto.getArtist()));

@@ -16,8 +16,6 @@ public class Track {
     @ManyToOne
     @JoinColumn(name = "artist")
     private Artist artist;
-    @Column(name = "album")
-    private String album;
     @Column(name = "rank")
     private int rank;
     @Column(name = "duration")
@@ -51,14 +49,6 @@ public class Track {
 
     public void setArtist(Artist artist) {
         this.artist = artist;
-    }
-
-    public String getAlbum() {
-        return album;
-    }
-
-    public void setAlbum(String album) {
-        this.album = album;
     }
 
     public int getRank() {

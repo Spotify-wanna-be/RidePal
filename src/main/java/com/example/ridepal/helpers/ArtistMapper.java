@@ -17,8 +17,7 @@ public class ArtistMapper {
     public Artist fromDto(int id, ArtistDto dto){
         Artist existingArtist=artistService.getByArtistId(id);
 
-        existingArtist.setFirstName(dto.getFirstName());
-        existingArtist.setLastName(dto.getLastName());
+        existingArtist.setName(dto.getName());
 
         return existingArtist;
     }
@@ -26,8 +25,7 @@ public class ArtistMapper {
     public Artist fromDto( ArtistDto dto){
         Artist artist=new Artist();
 
-        artist.setFirstName(dto.getFirstName());
-        artist.setLastName(dto.getLastName());
+        artist.setName(dto.getName());
         return artist;
     }
 }

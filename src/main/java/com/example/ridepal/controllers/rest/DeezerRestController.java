@@ -19,24 +19,10 @@ public class DeezerRestController {
         this.deezerService = deezerService;
     }
 
-    @GetMapping("/search/{genreId}")
-    public String searchAndSaveTracks(@PathVariable String genreId) {
-            deezerService.fetchAndInsertTracksByGenre(genreId);
+    @GetMapping("/search")
+    public String searchAndSaveTracks() {
+            deezerService.fetchAndInsertTracksByAlbum();
             return "Tracks saved successfully!";
     }
-
-    @GetMapping("/insert/genre")
-    public String searchAndSaveGenres() {
-        deezerService.fetchAndInsertGenres();
-        return "Genres saved successfully!";
-    }
-
-    @GetMapping("/insert/artists")
-    public String searchAndSaveArtists(){
-        deezerService.fetchAndInsertArtists();
-        return "Artists saved successfully!";
-    }
-
-
 
 }

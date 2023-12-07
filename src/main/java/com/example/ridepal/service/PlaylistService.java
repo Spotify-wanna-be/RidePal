@@ -11,7 +11,8 @@ import java.util.Map;
 public interface PlaylistService {
     List<Playlist> getHighestRankPlaylist();
     List<Playlist> get(PlaylistFilterOptions playlistFilterOptions);
-    List<Track> generatePlaylist(Map<String, Integer> genrePercentages, int travelDuration);    Playlist getByPlaylistId(int id);
+    List<Track> generatePlaylist(Map<String, Integer> genrePercentages, String origin, String destination);
+    Playlist getByPlaylistId(int id);
     void create(Playlist playlist, User user, int id);
     void update(User user, Playlist playlist);
     void delete(User user, int playlistId);

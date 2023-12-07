@@ -4,22 +4,28 @@ import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.models.Playlist;
 import com.example.ridepal.models.PlaylistFilterOptions;
 import com.example.ridepal.models.Track;
+import com.example.ridepal.service.TravelTimeService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Time;
 import java.util.*;
 
 @Repository
 public class PlaylistRepositoryImpl implements PlaylistRepository {
     private final SessionFactory sessionFactory;
+    private final TravelTimeService travelTimeService;
+    private final TrackRepository trackRepository;
     private List<Track> allTracks;
 
     @Autowired
-    public PlaylistRepositoryImpl(SessionFactory sessionFactory) {
+    public PlaylistRepositoryImpl(SessionFactory sessionFactory, TravelTimeService travelTimeService, TrackRepository trackRepository) {
         this.sessionFactory = sessionFactory;
+        this.travelTimeService = travelTimeService;
+        this.trackRepository = trackRepository;
     }
 
     public List<Playlist> getAll(){
@@ -120,16 +126,22 @@ public class PlaylistRepositoryImpl implements PlaylistRepository {
     }
 
     @Override
-    public List<Track> generatePlaylist(Map<String, Integer> genrePercentages, int travelDuration) {
+    public List<Track> generatePlaylist(Map<String, Integer> genrePercentages, String origin, String destination) {
         List<Track> selectedTracks = new ArrayList<>();
         int playlistDuration = 0;
 
-        List<String> allGenres = getAllGenresFromTracks(allTracks);
+        Time duration = travelTimeService.getTravelTime(origin,destination);
+        int travelDuration = (int) (duration.getTime() / 1000);
+
+        List<String> allGenres = getAllGenresFromTracks(trackRepository.getAll());
         Map<String, List<Track>> tracksByGenre = getTracksByGenres(allGenres);
 
         Random random = new Random();
 
         for (Map.Entry<String, Integer> entry : genrePercentages.entrySet()) {
+            if(!(entry.getValue() instanceof Integer)){
+                break;
+            }
             String genre = entry.getKey();
             int percentage = entry.getValue();
 
@@ -141,9 +153,9 @@ public class PlaylistRepositoryImpl implements PlaylistRepository {
                 int targetGenreDuration = (int) ((percentage / 100.0) * travelDuration);
 
                 for (Track track : genreTracks) {
-                    if (genreDuration + track.getDuration().toLocalTime().getMinute() <= targetGenreDuration) {
+                    if (genreDuration + track.getDuration().toLocalTime().getSecond() <= targetGenreDuration) {
                         selectedTracks.add(track);
-                        genreDuration += track.getDuration().toLocalTime().getMinute();
+                        genreDuration += track.getDuration().toLocalTime().getSecond();
                     } else {
                         break;
                     }
