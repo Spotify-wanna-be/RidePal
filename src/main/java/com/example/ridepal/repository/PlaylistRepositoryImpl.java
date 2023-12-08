@@ -17,15 +17,11 @@ import java.util.*;
 @Repository
 public class PlaylistRepositoryImpl implements PlaylistRepository {
     private final SessionFactory sessionFactory;
-    private final TravelTimeService travelTimeService;
-    private final TrackRepository trackRepository;
-    private List<Track> allTracks;
+
 
     @Autowired
-    public PlaylistRepositoryImpl(SessionFactory sessionFactory, TravelTimeService travelTimeService, TrackRepository trackRepository) {
+    public PlaylistRepositoryImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        this.travelTimeService = travelTimeService;
-        this.trackRepository = trackRepository;
     }
 
     public List<Playlist> getAll(){
@@ -122,99 +118,6 @@ public class PlaylistRepositoryImpl implements PlaylistRepository {
                 throw new EntityNotFoundException("Playlist", id);
             }
             return playlist;
-        }
-    }
-
-    @Override
-    public List<Track> generatePlaylist(Map<String, Integer> genrePercentages, String origin, String destination) {
-        List<Track> selectedTracks = new ArrayList<>();
-        int playlistDuration = 0;
-
-        Time duration = travelTimeService.getTravelTime(origin,destination);
-        int travelDuration = (int) (duration.getTime() / 1000);
-
-        List<String> allGenres = getAllGenresFromTracks(trackRepository.getAll());
-        Map<String, List<Track>> tracksByGenre = getTracksByGenres(allGenres);
-
-        Random random = new Random();
-
-        for (Map.Entry<String, Integer> entry : genrePercentages.entrySet()) {
-            if(!(entry.getValue() instanceof Integer)){
-                break;
-            }
-            String genre = entry.getKey();
-            int percentage = entry.getValue();
-
-            if (tracksByGenre.containsKey(genre)) {
-                List<Track> genreTracks = tracksByGenre.get(genre);
-                Collections.shuffle(genreTracks);
-
-                int genreDuration = 0;
-                int targetGenreDuration = (int) ((percentage / 100.0) * travelDuration);
-
-                for (Track track : genreTracks) {
-                    if (genreDuration + track.getDuration().toLocalTime().getSecond() <= targetGenreDuration) {
-                        selectedTracks.add(track);
-                        genreDuration += track.getDuration().toLocalTime().getSecond();
-                    } else {
-                        break;
-                    }
-                }
-
-                playlistDuration += genreDuration;
-            }
-        }
-
-        while (playlistDuration < travelDuration - 5 || playlistDuration > travelDuration + 5) {
-            String randomGenre = new ArrayList<>(genrePercentages.keySet()).get(random.nextInt(genrePercentages.size()));
-
-            if (tracksByGenre.containsKey(randomGenre)) {
-                List<Track> randomGenreTracks = tracksByGenre.get(randomGenre);
-                Collections.shuffle(randomGenreTracks);
-
-                Track randomTrack = randomGenreTracks.get(0);
-
-                selectedTracks.add(randomTrack);
-                playlistDuration += randomTrack.getDuration().toLocalTime().getMinute();
-            }
-        }
-
-        return selectedTracks;
-    }
-
-    @Override
-    public List<String> getAllGenresFromTracks(List<Track> tracks) {
-        try (Session session = sessionFactory.openSession()) {
-            String hql = "SELECT DISTINCT g.type FROM Track t JOIN t.genre g WHERE t IN (:tracks)";
-            Query<String> query = session.createQuery(hql, String.class);
-            query.setParameterList("tracks", tracks);
-            return query.list();
-        }
-    }
-
-
-    @Override
-    public Map<String, List<Track>> getTracksByGenres(List<String> genres) {
-        try (Session session = sessionFactory.openSession()) {
-            String hql = "SELECT t FROM Track t JOIN t.genre g WHERE g.type IN (:genres)";
-            Query<Track> query = session.createQuery(hql, Track.class);
-            query.setParameterList("genres", genres);
-            List<Track> result = query.list();
-            if (result.isEmpty()) {
-                throw new EntityNotFoundException("Track", "genres", genres.toString());
-            }
-            Map<String, List<Track>> tracksByGenre = new HashMap<>();
-            for (String genre : genres) {
-                List<Track> genreTracks = new ArrayList<>();
-                for (Track track : result) {
-                    if (track.getGenre().getType().equals(genre)) {
-                        genreTracks.add(track);
-                    }
-                }
-                tracksByGenre.put(genre, genreTracks);
-            }
-
-            return tracksByGenre;
         }
     }
 

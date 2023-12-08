@@ -50,11 +50,11 @@ public class PlaylistRestController {
         }
     }
 
-    @GetMapping("/new")
+    @GetMapping("/new/{origin}/{destination}")
     public List<Track> getGeneratedPlaylist(
-            @RequestParam() Map<String, Integer> genrePercentages,
-            @RequestParam() String origin,
-            @RequestParam() String destination){
+            @RequestBody Map<String, Integer> genrePercentages,
+            @PathVariable String origin,
+            @PathVariable String destination){
         return playlistService.generatePlaylist(genrePercentages, origin,destination);
 
     }

@@ -3,8 +3,10 @@ package com.example.ridepal.models;
 import jakarta.persistence.*;
 
 import java.sql.Time;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name="playlists")
@@ -26,6 +28,13 @@ public class Playlist {
     @ManyToOne
     @JoinColumn(name="user_id")
     private User createdBy;
+    @ManyToMany
+    @JoinTable(
+            name = "playlist_track",
+            joinColumns = @JoinColumn(name = "playlist_id"),
+            inverseJoinColumns = @JoinColumn(name = "track_id")
+    )
+    private Set<Track> tracks = new HashSet<>();
 
     public Playlist() {
     }
@@ -69,6 +78,15 @@ public class Playlist {
     public void setCreatedBy(User createdBy) {
         this.createdBy = createdBy;
     }
+
+    public Set<Track> getTracks() {
+        return tracks;
+    }
+
+    public void setTracks(Set<Track> tracks) {
+        this.tracks = tracks;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id);

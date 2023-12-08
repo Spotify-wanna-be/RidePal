@@ -1,11 +1,9 @@
 package com.example.ridepal.repository;
 
-import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.models.Track;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TrackRepository {
     List<Track> getAll();
@@ -13,6 +11,10 @@ public interface TrackRepository {
     List<Track> getAllFromAlbum(String albumName);
 
     Track getById(int id);
+
+    List<String> getAllGenresFromTracks(List<Track> tracks);
+
+    Map<String, List<Track>> getTracksByGenres(List<String> genres);
 
     Track getByTitle(String title);
 

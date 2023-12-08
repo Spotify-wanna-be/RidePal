@@ -3,6 +3,8 @@ package com.example.ridepal.models;
 import jakarta.persistence.*;
 
 import java.sql.Time;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="tracks")
@@ -23,6 +25,8 @@ public class Track {
     @ManyToOne
     @JoinColumn(name = "genre")
     private Genre genre;
+    @ManyToMany(mappedBy = "tracks")
+    private Set<Playlist> playlists = new HashSet<>();
 
     public Track(){
     }

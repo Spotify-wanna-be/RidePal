@@ -39,5 +39,4 @@ public class GenreRepositoryImpl implements GenreRepository{
             session.getTransaction().commit();
         }
     }
-
 }

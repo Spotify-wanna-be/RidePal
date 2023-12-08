@@ -10,9 +10,6 @@ import java.util.Map;
 public interface PlaylistRepository {
     List<Playlist> get(PlaylistFilterOptions playlistFilterOptions);
     Playlist getByPlaylistId(int id);
-    List<Track> generatePlaylist(Map<String, Integer> genrePercentages, String origin, String destination);
-    List<String> getAllGenresFromTracks(List<Track> tracks);
-    Map<String, List<Track>> getTracksByGenres(List<String> genres);
     List<Playlist> getHighestRank();
     void create(Playlist playlist);
     void update(Playlist playlist);

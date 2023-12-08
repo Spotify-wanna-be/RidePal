@@ -1,9 +1,8 @@
 create table artists
 (
-    id         int auto_increment
+    id   int          not null
         primary key,
-    first_name varchar(255) null,
-    last_name  varchar(255) null
+    name varchar(255) null
 );
 
 create table albums
@@ -18,9 +17,25 @@ create table albums
 
 create table genres
 (
-    genre_id int auto_increment
+    genre_id int          not null
         primary key,
     type     varchar(255) not null
+);
+
+create table tracks
+(
+    track_id int auto_increment
+        primary key,
+    title    varchar(255) not null,
+    artist   int          null,
+    duration time         null,
+    `rank`   int          null,
+    genre    int          null,
+    constraint tracks_artists_id_fk
+        foreign key (artist) references artists (id)
+            on delete cascade,
+    constraint tracks_genres_genre_id_fk
+        foreign key (genre) references genres (genre_id)
 );
 
 create table users
@@ -58,23 +73,18 @@ create table playlist_genre
         foreign key (playlist_id) references playlists (playlist_id)
 );
 
-create table tracks
+create table playlist_track
 (
-    track_id int auto_increment
-        primary key,
-    title    varchar(255) not null,
-    artist   int          not null,
-    album    varchar(255) not null,
-    duration time         not null,
-    `rank`   int          not null,
-    genre    int          not null,
-    playlist int          not null,
-    constraint tracks_artists_id_fk
-        foreign key (artist) references artists (id)
-            on delete cascade,
-    constraint tracks_genres_genre_id_fk
-        foreign key (genre) references genres (genre_id),
-    constraint tracks_playlists_playlist_id_fk
-        foreign key (playlist) references playlists (playlist_id)
+    playlist_id int not null,
+    track_id    int not null,
+    primary key (playlist_id, track_id),
+    constraint playlist_track_ibfk_1
+        foreign key (playlist_id) references playlists (playlist_id),
+    constraint playlist_track_ibfk_2
+        foreign key (track_id) references tracks (track_id)
 );
+
+create index track_id
+    on playlist_track (track_id);
+
 
