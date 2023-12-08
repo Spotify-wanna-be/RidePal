@@ -59,6 +59,14 @@ public class PlaylistRestController {
         return playlistService.generatePlaylist(genrePercentages, origin, destination);
 
     }
+    @GetMapping("/{id}")
+    public Playlist getById(@PathVariable int id) {
+        try {
+            return playlistService.getByPlaylistId(id);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
 
     @PostMapping
     public void create(
