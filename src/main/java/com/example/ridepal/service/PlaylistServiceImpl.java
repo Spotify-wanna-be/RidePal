@@ -55,8 +55,8 @@ public class PlaylistServiceImpl implements PlaylistService {
         List<Track> selectedTracks = new ArrayList<>();
         int playlistDuration = 0;
 
-        Time duration = travelTimeService.getTravelTime(origin,destination);
-        int travelDuration = (duration.getHours()*3600)+(duration.getMinutes()*60)+duration.getSeconds();
+        Time duration = travelTimeService.getTravelTime(origin, destination);
+        int travelDuration = (duration.getHours() * 3600) + (duration.getMinutes() * 60) + duration.getSeconds();
 
 
         List<String> allGenres = trackRepository.getAllGenresFromTracks(trackRepository.getAll());
@@ -76,9 +76,9 @@ public class PlaylistServiceImpl implements PlaylistService {
                 int targetGenreDuration = (int) ((percentage / 100.0) * travelDuration);
 
                 for (Track track : genreTracks) {
-                    if (genreDuration + track.getDuration().toLocalTime().getSecond()+ track.getDuration().toLocalTime().getMinute()*60 <= targetGenreDuration) {
+                    if (genreDuration + track.getDuration().toLocalTime().getSecond() + track.getDuration().toLocalTime().getMinute() * 60 <= targetGenreDuration) {
                         selectedTracks.add(track);
-                        genreDuration += (track.getDuration().toLocalTime().getMinute()*60)+track.getDuration().toLocalTime().getSecond();
+                        genreDuration += (track.getDuration().toLocalTime().getMinute() * 60) + track.getDuration().toLocalTime().getSecond();
                     } else {
                         break;
                     }
@@ -105,15 +105,47 @@ public class PlaylistServiceImpl implements PlaylistService {
         return selectedTracks;
     }
 
+    private Time playlistDuration(List<Track> selectedTracks) {
+        long totalMilliseconds = 0;
+
+        for (Track track : selectedTracks) {
+            totalMilliseconds += track.getDuration().getTime();
+        }
+
+        return new Time(totalMilliseconds/1000);
+
+    }
+
+
+    @Override
     public int showPostsCount() {
         return playlistRepository.getAllCount().size();
     }
 
     @Override
-    public void create(Playlist playlist, User user, int id) {
-        checkUserAuthorization(id, user);
+    public void create(String name, User user,
+                       Map<String, Integer> genrePercentages,
+                       String origin, String destination) {
+        Playlist playlist = new Playlist();
+        checkUserAuthorization(user.getId(), user);
+        List<Track> selectedTracks = generatePlaylist(genrePercentages, origin, destination);
+        playlist.setDuration(playlistDuration(selectedTracks));
+        playlist.setName(name);
+        playlist.setTracks(selectedTracks);
         playlist.setCreatedBy(user);
+        playlist.setRank(rankPlaylist(selectedTracks));
         playlistRepository.create(playlist);
+    }
+
+    private int rankPlaylist(List<Track> selectedTracks) {
+        int totalRank = 0;
+        int counter = 0;
+        for (Track track : selectedTracks) {
+            counter++;
+            totalRank += track.getRank();
+        }
+        int rankPlaylist = totalRank / counter;
+        return rankPlaylist;
     }
 
     @Override

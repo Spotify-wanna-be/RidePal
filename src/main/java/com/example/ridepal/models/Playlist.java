@@ -3,10 +3,7 @@ package com.example.ridepal.models;
 import jakarta.persistence.*;
 
 import java.sql.Time;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name="playlists")
@@ -34,10 +31,13 @@ public class Playlist {
             joinColumns = @JoinColumn(name = "playlist_id"),
             inverseJoinColumns = @JoinColumn(name = "track_id")
     )
-    private Set<Track> tracks = new HashSet<>();
+    private List<Track> tracks = new ArrayList<>();
+
 
     public Playlist() {
     }
+
+
 
     public int getId() {
         return id;
@@ -79,11 +79,20 @@ public class Playlist {
         this.createdBy = createdBy;
     }
 
-    public Set<Track> getTracks() {
+//    public Set<Track> getTracks() {
+//        return tracks;
+//    }
+//
+//    public void setTracks(Set<Track> tracks) {
+//        this.tracks = tracks;
+//    }
+
+
+    public List<Track> getTracks() {
         return tracks;
     }
 
-    public void setTracks(Set<Track> tracks) {
+    public void setTracks(List<Track> tracks) {
         this.tracks = tracks;
     }
 

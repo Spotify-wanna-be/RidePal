@@ -40,6 +40,7 @@ public class PlaylistRepositoryImpl implements PlaylistRepository {
         }
     }
 
+    @Override
     public List<Playlist> getHighestRank(){
         try (Session session = sessionFactory.openSession()) {
             Query<Playlist> query = session.createQuery("FROM Playlist ORDER BY rank DESC", Playlist.class);

@@ -1,12 +1,11 @@
 package com.example.ridepal.controllers.rest;
 
 import com.example.ridepal.exceptions.EntityNotFoundException;
+import com.example.ridepal.exceptions.UnauthorizedOperationException;
 import com.example.ridepal.helpers.AuthenticationHelper;
-import com.example.ridepal.models.Playlist;
-import com.example.ridepal.models.PlaylistFilterOptions;
-import com.example.ridepal.models.Track;
-import com.example.ridepal.models.User;
+import com.example.ridepal.models.*;
 import com.example.ridepal.service.PlaylistService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,6 +21,7 @@ import java.util.Map;
 public class PlaylistRestController {
     private PlaylistService playlistService;
     private final AuthenticationHelper authenticationHelper;
+
 
     @Autowired
     public PlaylistRestController(PlaylistService playlistService, AuthenticationHelper authenticationHelper) {
@@ -40,12 +40,13 @@ public class PlaylistRestController {
                 (name, duration, genre, sortBy, sortOrder);
         return playlistService.get(playlistFilterOptions);
     }
+
     @DeleteMapping("{id}")
-    public void delete(@RequestHeader HttpHeaders headers, @PathVariable int id){
-        try{
+    public void delete(@RequestHeader HttpHeaders headers, @PathVariable int id) {
+        try {
             User user = authenticationHelper.tryGetUser(headers);
-            playlistService.delete(user,id);
-        }catch (EntityNotFoundException e) {
+            playlistService.delete(user, id);
+        } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
@@ -54,8 +55,26 @@ public class PlaylistRestController {
     public List<Track> getGeneratedPlaylist(
             @RequestBody Map<String, Integer> genrePercentages,
             @PathVariable String origin,
-            @PathVariable String destination){
-        return playlistService.generatePlaylist(genrePercentages, origin,destination);
+            @PathVariable String destination) {
+        return playlistService.generatePlaylist(genrePercentages, origin, destination);
 
     }
+
+    @PostMapping
+    public void create(
+            @RequestHeader HttpHeaders headers,
+            @RequestParam String name,
+            @RequestBody Map<String, Integer> genrePercentages,
+            @RequestParam String origin,
+            @RequestParam String destination) {
+        try {
+            User user = authenticationHelper.tryGetUser(headers);
+            playlistService.create(name, user, genrePercentages, origin, destination);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (UnauthorizedOperationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
+    }
+
 }

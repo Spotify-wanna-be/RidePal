@@ -13,7 +13,7 @@ public interface PlaylistService {
     List<Playlist> get(PlaylistFilterOptions playlistFilterOptions);
     List<Track> generatePlaylist(Map<String, Integer> genrePercentages, String origin, String destination);
     Playlist getByPlaylistId(int id);
-    void create(Playlist playlist, User user, int id);
+    void create(String name,User user, Map<String, Integer> genrePercentages, String origin, String destination);
     void update(User user, Playlist playlist);
     void delete(User user, int playlistId);
     List<Playlist> getAll();
