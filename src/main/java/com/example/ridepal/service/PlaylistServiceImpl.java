@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.*;
 
 import static com.example.ridepal.helpers.CheckPermissions.*;
@@ -106,13 +107,18 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     private Time playlistDuration(List<Track> selectedTracks) {
-        long totalMilliseconds = 0;
+        int seconds=0;
 
         for (Track track : selectedTracks) {
-            totalMilliseconds += track.getDuration().getTime();
+            seconds += track.getDuration().getSeconds()+(track.getDuration().getMinutes()*60);
         }
+        // Convert seconds to LocalTime
+        LocalTime localTime = LocalTime.ofSecondOfDay(seconds);
 
-        return new Time(totalMilliseconds/1000);
+        // Convert LocalTime to Time
+        Time time = Time.valueOf(localTime);
+
+        return time;
 
     }
 
@@ -142,7 +148,9 @@ public class PlaylistServiceImpl implements PlaylistService {
         int counter = 0;
         for (Track track : selectedTracks) {
             counter++;
-            totalRank += track.getRank();
+            if(track.getRank()>0) {
+                totalRank += track.getRank();
+            }
         }
         int rankPlaylist = totalRank / counter;
         return rankPlaylist;

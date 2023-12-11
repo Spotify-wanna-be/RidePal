@@ -25,7 +25,7 @@ public class Playlist {
     @ManyToOne
     @JoinColumn(name="user_id")
     private User createdBy;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "playlist_track",
             joinColumns = @JoinColumn(name = "playlist_id"),
