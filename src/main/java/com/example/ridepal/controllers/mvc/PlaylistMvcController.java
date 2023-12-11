@@ -4,6 +4,9 @@ import com.example.ridepal.exceptions.AuthorizationException;
 import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.exceptions.UnauthorizedOperationException;
 import com.example.ridepal.helpers.AuthenticationHelper;
+import com.example.ridepal.models.Playlist;
+import com.example.ridepal.models.PlaylistFilterDto;
+import com.example.ridepal.models.PlaylistFilterOptions;
 import com.example.ridepal.models.User;
 import com.example.ridepal.service.PlaylistService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/playlists")
@@ -63,6 +68,25 @@ public class PlaylistMvcController {
             model.addAttribute("error", e.getMessage());
             return "ErrorView";
         }
+    }
+    @GetMapping
+    public String showAllPlaylists(@ModelAttribute("filterOptions") PlaylistFilterDto filterDto,
+                               Model model, HttpSession httpSession) {
+        PlaylistFilterOptions filterOptions = new PlaylistFilterOptions(
+                filterDto.getName(),
+                filterDto.getDuration(),
+                filterDto.getGenres(),
+                filterDto.getSortBy(),
+                filterDto.getSortOrder());
+        try {
+            authenticationHelper.tryGetCurrentUser(httpSession);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/login";
+        }
+        List<Playlist> playlists = playlistService.get(filterOptions);
+        model.addAttribute("playlists", playlists);
+        model.addAttribute("filterOptions", filterDto);
+        return "index";
     }
 
 }

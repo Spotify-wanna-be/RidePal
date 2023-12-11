@@ -10,7 +10,6 @@ public class MockHelpers {
         var mockTrack = new Track();
         mockTrack.setId(1);
         mockTrack.setTitle("MockTrackTitle");
-        mockTrack.setAlbum("MockTrackAlbum");
         mockTrack.setArtist(createMockArtist());
         mockTrack.setDuration(Time.valueOf("00:04:00"));
         mockTrack.setRank(1);
@@ -20,8 +19,7 @@ public class MockHelpers {
     public static Artist createMockArtist(){
         var mockArtist = new Artist();
         mockArtist.setId(1);
-        mockArtist.setFirstName("mockFirstName");
-        mockArtist.setLastName("mockLastName");
+        mockArtist.setName("mockFirstName");
         return mockArtist;
     }
     public static Genre createMockGenre() {
