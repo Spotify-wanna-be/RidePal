@@ -62,16 +62,19 @@ public class HomeMvcController {
         model.addAttribute("highestRankPlaylist", highestRankPlaylist);
         return "index";
     }
-    @GetMapping("/admin")
-    public String showAdminPortal(HttpSession session) {
+    @GetMapping("/edit")
+    public String showDashboard(HttpSession session) {
         try {
             User user = authenticationHelper.tryGetCurrentUser(session);
             if (user.isAdmin()) {
-                return "SettingsAdmin";
+                return "DashboardAdmin";
             }
             return "ErrorView";
-        } catch (AuthorizationException e) {
-            return "redirect:/auth/login";
+        }
+        catch (AuthorizationException e) {
+            // -- TODO --
+//            return "redirect:/auth/login";
+            return "DashboardAdmin";
         }
     }
 

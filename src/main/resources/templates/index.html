@@ -80,10 +80,9 @@
                                        th:text="#{navigation.my-playlists}">My Playlists</a></li>
                                 <li><a href="SettingsUser.html" th:if="${isAuthenticated}" th:href="@{/settings}"
                                        th:text="#{navigation.settings}">Settings</a></li>
-                                <li><a href="SettingsAdmin.html" th:if="${isAuthenticated && session.isAdmin}"
-                                       th:href="@{/adminportal}" th:text="#{navigation.admin}">Settings</a></li>
-
-
+                                <li><a href="DashboardAdmin.html"
+                                       th:href="@{/edit}" th:text="#{navigation.admin}">Settings
+                                </a></li>
                             </ul>
 
                             <!-- Login/Register & Cart Button -->
@@ -285,24 +284,24 @@
         </div>
 
         <div class="row" th:each="playlist : ${playlists}">
-<!--            <div th:if="${playlists.isEmpty()}">-->
-<!--                <h2 th:text="#{playlist.name.empty}">No Playlists</h2>-->
-<!--            </div>-->
+            <!--            <div th:if="${playlists.isEmpty()}">-->
+            <!--                <h2 th:text="#{playlist.name.empty}">No Playlists</h2>-->
+            <!--            </div>-->
 
-<!--            <div th:unless="${playlists.isEmpty()}">-->
+            <!--            <div th:unless="${playlists.isEmpty()}">-->
 
-                <!-- Single Album Area -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                    <div class="single-album-area wow fadeInUp" data-wow-delay="100ms">
-                        <div class="album-info">
-                            <a href="#" th:text="${playlist.name}">
-                                <h5>Garage Band</h5>
-                            </a>
-                            <p th:text="${playlist.createdBy.username}">Username</p>
-                        </div>
+            <!-- Single Album Area -->
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                <div class="single-album-area wow fadeInUp" data-wow-delay="100ms">
+                    <div class="album-info">
+                        <a href="#" th:text="${playlist.name}">
+                            <h5>Garage Band</h5>
+                        </a>
+                        <p th:text="${playlist.createdBy.username}">Username</p>
                     </div>
                 </div>
-<!--            </div>-->
+            </div>
+            <!--            </div>-->
             <!-- Single Album Area -->
             <!--            <div class="col-12 col-sm-6 col-md-4 col-lg-2">-->
             <!--                <div class="single-album-area wow fadeInUp" data-wow-delay="200ms">-->
@@ -812,15 +811,20 @@
             <div class="col-12 col-md-6">
                 <div class="footer-nav">
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Playlists</a></li>
-                        <li><a href="#">Our mission</a></li>
-                        <li><a href="#">Generate Playlist</a></li>
-                        <li><a href="#">My playlists</a></li>
-                        <li><a href="#">Settings</a></li>
-                        <li><a href="#">Settings</a></li>
-
-
+                        <li><a href="index.html" th:href="@{/}" th:text="#{navigation.home}">Home</a></li>
+                        <li><a href="BrowsePlaylists.html" th:href="@{/playlists}"
+                               th:text="#{navigation.browse-playlists}">Playlists</a></li>
+                        <li><a href="OurMissionPage.html" th:href="@{/about}" th:text="#{navigation.about}">About</a>
+                        </li>
+                        <li><a href="TripGenerate.html" th:if="${isAuthenticated}" th:href="@{/generate}"
+                               th:text="#{navigation.generate-playlist}">Generate Playlist</a></li>
+                        <li><a href="MyPlaylist.html" th:href="@{/myplaylists}"
+                               th:text="#{navigation.my-playlists}">My Playlists</a></li>
+                        <li><a href="SettingsUser.html" th:if="${isAuthenticated}" th:href="@{/settings}"
+                               th:text="#{navigation.settings}">Settings</a></li>
+                        <li><a href="DashboardAdmin.html"
+                               th:href="@{/edit}" th:text="#{navigation.admin}">Settings
+                        </a></li>
                     </ul>
                 </div>
             </div>

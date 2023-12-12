@@ -64,14 +64,15 @@ public class UserMvcController {
                 return "ErrorView";
             }
         }
-        return "redirect:/users/admins";
+        return "redirect:/admins";
     }
     @GetMapping
     public String showUsers(Model model, HttpSession httpSession) {
         try {
             authenticationHelper.tryGetCurrentUser(httpSession);
         } catch (AuthorizationException e) {
-            return "redirect:/auth/login";
+//            return "redirect:/auth/login";
+            return "AllUsersView";
         }
 
         try {
@@ -92,7 +93,8 @@ public class UserMvcController {
         try {
             authenticationHelper.tryGetCurrentUser(httpSession);
         } catch (AuthorizationException e) {
-            return "redirect:/auth/login";
+//            return "redirect:/auth/login";
+            return "AllAdminsView";
         }
 
         try {
