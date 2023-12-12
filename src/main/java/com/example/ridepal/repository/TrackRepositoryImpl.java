@@ -62,6 +62,14 @@ public class TrackRepositoryImpl implements TrackRepository {
         }
     }
 
+    public List<Track> getBestRanked() {
+        try (Session session = sessionFactory.openSession()) {
+            Query<Track> query = session.createQuery("FROM Track ORDER BY rank asc", Track.class);
+            query.setMaxResults(10);
+            return query.list();
+        }
+    }
+
 
     @Override
     public Map<String, List<Track>> getTracksByGenres(List<String> genres) {

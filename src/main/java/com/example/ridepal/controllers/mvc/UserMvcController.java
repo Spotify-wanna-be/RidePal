@@ -1,20 +1,24 @@
 package com.example.ridepal.controllers.mvc;
 
 import com.example.ridepal.exceptions.AuthorizationException;
+import com.example.ridepal.exceptions.EntityDuplicateException;
 import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.exceptions.UnauthorizedOperationException;
 import com.example.ridepal.helpers.AuthenticationHelper;
+import com.example.ridepal.helpers.UserMapper;
+import com.example.ridepal.models.UpdateUserDto;
 import com.example.ridepal.models.User;
+import com.example.ridepal.service.PlaylistService;
+import com.example.ridepal.service.TrackService;
 import com.example.ridepal.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,11 +26,17 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserMvcController {
     private final UserService userService;
+    private final TrackService trackService;
     private final AuthenticationHelper authenticationHelper;
+    private final PlaylistService playlistService;
+    private final UserMapper userMapper;
 
-    public UserMvcController(UserService userService, AuthenticationHelper authenticationHelper) {
+    public UserMvcController(UserService userService, TrackService trackService, AuthenticationHelper authenticationHelper, PlaylistService playlistService, UserMapper userMapper) {
         this.userService = userService;
+        this.trackService = trackService;
         this.authenticationHelper = authenticationHelper;
+        this.playlistService = playlistService;
+        this.userMapper = userMapper;
     }
     @ModelAttribute("isAuthenticated")
     public boolean populateIsAuthenticated(HttpSession session) {
@@ -109,5 +119,70 @@ public class UserMvcController {
             return "AllAdminsView";
         }
 
+    }
+
+    @GetMapping("/myPlaylist")
+    public String showMyPlaylistPage(Model model, HttpSession session){
+        try {
+            User user = authenticationHelper.tryGetCurrentUser(session);
+            model.addAttribute("currentUser", user);
+            model.addAttribute("bestTracks", trackService.getBestRanked());
+            model.addAttribute("myPlaylists", playlistService.getUsersPlaylists(user));
+
+            return "MyPlaylist";
+
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/login";
+        }
+    }
+
+    @GetMapping("/update")
+    public String showSettingsUserPage(Model model, HttpSession session) {
+        try {
+            User user = authenticationHelper.tryGetCurrentUser(session);
+            model.addAttribute("currentUser", user);
+
+            return "SettingsUser";
+
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/login";
+        }
+    }
+
+    @PostMapping("/update")
+    public String updateUserProfile(@Valid @ModelAttribute("currentUser") UpdateUserDto userUpdateDto,
+                                    BindingResult bindingResult,
+                                    Model model,
+                                    HttpSession session) {
+        User user;
+        try {
+            user = authenticationHelper.tryGetCurrentUser(session);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/login";
+        }
+
+        if (bindingResult.hasErrors()) {
+            return "SettingsUser";
+        }
+
+        try {
+            user = userMapper.fromDto(user.getId(), userUpdateDto, authenticationHelper.tryGetCurrentUser(session));
+            userService.updateUser(authenticationHelper.tryGetCurrentUser(session), user);
+            model.addAttribute("currentUser", user);
+
+            return "redirect:/user";
+
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+
+            return "ErrorView";
+
+        } catch (EntityDuplicateException e) {
+            bindingResult.rejectValue("email", "duplicate_email", e.getMessage());
+
+            return "SettingsUser";
+
+        }
     }
 }

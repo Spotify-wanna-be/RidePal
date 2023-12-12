@@ -45,6 +45,9 @@ public class PlaylistServiceImpl implements PlaylistService {
     public Playlist getByPlaylistId(int id) {
         return playlistRepository.getByPlaylistId(id);
     }
+    public List<Playlist> getUsersPlaylists(User user){
+        return playlistRepository.getUsersPlaylists(user);
+    }
 
     @Override
     public List<Playlist> getHighestRankPlaylist() {

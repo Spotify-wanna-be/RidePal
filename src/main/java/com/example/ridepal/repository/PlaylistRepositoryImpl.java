@@ -3,15 +3,13 @@ package com.example.ridepal.repository;
 import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.models.Playlist;
 import com.example.ridepal.models.PlaylistFilterOptions;
-import com.example.ridepal.models.Track;
-import com.example.ridepal.service.TravelTimeService;
+import com.example.ridepal.models.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Time;
 import java.util.*;
 
 @Repository
@@ -37,6 +35,15 @@ public class PlaylistRepositoryImpl implements PlaylistRepository {
         try (Session session = sessionFactory.openSession()) {
             Query<Playlist> query = session.createQuery("from Playlist ", Playlist.class);
             return query.list();
+        }
+    }
+
+    public List<Playlist> getUsersPlaylists(User user){
+        try (Session session = sessionFactory.openSession()) {
+            Query<Playlist> query = session.createQuery("FROM Playlist WHERE createdBy = :user");
+            query.setParameter("user", user);
+            List<Playlist> playlists = query.list();
+            return playlists;
         }
     }
 

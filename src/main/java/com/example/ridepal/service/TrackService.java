@@ -10,6 +10,8 @@ public interface TrackService {
 
     List<Track> getAllFromAlbum(String albumName);
 
+    List<Track> getBestRanked();
+
     Track getById(int id);
 
     Track getByTitle(String title);

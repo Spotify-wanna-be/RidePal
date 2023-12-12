@@ -7,6 +7,7 @@ import java.util.Map;
 
 public interface TrackRepository {
     List<Track> getAll();
+    List<Track> getBestRanked();
 
     List<Track> getAllFromAlbum(String albumName);
 

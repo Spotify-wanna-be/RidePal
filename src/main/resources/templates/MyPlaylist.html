@@ -15,7 +15,15 @@
     <link rel="icon" href="../static/redMan/img/core-img/favicon.ico">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="../static/redMan/style.css">
+    <link rel="stylesheet" href="../static/redMan/style.css" th:href="@{/redMan/style.css}" />
+    <link rel="stylesheet" href="../static/redMan/css/animate.css" th:href="@{/redMan/css/animate.css}" />
+    <link rel="stylesheet" href="../static/redMan/css/audioplayer.css" th:href="@{/redMan/css/audioplayer.css}" />
+    <link rel="stylesheet" href="../static/redMan/css/bootstrap.min.css" th:href="@{/redMan/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="../static/redMan/css/classy-nav.css" th:href="@{/redMan/css/classy-nav.css}" />
+    <link rel="stylesheet" href="../static/redMan/css/font-awesome.min.css" th:href="@{/redMan/css/font-awesome.min.css}" />
+    <link rel="stylesheet" href="../static/redMan/css/magnific-popup.css" th:href="@{/redMan/css/magnific-popup.css}" />
+    <link rel="stylesheet" href="../static/redMan/css/one-music-icon.css" th:href="@{/redMan/css/one-music-icon.css}" />
+    <link rel="stylesheet" href="../static/redMan/css/owl.carousel.min.css" th:href="@{/redMan/css/owl.carousel.min.css}" />
 
 </head>
 
@@ -40,7 +48,7 @@
                 <nav class="classy-navbar justify-content-between" id="oneMusicNav">
 
                     <!-- Nav brand -->
-                    <a href="index.html" class="nav-brand"><img src="../static/redMan/img/core-img/logo.png" alt=""></a>
+                    <a href="index.html" class="nav-brand"><img th:src="@{/redMan/img/core-img/logo.png}" alt=""></a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -58,13 +66,13 @@
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul>
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="BrowsePlaylists.html">Playlists</a></li>
-                                <li><a href="OurMissionPage.html">Our mission</a></li>
-                                <li><a href="TripGenerate.html">Generate Playlist</a></li>
-                                <li><a href="MyPlaylist.html">My Playlists</a></li>
-                                <li><a href="SettingsUser.html">Settings</a></li>
-                                <li><a href="DashboardAdmin.html">Settings</a></li>
+                                <li><a href="index.html" th:href="@{/}" th:text="#{navigation.home}">Home</a></li>
+                                <li><a href="BrowsePlaylists.html" th:href="@{/playlists}" th:text="#{navigation.browse-playlists}">Playlists</a></li>
+                                <li><a href="OurMissionPage.html" th:href="@{/about}" th:text="#{navigation.about}">About</a></li>
+                                <li><a href="TripGenerate.html" th:if="${isAuthenticated}" th:href="@{/generate}" th:text="#{navigation.generate-playlist}">Generate Playlist</a></li>
+                                <li><a href="MyPlaylist.html" th:href="@{/myplaylists}" th:text="#{navigation.my-playlists}">My Playlists</a></li>
+                                <li><a href="SettingsUser.html" th:if="${isAuthenticated}" th:href="@{/settings}" th:text="#{navigation.settings}">Settings</a></li>
+                                <li><a href="SettingsAdmin.html" th:if="${isAuthenticated && session.isAdmin}" th:href="@{/adminportal}" th:text="#{navigation.admin}">Settings</a></li>
 
 
                             </ul>
@@ -103,115 +111,30 @@
 <section class="miscellaneous-area section-padding-100-0">
     <div class="container">
         <div class="row">
-        <!-- ***** New Hits Songs ***** -->
         <div class="col-12 col-lg-4">
             <div class="new-hits-area mb-100">
                 <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
-                    <p>See what’s new</p>
-                    <h2>New Hits</h2>
+                    <p>See what’s best</p>
+                    <h2>The Best Hits</h2>
                 </div>
 
-                <!-- Single Top Item -->
-                <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
-                     data-wow-delay="100ms">
-                    <div class="first-part d-flex align-items-center">
-                        <div class="thumbnail">
-                            <img src="../static/redMan/img/bg-img/wt7.jpg" alt="">
+                <a th:each="track : ${bestTracks}">
+                    <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
+                         data-wow-delay="100ms">
+                        <div class="first-part d-flex align-items-center">
+                            <div class="thumbnail">
+                                <img th:src="@{/redMan/img/bg-img/wt7.jpg}" alt="">
+                            </div>
+                            <div class="content-">
+                                <h6 th:text="${track.getArtist()}">Artist</h6>
+                                <p th:text="${track.getTitle()}">Title</p>
+                            </div>
                         </div>
-                        <div class="content-">
-                            <h6>Sam Smith</h6>
-                            <p>Underground</p>
-                        </div>
+                        <audio preload="auto" controls>
+                            <source th:src="@{/redMan/audio/dummy-audio.mp3}">
+                        </audio>
                     </div>
-                    <audio preload="auto" controls>
-                        <source src="../static/redMan/audio/dummy-audio.mp3">
-                    </audio>
-                </div>
-
-                <!-- Single Top Item -->
-                <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
-                     data-wow-delay="150ms">
-                    <div class="first-part d-flex align-items-center">
-                        <div class="thumbnail">
-                            <img src="../static/redMan/img/bg-img/wt8.jpg" alt="">
-                        </div>
-                        <div class="content-">
-                            <h6>Power Play</h6>
-                            <p>In my mind</p>
-                        </div>
-                    </div>
-                    <audio preload="auto" controls>
-                        <source src="../static/redMan/audio/dummy-audio.mp3">
-                    </audio>
-                </div>
-
-                <!-- Single Top Item -->
-                <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
-                     data-wow-delay="200ms">
-                    <div class="first-part d-flex align-items-center">
-                        <div class="thumbnail">
-                            <img src="../static/redMan/img/bg-img/wt9.jpg" alt="">
-                        </div>
-                        <div class="content-">
-                            <h6>Cristinne Smith</h6>
-                            <p>My Music</p>
-                        </div>
-                    </div>
-                    <audio preload="auto" controls>
-                        <source src="../static/redMan/audio/dummy-audio.mp3">
-                    </audio>
-                </div>
-
-                <!-- Single Top Item -->
-                <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
-                     data-wow-delay="250ms">
-                    <div class="first-part d-flex align-items-center">
-                        <div class="thumbnail">
-                            <img src="../static/redMan/img/bg-img/wt10.jpg" alt="">
-                        </div>
-                        <div class="content-">
-                            <h6>The Music Band</h6>
-                            <p>Underground</p>
-                        </div>
-                    </div>
-                    <audio preload="auto" controls>
-                        <source src="../static/redMan/audio/dummy-audio.mp3">
-                    </audio>
-                </div>
-
-                <!-- Single Top Item -->
-                <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
-                     data-wow-delay="300ms">
-                    <div class="first-part d-flex align-items-center">
-                        <div class="thumbnail">
-                            <img src="../static/redMan/img/bg-img/wt11.jpg" alt="">
-                        </div>
-                        <div class="content-">
-                            <h6>Creative Lyrics</h6>
-                            <p>Songs and stuff</p>
-                        </div>
-                    </div>
-                    <audio preload="auto" controls>
-                        <source src="../static/redMan/audio/dummy-audio.mp3">
-                    </audio>
-                </div>
-
-                <!-- Single Top Item -->
-                <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
-                     data-wow-delay="350ms">
-                    <div class="first-part d-flex align-items-center">
-                        <div class="thumbnail">
-                            <img src="../static/redMan/img/bg-img/wt12.jpg" alt="">
-                        </div>
-                        <div class="content-">
-                            <h6>The Culture</h6>
-                            <p>Pop Songs</p>
-                        </div>
-                    </div>
-                    <audio preload="auto" controls>
-                        <source src="../static/redMan/audio/dummy-audio.mp3">
-                    </audio>
-                </div>
+                </a>
             </div>
         </div>
 
@@ -219,79 +142,20 @@
         <div class="col-12 col-lg-4">
             <div class="popular-artists-area mb-100">
                 <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
-                    <p>See what’s new</p>
-                    <h2>Popular Artist</h2>
+                    <p>See what you've created</p>
+                    <h2>My Playlists</h2>
                 </div>
 
-                <!-- Single Artist -->
-                <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="100ms">
-                    <div class="thumbnail">
-                        <img src="../static/redMan/img/bg-img/pa1.jpg" alt="">
+                <a th:each="playlist : ${myPlaylists}">
+                    <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="100ms">
+                        <div class="thumbnail">
+                            <img th:src="@{/redMan/img/bg-img/pa1.jpg}" alt="">
+                        </div>
+                        <div class="content-">
+                            <p th:text="${playlist.getName()}">Playlist</p>
+                        </div>
                     </div>
-                    <div class="content-">
-                        <p>Sam Smith</p>
-                    </div>
-                </div>
-
-                <!-- Single Artist -->
-                <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="150ms">
-                    <div class="thumbnail">
-                        <img src="../static/redMan/img/bg-img/pa2.jpg" alt="">
-                    </div>
-                    <div class="content-">
-                        <p>William Parker</p>
-                    </div>
-                </div>
-
-                <!-- Single Artist -->
-                <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="200ms">
-                    <div class="thumbnail">
-                        <img src="../static/redMan/img/bg-img/pa3.jpg" alt="">
-                    </div>
-                    <div class="content-">
-                        <p>Jessica Walsh</p>
-                    </div>
-                </div>
-
-                <!-- Single Artist -->
-                <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="250ms">
-                    <div class="thumbnail">
-                        <img src="../static/redMan/img/bg-img/pa4.jpg" alt="">
-                    </div>
-                    <div class="content-">
-                        <p>Tha Stoves</p>
-                    </div>
-                </div>
-
-                <!-- Single Artist -->
-                <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="300ms">
-                    <div class="thumbnail">
-                        <img src="../static/redMan/img/bg-img/pa5.jpg" alt="">
-                    </div>
-                    <div class="content-">
-                        <p>DJ Ajay</p>
-                    </div>
-                </div>
-
-                <!-- Single Artist -->
-                <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="350ms">
-                    <div class="thumbnail">
-                        <img src="../static/redMan/img/bg-img/pa6.jpg" alt="">
-                    </div>
-                    <div class="content-">
-                        <p>Radio Vibez</p>
-                    </div>
-                </div>
-
-                <!-- Single Artist -->
-                <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="400ms">
-                    <div class="thumbnail">
-                        <img src="../static/redMan/img/bg-img/pa7.jpg" alt="">
-                    </div>
-                    <div class="content-">
-                        <p>Music 4u</p>
-                    </div>
-                </div>
+                </a>
 
             </div>
         </div>
@@ -306,7 +170,7 @@
     <div class="container">
         <div class="row d-flex flex-wrap align-items-center">
             <div class="col-12 col-md-6">
-                <a href="#"><img src="../static/redMan/img/core-img/logo.png" alt=""></a>
+                <a href="#"><img th:src="@{/redMan/img/core-img/logo.png}" alt=""></a>
                 <p class="copywrite-text"><a href="#">
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     Copyright &copy;<script>document.write(new Date().getFullYear());</script>
@@ -337,15 +201,15 @@
 
 <!-- ##### All Javascript Script ##### -->
 <!-- jQuery-2.2.4 js -->
-<script src="../static/redMan/js/jquery/jquery-2.2.4.min.js"></script>
+<script src="../static/redMan/js/jquery/jquery-2.2.4.min.js" th:src="@{/redMan/js/jquery/jquery-2.2.4.min.js}"></script>
 <!-- Popper js -->
-<script src="../static/redMan/js/bootstrap/popper.min.js"></script>
+<script src="../static/redMan/js/bootstrap/popper.min.js" th:src="@{/redMan/js/bootstrap/popper.min.js}"></script>
 <!-- Bootstrap js -->
-<script src="../static/redMan/js/bootstrap/bootstrap.min.js"></script>
+<script src="../static/redMan/js/bootstrap/bootstrap.min.js" th:src="@{/redMan/js/bootstrap/bootstrap.min.js}"></script>
 <!-- All Plugins js -->
-<script src="../static/redMan/js/plugins/plugins.js"></script>
+<script src="../static/redMan/js/plugins/plugins.js" th:src="@{/redMan/js/plugins/plugins.js}"></script>
 <!-- Active js -->
-<script src="../static/redMan/js/active.js"></script>
+<script src="../static/redMan/js/active.js" th:src="@{/redMan/js/active.js}"></script>
 </section>
 </body>
 

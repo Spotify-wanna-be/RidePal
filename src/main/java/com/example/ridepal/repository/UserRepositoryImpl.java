@@ -1,6 +1,7 @@
 package com.example.ridepal.repository;
 
 import com.example.ridepal.exceptions.EntityNotFoundException;
+import com.example.ridepal.models.Playlist;
 import com.example.ridepal.models.Track;
 import com.example.ridepal.models.User;
 import org.hibernate.Session;

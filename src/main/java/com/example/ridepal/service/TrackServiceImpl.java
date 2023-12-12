@@ -47,6 +47,10 @@ public class TrackServiceImpl implements TrackService {
 
     }
 
+    public List<Track> getBestRanked(){
+        return trackRepository.getBestRanked();
+    }
+
 
     @Override
     public void create(Track track) {
