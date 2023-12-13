@@ -13,9 +13,20 @@
 
     <!-- Favicon -->
     <link rel="icon" href="../static/redMan/img/core-img/favicon.ico">
-
     <!-- Stylesheet -->
     <link rel="stylesheet" href="../static/redMan/style.css">
+    <link rel="stylesheet" href="../static/redMan/style.css" th:href="@{/redMan/style.css}"/>
+    <link rel="stylesheet" href="../static/redMan/css/animate.css" th:href="@{/redMan/css/animate.css}"/>
+    <link rel="stylesheet" href="../static/redMan/css/audioplayer.css" th:href="@{/redMan/css/audioplayer.css}"/>
+    <link rel="stylesheet" href="../static/redMan/css/bootstrap.min.css" th:href="@{/redMan/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/redMan/css/classy-nav.css" th:href="@{/redMan/css/classy-nav.css}"/>
+    <link rel="stylesheet" href="../static/redMan/css/font-awesome.min.css"
+          th:href="@{/redMan/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" href="../static/redMan/css/magnific-popup.css" th:href="@{/redMan/css/magnific-popup.css}"/>
+    <link rel="stylesheet" href="../static/redMan/css/one-music-icon.css" th:href="@{/redMan/css/one-music-icon.css}"/>
+    <link rel="stylesheet" href="../static/redMan/css/owl.carousel.min.css"
+          th:href="@{/redMan/css/owl.carousel.min.css}"/>
+
 
 </head>
 
@@ -69,13 +80,27 @@
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul>
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="BrowsePlaylists.html">Playlists</a></li>
-                                <li><a href="OurMissionPage.html">Our mission</a></li>
-                                <li><a href="TripGenerate.html">Generate Playlist</a></li>
-                                <li><a href="MyPlaylist.html">My Playlists</a></li>
-                                <li><a href="SettingsUser.html">Settings</a></li>
-                                <li><a href="DashboardAdmin.html">Settings</a></li>
+<!--                                <li><a href="index.html">Home</a></li>-->
+<!--                                <li><a href="BrowsePlaylists.html">Playlists</a></li>-->
+<!--                                <li><a href="OurMissionPage.html">Our mission</a></li>-->
+<!--                                <li><a href="TripGenerate.html">Generate Playlist</a></li>-->
+<!--                                <li><a href="MyPlaylist.html">My Playlists</a></li>-->
+<!--                                <li><a href="SettingsUser.html">Settings</a></li>-->
+<!--                                <li><a href="SettingsAdmin.html">Settings</a></li>-->
+                                <li><a href="index.html" th:href="@{/}" th:text="#{navigation.home}">Home</a></li>
+                                <li><a href="BrowsePlaylists.html" th:href="@{/playlists}"
+                                       th:text="#{navigation.browse-playlists}">Playlists</a></li>
+                                <li><a href="OurMissionPage.html" th:href="@{/about}" th:text="#{navigation.about}">About</a>
+                                </li>
+                                <li><a href="TripGenerate.html" th:if="${isAuthenticated}" th:href="@{/generate}"
+                                       th:text="#{navigation.generate-playlist}">Generate Playlist</a></li>
+                                <li><a href="MyPlaylist.html" th:href="@{/myplaylists}"
+                                       th:text="#{navigation.my-playlists}">My Playlists</a></li>
+                                <li><a href="SettingsUser.html" th:if="${isAuthenticated}" th:href="@{/settings}"
+                                       th:text="#{navigation.settings}">Settings</a></li>
+                                <li><a href="SettingsAdmin.html" th:if="${isAuthenticated && session.isAdmin}"
+                                       th:href="@{/adminportal}" th:text="#{navigation.admin}">Settings</a></li>
+
 
 
                             </ul>
@@ -84,7 +109,8 @@
                             <div class="login-register-cart-button d-flex align-items-center">
                                 <!-- Login/Register -->
                                 <div class="login-register-btn mr-50">
-                                    <a href="../static/redMan/login.html" id="loginBtn">Login / Register</a>
+                                    <a href="../static/redMan/login.html" id="loginBtn" th:unless="${isAuthenticated}"
+                                       th:href="@{/auth/login}">Login / Register</a>
                                 </div>
 
                             </div>
@@ -119,21 +145,42 @@
                     <h3>Welcome Back</h3>
                     <!-- Login Form -->
                     <div class="login-form">
-                        <form action="#" method="post">
+                        <form action="#" th:action="@{/auth/login}" th:object="${login}" method="post">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1"
+                                <label style="color: white;" th:text="#{user.label.username}">Username</label>
+<!--                                <label for="exampleInputEmail1">Email address</label>-->
+                                <input type="text" th:field="*{username}" class="form-control"
                                        aria-describedby="emailHelp" placeholder="Enter E-mail">
                                 <small id="emailHelp" class="form-text text-muted"><i class="fa fa-lock mr-2"></i>We'll
                                     never share your email with anyone else.</small>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1"
+                                <label for="exampleInputPassword1" th:text="#{user.label.password}">Password</label>
+                                <input type="password" th:field="*{password}" class="form-control" id="exampleInputPassword1"
                                        placeholder="Password">
                             </div>
-                            <button type="submit" class="btn oneMusic-btn mt-30">Login</button>
+                            <button type="submit" value="Login" class="btn oneMusic-btn mt-30">Login</button>
                         </form>
+<!--                        <form action="#" th:action="@{/auth/login}" th:object="${login}" method="post">-->
+<!--                            <label style="color: white;" th:text="#{user.label.username}">Username</label>-->
+<!--                            <br/>-->
+<!--                            <input type="text" th:field="*{username}" style="border-radius: 10px;"/>-->
+<!--                            <br/>-->
+<!--                            <label style="color: red;" class="error" th:errors="*{username}">Username error placeholder</label>-->
+<!--                            <br/><br/>-->
+
+<!--                            <label style="color: white;" th:text="#{user.label.password}">Password</label>-->
+<!--                            <br/>-->
+<!--                            <input type="password" th:field="*{password}" style="border-radius: 10px;"/>-->
+<!--                            <br/>-->
+<!--                            <label style="color: red;" class="error" th:errors="*{password}">Password error placeholder</label>-->
+<!--                            <br/><br/>-->
+
+<!--                            <div class="text-center"><input type="submit" value="Login"-->
+<!--                                                            class="btn btn-primary btn-xl text-uppercase" href="#services"></div>-->
+<!--                            <br/>-->
+<!--                            <p style="color: white;">Don't have an account? <a th:href="@{/auth/register}">Register</a></p>-->
+<!--                        </form>-->
                     </div>
                 </div>
             </div>
@@ -232,15 +279,15 @@
 
 <!-- ##### All Javascript Script ##### -->
 <!-- jQuery-2.2.4 js -->
-<script src="../static/redMan/js/jquery/jquery-2.2.4.min.js"></script>
+<script src="../static/redMan/js/jquery/jquery-2.2.4.min.js" th:src="@{/redMan/js/jquery/jquery-2.2.4.min.js}"></script>
 <!-- Popper js -->
-<script src="../static/redMan/js/bootstrap/popper.min.js"></script>
+<script src="../static/redMan/js/bootstrap/popper.min.js" th:src="@{/redMan/js/bootstrap/popper.min.js}"></script>
 <!-- Bootstrap js -->
-<script src="../static/redMan/js/bootstrap/bootstrap.min.js"></script>
+<script src="../static/redMan/js/bootstrap/bootstrap.min.js" th:src="@{/redMan/js/bootstrap/bootstrap.min.js}"></script>
 <!-- All Plugins js -->
-<script src="../static/redMan/js/plugins/plugins.js"></script>
+<script src="../static/redMan/js/plugins/plugins.js" th:src="@{/redMan/js/plugins/plugins.js}"></script>
 <!-- Active js -->
-<script src="../static/redMan/js/active.js"></script>
+<script src="../static/redMan/js/active.js" th:src="@{/redMan/js/active.js}"></script>
 </body>
 
 </html>
