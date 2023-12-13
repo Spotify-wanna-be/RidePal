@@ -127,14 +127,14 @@ public class UserMvcController {
     @GetMapping("/myPlaylist")
     public String showMyPlaylistPage(Model model, HttpSession session){
         try {
-            //User user = authenticationHelper.tryGetCurrentUser(session);
+            User user = authenticationHelper.tryGetCurrentUser(session);
             List<Track> bestTracks = trackService.getBestRanked();
 
             System.out.printf("Best Tracks: %s%n ", bestTracks);
 
-            // model.addAttribute("currentUser", user);
+            model.addAttribute("currentUser", user);
             model.addAttribute("bestTracks", bestTracks);
-            // model.addAttribute("myPlaylists", playlistService.getUsersPlaylists(user));
+            model.addAttribute("myPlaylists", playlistService.getUsersPlaylists(user));
 
             return "MyPlaylist";
 
@@ -152,8 +152,7 @@ public class UserMvcController {
             return "SettingsUser";
 
         } catch (AuthorizationException e) {
-            return "SettingsUser";
-//            return "redirect:/auth/login";
+            return "redirect:/auth/login";
         }
     }
 
@@ -170,6 +169,7 @@ public class UserMvcController {
         }
 
         if (bindingResult.hasErrors()) {
+            System.out.println("Hello");
             return "SettingsUser";
         }
 
@@ -178,18 +178,13 @@ public class UserMvcController {
             userService.updateUser(authenticationHelper.tryGetCurrentUser(session), user);
             model.addAttribute("currentUser", user);
 
-            return "redirect:/user";
+            return "redirect:/";
 
         } catch (EntityNotFoundException e) {
             model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
             model.addAttribute("error", e.getMessage());
 
             return "ErrorView";
-
-        } catch (EntityDuplicateException e) {
-            bindingResult.rejectValue("email", "duplicate_email", e.getMessage());
-
-            return "SettingsUser";
 
         }
     }

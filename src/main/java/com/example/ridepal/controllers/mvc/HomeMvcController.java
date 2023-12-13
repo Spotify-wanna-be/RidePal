@@ -78,49 +78,6 @@ public class HomeMvcController {
         }
     }
 
-    @GetMapping("/settings")
-    public String showUserSettings(HttpSession session, Model model) {
-        User user;
-        try {
-            user = authenticationHelper.tryGetCurrentUser(session);
-            UpdateUserDto updateUserDto = new UpdateUserDto();
-            updateUserDto.setFirstName(user.getFirstName());
-            updateUserDto.setLastName(user.getLastName());
-            updateUserDto.setEmail(user.getEmail());
-            updateUserDto.setPassword(user.getPassword());
-            updateUserDto.setPasswordConfirm(user.getPassword());
-            model.addAttribute("updateUser", updateUserDto);
-            model.addAttribute("currentUser", user);
-            return "SettingsUser";
-        } catch (AuthorizationException e) {
-            return "SettingsUser";
-
-//            return "redirect:/auth/login";
-        }
-    }
-
-    @PostMapping("/settings/update")
-    public String updateUser(
-            @ModelAttribute("updateUser") UpdateUserDto updateUserDto,
-            BindingResult result,
-            HttpSession httpSession) {
-        User user;
-        try {
-            if (result.hasErrors()) {
-                return "SettingsUser";
-            }
-            user = authenticationHelper.tryGetCurrentUser(httpSession);
-            User userToUpdate = userMapper.fromDto(user.getId(), updateUserDto, user);
-            userService.updateUserV2(user, userToUpdate, updateUserDto);
-            return "redirect:/settings";
-        } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        } catch (EntityDuplicateException e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
-        } catch (UnauthorizedOperationException e) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-        }
-    }
     @PostMapping("/edit")
     public String updateAdmin(
             @ModelAttribute("updateAdmin") UpdateUserDto updateUserDto,

@@ -123,7 +123,7 @@
                 <div class="contact-form-area">
                     <form action="#" method="post">
                         <div class="row">
-                            <form th:action="@{/settings}" th:object="${currentUser}" action="#" method="post">
+                            <form th:action="@{/users/update}" th:object="${currentUser}" action="#" method="post">
                             <div class="user-box">
                                 <label>First Name</label>
                                 <input th:field="*{firstName}" type="text" name="" required="">

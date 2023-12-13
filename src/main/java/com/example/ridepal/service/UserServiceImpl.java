@@ -80,9 +80,6 @@ public class UserServiceImpl implements UserService {
         } catch (EntityNotFoundException e) {
             usernameExist = false;
         }
-        if (usernameExist) {
-            throw new EntityDuplicateException("User", "username", user.getUsername());
-        }
         userRepository.updateUser(userToUpdate);
     }
 

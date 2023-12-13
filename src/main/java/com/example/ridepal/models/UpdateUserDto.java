@@ -8,12 +8,9 @@ public class UpdateUserDto {
 
     @NotNull
     private String password;
-    @NotNull
-    private String passwordConfirm;
 
-    @Size(min = 4, max = 32, message = "Name should be between 4 and 32 symbols")
     private String firstName;
-    @Size(min = 4, max = 32, message = "Name should be between 4 and 32 symbols")
+
     private String lastName;
 
     @Email
@@ -31,14 +28,6 @@ public class UpdateUserDto {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getPasswordConfirm() {
-        return passwordConfirm;
-    }
-
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
     }
 
     public String getFirstName() {
