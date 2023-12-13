@@ -6,6 +6,7 @@ import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.exceptions.UnauthorizedOperationException;
 import com.example.ridepal.helpers.AuthenticationHelper;
 import com.example.ridepal.helpers.UserMapper;
+import com.example.ridepal.models.Track;
 import com.example.ridepal.models.UpdateUserDto;
 import com.example.ridepal.models.User;
 import com.example.ridepal.service.PlaylistService;
@@ -124,10 +125,14 @@ public class UserMvcController {
     @GetMapping("/myPlaylist")
     public String showMyPlaylistPage(Model model, HttpSession session){
         try {
-            User user = authenticationHelper.tryGetCurrentUser(session);
-            model.addAttribute("currentUser", user);
-            model.addAttribute("bestTracks", trackService.getBestRanked());
-            model.addAttribute("myPlaylists", playlistService.getUsersPlaylists(user));
+            //User user = authenticationHelper.tryGetCurrentUser(session);
+            List<Track> bestTracks = trackService.getBestRanked();
+
+            System.out.printf("Best Tracks: %s%n ", bestTracks);
+
+            // model.addAttribute("currentUser", user);
+            model.addAttribute("bestTracks", bestTracks);
+            // model.addAttribute("myPlaylists", playlistService.getUsersPlaylists(user));
 
             return "MyPlaylist";
 

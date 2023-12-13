@@ -47,6 +47,11 @@ public class TrackRestController {
         }
     }
 
+    @GetMapping("/best")
+    public List<Track> getBestRanked(){
+        return trackService.getBestRanked();
+    }
+
 //    @GetMapping("/{albumName}")
 //    public List<Track> getFromAlbum(@PathVariable String albumName) {
 //        try {
