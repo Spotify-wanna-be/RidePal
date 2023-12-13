@@ -80,13 +80,6 @@
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul>
-<!--                                <li><a href="index.html">Home</a></li>-->
-<!--                                <li><a href="BrowsePlaylists.html">Playlists</a></li>-->
-<!--                                <li><a href="OurMissionPage.html">Our mission</a></li>-->
-<!--                                <li><a href="TripGenerate.html">Generate Playlist</a></li>-->
-<!--                                <li><a href="MyPlaylist.html">My Playlists</a></li>-->
-<!--                                <li><a href="SettingsUser.html">Settings</a></li>-->
-<!--                                <li><a href="SettingsAdmin.html">Settings</a></li>-->
                                 <li><a href="index.html" th:href="@{/}" th:text="#{navigation.home}">Home</a></li>
                                 <li><a href="BrowsePlaylists.html" th:href="@{/playlists}"
                                        th:text="#{navigation.browse-playlists}">Playlists</a></li>
@@ -94,15 +87,12 @@
                                 </li>
                                 <li><a href="TripGenerate.html" th:if="${isAuthenticated}" th:href="@{/generate}"
                                        th:text="#{navigation.generate-playlist}">Generate Playlist</a></li>
-                                <li><a href="MyPlaylist.html" th:href="@{/myplaylists}"
+                                <li><a href="MyPlaylist.html" th:if="${isAuthenticated}" th:href="@{/myplaylists}"
                                        th:text="#{navigation.my-playlists}">My Playlists</a></li>
-                                <li><a href="SettingsUser.html" th:if="${isAuthenticated}" th:href="@{/settings}"
+                                <li><a href="SettingsUser.html" th:if="${isAuthenticated && !session.isAdmin}" th:href="@{/settings}"
                                        th:text="#{navigation.settings}">Settings</a></li>
-                                <li><a href="SettingsAdmin.html" th:if="${isAuthenticated && session.isAdmin}"
-                                       th:href="@{/adminportal}" th:text="#{navigation.admin}">Settings</a></li>
-
-
-
+                                <li><a href="DashboardAdmin.html" th:if="${isAuthenticated && session.isAdmin}"
+                                       th:href="@{/edit}" th:text="#{navigation.admin}">Settings</a></li>
                             </ul>
 
                             <!-- Login/Register & Cart Button -->
@@ -128,6 +118,7 @@
 
 <!-- ##### Breadcumb Area Start ##### -->
 <section class="breadcumb-area bg-img bg-overlay"
+         th:style="'background-image: url(' + @{/redMan/img/bg-img/bg-2.jpg} + ');'"
          style="background-image: url(../static/redMan/img/bg-img/breadcumb.jpg);">
     <div class="bradcumbContent">
         <p>See what’s new</p>
@@ -150,7 +141,7 @@
                                 <label style="color: white;" th:text="#{user.label.username}">Username</label>
 <!--                                <label for="exampleInputEmail1">Email address</label>-->
                                 <input type="text" th:field="*{username}" class="form-control"
-                                       aria-describedby="emailHelp" placeholder="Enter E-mail">
+                                       aria-describedby="emailHelp" placeholder="Enter Username">
                                 <small id="emailHelp" class="form-text text-muted"><i class="fa fa-lock mr-2"></i>We'll
                                     never share your email with anyone else.</small>
                             </div>
@@ -189,6 +180,7 @@
 </section>
 <!-- ##### Login Area End ##### -->
 <section class="contact-area section-padding-100 bg-img bg-overlay bg-fixed has-bg-img"
+         th:style="'background-image: url(' + @{/redMan/img/bg-img/bg-2.jpg} + ');'"
          style="background-image: url(../static/redMan/img/bg-img/bg-2.jpg);">
     <div class="container">
         <div class="row">
@@ -261,13 +253,20 @@
             <div class="col-12 col-md-6">
                 <div class="footer-nav">
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Playlists</a></li>
-                        <li><a href="#">Our mission</a></li>
-                        <li><a href="#">Generate Playlist</a></li>
-                        <li><a href="#">My playlists</a></li>
-                        <li><a href="#">Settings</a></li>
-                        <li><a href="#">Settings</a></li>
+                        <li><a href="index.html" th:href="@{/}" th:text="#{navigation.home}">Home</a></li>
+                        <li><a href="BrowsePlaylists.html" th:href="@{/playlists}"
+                               th:text="#{navigation.browse-playlists}">Playlists</a></li>
+                        <li><a href="OurMissionPage.html" th:href="@{/about}" th:text="#{navigation.about}">About</a>
+                        </li>
+                        <li><a href="TripGenerate.html" th:if="${isAuthenticated}" th:href="@{/generate}"
+                               th:text="#{navigation.generate-playlist}">Generate Playlist</a></li>
+                        <li><a href="MyPlaylist.html" th:href="@{/myplaylists}"
+                               th:text="#{navigation.my-playlists}">My Playlists</a></li>
+                        <li><a href="SettingsUser.html" th:if="${isAuthenticated && !session.isAdmin}" th:href="@{/settings}"
+                               th:text="#{navigation.settings}">Settings</a></li>
+                        <li><a href="DashboardAdmin.html"
+                               th:href="@{/edit}" th:if="${isAuthenticated && session.isAdmin}" th:text="#{navigation.admin}">Settings
+                        </a></li>
 
                     </ul>
                 </div>

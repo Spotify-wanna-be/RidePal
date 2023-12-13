@@ -69,26 +69,40 @@
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul>
-                                <li><a href="index.html" th:href="@{/}" th:text="#{navigation.home}">Home</a></li>
+                                <li><a href="index.html" th:href="@{/}" th:text="#{navigation.home}">Home
+                                </a></li>
+
                                 <li><a href="BrowsePlaylists.html" th:href="@{/playlists}"
-                                       th:text="#{navigation.browse-playlists}">Playlists</a></li>
-                                <li><a href="OurMissionPage.html" th:href="@{/about}" th:text="#{navigation.about}">About</a>
-                                </li>
+                                       th:text="#{navigation.browse-playlists}">Playlists
+                                </a></li>
+
+                                <li><a href="OurMissionPage.html" th:href="@{/about}"
+                                       th:text="#{navigation.about}">About
+                                </a></li>
+
                                 <li><a href="TripGenerate.html" th:if="${isAuthenticated}" th:href="@{/generate}"
-                                       th:text="#{navigation.generate-playlist}">Generate Playlist</a></li>
-                                <li><a href="MyPlaylist.html" th:href="@{/users/myPlaylist}"
-                                       th:text="#{navigation.my-playlists}">My Playlists</a></li>
-                                <li><a href="SettingsUser.html" th:if="${isAuthenticated}" th:href="@{/users/update}"
-                                       th:text="#{navigation.settings}">Settings</a></li>
+                                       th:text="#{navigation.generate-playlist}">Generate Playlist
+                                </a></li>
+
+                                <li><a href="MyPlaylist.html" th:if="${isAuthenticated}" th:href="@{/users/myPlaylist}"
+                                       th:text="#{navigation.my-playlists}">My Playlists
+                                </a></li>
+
+                                <li><a href="SettingsUser.html" th:if="${isAuthenticated && !session.isAdmin}"
+                                       th:href="@{/users/update}"
+                                       th:text="#{navigation.settings}">Settings
+                                </a></li>
+
                                 <li><a href="DashboardAdmin.html" th:if="${isAuthenticated && session.isAdmin}"
-                                       th:href="@{/edit}" th:text="#{navigation.admin}">Settings</a></li>
+                                       th:href="@{/edit}" th:text="#{navigation.admin}">Settings
+                                </a></li>
                             </ul>
 
                             <!-- Login/Register & Cart Button -->
                             <div class="login-register-cart-button d-flex align-items-center">
                                 <!-- Login/Register -->
                                 <div class="login-register-btn mr-50">
-                                    <a href="../static/redMan/login.html" id="loginBtn" th:unless="${isAuthenticated}"
+                                    <a  href="../static/redMan/login.html" id="loginBtn" th:unless="${isAuthenticated}"
                                        th:href="@{/auth/login}">Login / Register</a>
                                 </div>
                             </div>
@@ -121,11 +135,12 @@
                             </h2>
                             <a data-animation="fadeInUp" data-delay="500ms" th:if="${isAuthenticated}"
                                th:href="@{/generate}" th:text="#{navigation.generate-playlist}"
-                               class="btn oneMusic-btn mt-50">Discover
+                               class="btn oneMusic-btn mt-50">Generate playlist
                                 <i class="fa fa-angle-double-right"></i></a>
                             <a data-animation="fadeInUp" data-delay="500ms"
                                th:if="${!isAuthenticated}" th:text="#{navigation.register}"
-                               class="btn oneMusic-btn mt-50" href="#services">Register
+                               class="btn oneMusic-btn mt-50" th:href="@{/auth/login}" href="login.html">
+                                Register
                                 <i class="fa fa-angle-double-right"></i></a>
                         </div>
                     </div>
@@ -148,10 +163,13 @@
                             </h2>
                             <a data-animation="fadeInUp" data-delay="500ms" th:if="${isAuthenticated}"
                                th:href="@{/generate}" th:text="#{navigation.generate-playlist}"
-                               class="btn oneMusic-btn mt-50">Discover
+                               class="btn oneMusic-btn mt-50">
+                                Generate playlist
                                 <i class="fa fa-angle-double-right"></i></a>
                             <a data-animation="fadeInUp" data-delay="500ms"
-                               th:text="#{navigation.register}" class="btn oneMusic-btn mt-50" href="#services">Register
+                               th:text="#{navigation.register}" class="btn oneMusic-btn mt-50"
+                               th:if="${!isAuthenticated}" th:href="@{/auth/login}" href="login.html" >
+                                Register
                                 <i class="fa fa-angle-double-right"></i></a>
                         </div>
                     </div>
@@ -846,12 +864,12 @@
                         </li>
                         <li><a href="TripGenerate.html" th:if="${isAuthenticated}" th:href="@{/generate}"
                                th:text="#{navigation.generate-playlist}">Generate Playlist</a></li>
-                        <li><a href="MyPlaylist.html" th:href="@{/myplaylists}"
+                        <li><a href="MyPlaylist.html" th:if="${isAuthenticated}" th:href="@{/myplaylists}"
                                th:text="#{navigation.my-playlists}">My Playlists</a></li>
-                        <li><a href="SettingsUser.html" th:if="${isAuthenticated}" th:href="@{/settings}"
+                        <li><a href="SettingsUser.html" th:if="${isAuthenticated && !session.isAdmin}" th:href="@{/settings}"
                                th:text="#{navigation.settings}">Settings</a></li>
                         <li><a href="DashboardAdmin.html"
-                               th:href="@{/edit}" th:text="#{navigation.admin}">Settings
+                               th:href="@{/edit}" th:if="${isAuthenticated && session.isAdmin}" th:text="#{navigation.admin}">Settings
                         </a></li>
                     </ul>
                 </div>

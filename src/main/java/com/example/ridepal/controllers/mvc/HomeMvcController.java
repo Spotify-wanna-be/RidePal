@@ -55,29 +55,78 @@ public class HomeMvcController {
 
     @GetMapping
     public String showHomePage(Model model) {
-        // -- TODO method getHighestRankPlaylist() --
         List<Playlist> highestRankPlaylist = playlistService.getHighestRankPlaylist();
         model.addAttribute("highestRankPlaylist", highestRankPlaylist);
         List<Playlist> playlists = playlistService.getAll();
         model.addAttribute("playlists", playlists);
         return "index";
     }
+
+
+    @GetMapping("/settings")
+    public String showUserSettings(HttpSession session, Model model) {
+        User user;
+        try {
+            user = authenticationHelper.tryGetCurrentUser(session);
+            UpdateUserDto updateUserDto = new UpdateUserDto();
+            updateUserDto.setFirstName(user.getFirstName());
+            updateUserDto.setLastName(user.getLastName());
+            updateUserDto.setEmail(user.getEmail());
+            updateUserDto.setPassword(user.getPassword());
+            model.addAttribute("updateUser", updateUserDto);
+            model.addAttribute("currentUser", user);
+            return "SettingsUser";
+        } catch (AuthorizationException e) {
+
+            return "redirect:/auth/login";
+        }
+    }
+
+    @PostMapping("/settings/update")
+    public String updateUser(
+            @ModelAttribute("updateUser") UpdateUserDto updateUserDto,
+            BindingResult result,
+            HttpSession httpSession) {
+        User user;
+        try {
+            if (result.hasErrors()) {
+                return "SettingsUser";
+            }
+            user = authenticationHelper.tryGetCurrentUser(httpSession);
+            User userToUpdate = userMapper.fromDto(user.getId(), updateUserDto, user);
+            userService.updateUserV2(user, userToUpdate, updateUserDto);
+            return "redirect:/settings";
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (EntityDuplicateException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+        } catch (UnauthorizedOperationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
+    }
     @GetMapping("/edit")
-    public String showDashboard(HttpSession session) {
+    public String showDashboard(HttpSession session, Model model) {
         try {
             User user = authenticationHelper.tryGetCurrentUser(session);
             if (user.isAdmin()) {
+                UpdateUserDto updateUserDto = new UpdateUserDto();
+                updateUserDto.setFirstName(user.getFirstName());
+                updateUserDto.setLastName(user.getLastName());
+                updateUserDto.setEmail(user.getEmail());
+                updateUserDto.setPassword(user.getPassword());
+                model.addAttribute("updateAdmin", updateUserDto);
+                model.addAttribute("currentAdmin", user);
+
                 return "DashboardAdmin";
             }
             return "ErrorView";
         }
         catch (AuthorizationException e) {
-            // -- TODO --
-//            return "redirect:/auth/login";
-            return "DashboardAdmin";
+            return "redirect:/auth/login";
+
+
         }
     }
-
     @PostMapping("/edit")
     public String updateAdmin(
             @ModelAttribute("updateAdmin") UpdateUserDto updateUserDto,
@@ -86,12 +135,12 @@ public class HomeMvcController {
         User user;
         try {
             if (result.hasErrors()) {
-                return "DashboardAdmin";
+                return "ErrorView";
             }
             user = authenticationHelper.tryGetCurrentUser(httpSession);
             User userToUpdate = userMapper.fromDto(user.getId(), updateUserDto, user);
             userService.updateUserV2(user, userToUpdate, updateUserDto);
-            return "redirect:/edit";
+            return "redirect:edit";
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (EntityDuplicateException e) {

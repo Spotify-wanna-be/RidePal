@@ -66,7 +66,8 @@
                 <nav class="classy-navbar justify-content-between" id="oneMusicNav">
 
                     <!-- Nav brand -->
-                    <a href="index.html" class="nav-brand"><img th:src="@{/redMan/img/core-img/logo.png}" src="../static/redMan/img/core-img/logo.png" alt=""></a>
+                    <a href="index.html" class="nav-brand"><img th:src="@{/redMan/img/core-img/logo.png}"
+                                                                src="../static/redMan/img/core-img/logo.png" alt=""></a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -93,17 +94,21 @@
                                        th:text="#{navigation.generate-playlist}">Generate Playlist</a></li>
                                 <li><a href="MyPlaylist.html" th:href="@{/myplaylists}"
                                        th:text="#{navigation.my-playlists}">My Playlists</a></li>
-                                <li><a href="SettingsUser.html"  th:href="@{/settings}"
+                                <li><a href="SettingsUser.html"
+                                       th:if="${isAuthenticated && !session.isAdmin}" th:href="@{/settings}"
                                        th:text="#{navigation.settings}">Settings</a></li>
                                 <li><a href="DashboardAdmin.html"
-                                       th:href="@{/edit}" th:text="#{navigation.admin}">Admin Portal</a></li>
+                                       th:href="@{/edit}" th:if="${isAuthenticated && session.isAdmin}"
+                                       th:text="#{navigation.admin}">Settings
+                                </a></li>
                             </ul>
 
                             <!-- Login/Register & Cart Button -->
                             <div class="login-register-cart-button d-flex align-items-center">
                                 <!-- Login/Register -->
                                 <div class="login-register-btn mr-50">
-                                    <a th:href="@{/login}" th:text="#{navigation.login}"  href="../static/redMan/login.html" id="loginBtn">Login / Register</a>
+                                    <a th:href="@{/login}" th:text="#{navigation.login}"
+                                       href="../static/redMan/login.html" id="loginBtn">Login / Register</a>
                                 </div>
 
                             </div>
@@ -147,8 +152,10 @@
                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
                          data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="AllUsersView.html" th:text="#{table.users}" th:href="@{/users}">All users</a>
-                            <a class="nav-link" href="AllAdminsView.html" th:href="@{/users/admins}" th:text="#{table.admins}">Admins</a>
+                            <a class="nav-link" href="AllUsersView.html" th:text="#{table.users}" th:href="@{/users}">All
+                                users</a>
+                            <a class="nav-link" href="AllAdminsView.html" th:href="@{/users/admins}"
+                               th:text="#{table.admins}">Admins</a>
 
                         </nav>
                     </div>
@@ -232,9 +239,10 @@
                                th:text="#{navigation.generate-playlist}">Generate Playlist</a></li>
                         <li><a href="MyPlaylist.html" th:href="@{/myplaylists}"
                                th:text="#{navigation.my-playlists}">My Playlists</a></li>
-                        <li><a href="SettingsUser.html"  th:href="@{/settings}"
+                        <li><a href="SettingsUser.html" th:if="${isAuthenticated && !session.isAdmin}"
+                               th:href="@{/settings}"
                                th:text="#{navigation.settings}">Settings</a></li>
-                        <li><a href="DashboardAdmin.html"
+                        <li><a href="DashboardAdmin.html" th:if="${isAuthenticated && session.isAdmin}"
                                th:href="@{/edit}" th:text="#{navigation.admin}">Settings
                         </a></li>
 
@@ -268,7 +276,8 @@
 <!-- * *                               SB Forms JS                               * *-->
 <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-<script th:src="@{https://cdn.startbootstrap.com/sb-forms-latest.js}" src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+<script th:src="@{https://cdn.startbootstrap.com/sb-forms-latest.js}"
+        src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 </header>
 </body>
 

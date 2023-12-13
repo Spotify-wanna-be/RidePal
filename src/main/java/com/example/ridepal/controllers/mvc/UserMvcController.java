@@ -82,8 +82,7 @@ public class UserMvcController {
         try {
             authenticationHelper.tryGetCurrentUser(httpSession);
         } catch (AuthorizationException e) {
-//            return "redirect:/auth/login";
-            return "AllUsersView";
+            return "redirect:/auth/login";
         }
 
         try {
@@ -115,7 +114,8 @@ public class UserMvcController {
             model.addAttribute("users", users);
             return "AllAdminsView";
         } catch (UnauthorizedOperationException e) {
-            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("statusCode",
+                    HttpStatus.UNAUTHORIZED.getReasonPhrase());
             model.addAttribute("error", e.getMessage());
             return "ErrorView";
         } catch (EntityNotFoundException e) {

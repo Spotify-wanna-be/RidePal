@@ -89,15 +89,17 @@
                                 <li><a href="index.html" th:href="@{/}" th:text="#{navigation.home}">Home</a></li>
                                 <li><a href="BrowsePlaylists.html" th:href="@{/playlists}"
                                        th:text="#{navigation.browse-playlists}">Playlists</a></li>
-                                <li><a href="OurMissionPage.html" th:href="@{/about}" th:text="#{navigation.about}">About</a>
+                                <li><a href="OurMissionPage.html" th:href="@{/about}"
+                                       th:text="#{navigation.about}">About</a>
                                 </li>
                                 <li><a href="TripGenerate.html" th:if="${isAuthenticated}" th:href="@{/generate}"
                                        th:text="#{navigation.generate-playlist}">Generate Playlist</a></li>
                                 <li><a href="MyPlaylist.html" th:href="@{/myplaylists}"
                                        th:text="#{navigation.my-playlists}">My Playlists</a></li>
-                                <li><a href="SettingsUser.html" th:href="@{/settings}"
+                                <li><a href="SettingsUser.html" th:if="${isAuthenticated && !session.isAdmin}"
+                                       th:href="@{/settings}"
                                        th:text="#{navigation.settings}">Settings</a></li>
-                                <li><a href="DashboardAdmin.html"
+                                <li><a href="DashboardAdmin.html" th:if="${isAuthenticated && session.isAdmin}"
                                        th:href="@{/edit}" th:text="#{navigation.admin}">Admin Portal</a></li>
                             </ul>
 
@@ -182,75 +184,36 @@
 
                         <div class="row">
                             <div class="col-12">
-                                Register Form Area
+                                <!-- Register Form Area -->
                                 <div class="contact-form-area">
-                                    <form action="#" th:action="@{/edit}" th:object="${updateAdmin}" method="post">
+                                    <form action="#" method="post">
                                         <div class="row">
-                                            <div class="col-md-6 col-lg-4">
-                                                <div class="form-group wow fadeInUp" data-wow-delay="100ms">
-                                                    <label style="color: white;" th:text="#{user.label.first-name}">First
-                                                        Name</label>
-                                                    <input type="text" th:field="*{firstName}" class="form-control"
-                                                           id="name" placeholder="Name">
-                                                    <label style="color: red;" class="error" th:errors="*{firstName}">First
-                                                        name error placeholder</label>
+                                            <form th:action="@{/edit}" th:object="${updateAdmin}" action="#"
+                                                  method="post">
+                                                <div class="user-box">
+                                                    <label>First Name</label>
+                                                    <input th:field="*{firstName}" type="text" name="" required="">
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6 col-lg-4">
-                                                <div class="form-group wow fadeInUp" data-wow-delay="100ms">
-                                                    <label style="color: white;" th:text="#{user.label.last-name}">Last
-                                                        Name</label>
-
-                                                    <input type="text" th:field="*{lastName}" class="form-control"
-                                                           id="last_name"
-                                                           placeholder="Last name">
-                                                    <label style="color: red;" class="error" th:errors="*{lastName}">Last
-                                                        name error placeholder</label>
-
+                                                <div class="user-box">
+                                                    <label>Last Name</label>
+                                                    <input th:field="*{lastName}" type="text" name="" required="">
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6 col-lg-4">
-                                                <div class="form-group wow fadeInUp" data-wow-delay="200ms">
-                                                    <label style="color: white;"
-                                                           th:text="#{user.label.email}">Email</label>
-
-                                                    <input type="email" th:field="*{email}" class="form-control"
-                                                           id="email"
-                                                           placeholder="E-mail">
-                                                    <label style="color: red;" class="error" th:errors="*{email}">Email
-                                                        error placeholder</label>
-
+                                                <div class="user-box">
+                                                    <label>Email</label>
+                                                    <input th:field="*{email}" type="email" name="" required="">
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <div class="form-group wow fadeInUp" data-wow-delay="300ms">
-                                                    <label style="color: white;" th:text="#{user.label.username}">Username</label>
-
-                                                    <input type="text" th:field="*{username}" class="form-control"
-                                                           id="username"
-                                                           placeholder="Username">
-                                                    <label style="color: red;" class="error" th:errors="*{username}">Password
-                                                        error placeholder</label>
-
+                                                <div class="user-box">
+                                                    <label>Password</label>
+                                                    <input th:field="*{password}" type="password" name="" required="">
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <div class="form-group wow fadeInUp" data-wow-delay="300ms">
-                                                    <label style="color: white;" th:text="#{user.label.password}">Password</label>
-
-                                                    <input type="text" th:field="*{password}" class="form-control"
-                                                           id="password"
-                                                           placeholder="Password">
-                                                    <label style="color: red;" class="error" th:errors="*{password}">Password
-                                                        error placeholder</label>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">
-                                                <button class="btn oneMusic-btn mt-30" type="submit" th:href="@{/edit}">
-                                                    Update<i
-                                                        class="fa fa-angle-double-right"></i></button>
-                                            </div>
+                                                <button type="submit" value="Update">
+                                                    <span></span>
+                                                    <span></span>
+                                                    <span></span>
+                                                    <span></span>
+                                                    Update
+                                                </button>
+                                            </form>
                                         </div>
                                     </form>
                                 </div>
@@ -290,10 +253,12 @@
                                th:text="#{navigation.generate-playlist}">Generate Playlist</a></li>
                         <li><a href="MyPlaylist.html" th:href="@{/myplaylists}"
                                th:text="#{navigation.my-playlists}">My Playlists</a></li>
-                        <li><a href="SettingsUser.html" th:href="@{/settings}"
+                        <li><a href="SettingsUser.html" th:if="${isAuthenticated && !session.isAdmin}"
+                               th:href="@{/settings}"
                                th:text="#{navigation.settings}">Settings</a></li>
                         <li><a href="DashboardAdmin.html"
-                               th:href="@{/edit}" th:text="#{navigation.admin}">Settings
+                               th:href="@{/edit}" th:if="${isAuthenticated && session.isAdmin}"
+                               th:text="#{navigation.admin}">Settings
                         </a></li>
                     </ul>
                 </div>
