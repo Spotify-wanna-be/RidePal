@@ -40,7 +40,7 @@ public class PlaylistRepositoryImpl implements PlaylistRepository {
 
     public List<Playlist> getUsersPlaylists(User user){
         try (Session session = sessionFactory.openSession()) {
-            Query<Playlist> query = session.createQuery("FROM Playlist WHERE createdBy = :user");
+            Query<Playlist> query = session.createQuery("FROM Playlist WHERE createdBy = :user", Playlist.class);
             query.setParameter("user", user);
             List<Playlist> playlists = query.list();
             return playlists;
