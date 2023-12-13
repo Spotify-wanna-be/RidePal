@@ -24,10 +24,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Controller
@@ -227,6 +224,16 @@ public class HomeMvcController {
                 filterDto.getGenres(),
                 filterDto.getSortBy(),
                 filterDto.getSortOrder());
+
+        List<String> imageUrls = Arrays.asList(
+                "/static/redMan/img/bg-img/t1.jpg",
+                "/static/redMan/img/bg-img/fa.jpg",
+                "/static/redMan/img/bg-img/s1.jpg",
+                "/static/redMan/img/bg-img/pa1.jpg",
+                "/static/redMan/img/bg-img/pa2.jpg",
+                "/static/redMan/img/bg-img/fa3.jpg"
+        );
+
         try {
             authenticationHelper.tryGetCurrentUser(httpSession);
         } catch (AuthorizationException e) {
@@ -235,6 +242,7 @@ public class HomeMvcController {
         List<Playlist> playlists = playlistService.get(filterOptions);
         model.addAttribute("playlists", playlists);
         model.addAttribute("filterOptions", filterDto);
+        model.addAttribute("imageUrls", imageUrls);
         return "BrowsePlaylists";
     }
 
