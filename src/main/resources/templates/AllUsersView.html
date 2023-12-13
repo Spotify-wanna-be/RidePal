@@ -92,7 +92,7 @@
                                 </li>
                                 <li><a href="TripGenerate.html" th:if="${isAuthenticated}" th:href="@{/generate}"
                                        th:text="#{navigation.generate-playlist}">Generate Playlist</a></li>
-                                <li><a href="MyPlaylist.html" th:href="@{/myplaylists}"
+                                <li><a href="MyPlaylist.html" th:href="@{/users/myPlaylist}"
                                        th:text="#{navigation.my-playlists}">My Playlists</a></li>
                                 <li><a href="SettingsUser.html"
                                        th:if="${isAuthenticated && !session.isAdmin}" th:href="@{/settings}"

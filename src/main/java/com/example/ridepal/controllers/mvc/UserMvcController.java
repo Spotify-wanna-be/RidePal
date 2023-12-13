@@ -75,7 +75,7 @@ public class UserMvcController {
                 return "ErrorView";
             }
         }
-        return "redirect:/admins";
+        return "redirect:/users";
     }
     @GetMapping
     public String showUsers(Model model, HttpSession httpSession) {

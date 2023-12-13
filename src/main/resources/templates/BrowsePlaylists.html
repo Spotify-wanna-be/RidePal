@@ -142,13 +142,15 @@
 
             <div th:each="playlist: ${playlists}" class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item t c p">
                 <div class="single-album">
-                    <img th:src="${randomImageUrl}" alt="Random Image">
-                    <div class="album-info">
-                        <a href="#">
-                            <h5 th:text="${playlist.getName()}"></h5>
-                        </a>
-                        <p th:text="${playlist.getDuration()}"></p>
-                    </div>
+                    <a th:href="@{/playlists/{id}(id=${playlist.getId()})}" class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="100ms">
+                        <img th:src="${randomImageUrl}" alt="Random Image">
+                        <div class="album-info">
+                            <a href="#">
+                                <h5 th:text="${playlist.getName()}"></h5>
+                            </a>
+                            <p th:text="${playlist.getDuration()}"></p>
+                        </div>
+                    </a>
                 </div>
             </div>
 

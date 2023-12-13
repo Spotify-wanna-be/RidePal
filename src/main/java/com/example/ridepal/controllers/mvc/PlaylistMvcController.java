@@ -89,5 +89,24 @@ public class PlaylistMvcController {
         return "index";
     }
 
+    @GetMapping("/{id}")
+    public String showPlaylist(@PathVariable int id, Model model, HttpSession httpSession) {
+        User user;
+        try {
+            user = authenticationHelper.tryGetCurrentUser(httpSession);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/login";
+        }
+        try {
+            Playlist playlist = playlistService.getByPlaylistId(id);
+            model.addAttribute("tracks", playlist.getTracks());
+            model.addAttribute("playlist", playlist);
+            return "Playlist";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "ErrorView";
+        }
+    }
 
 }

@@ -70,14 +70,16 @@ public class PlaylistServiceImpl implements PlaylistService {
 
         for (Map.Entry<String, Integer> entry : genrePercentages.entrySet()) {
             String genre = entry.getKey();
-            int percentage = entry.getValue();
+            Integer percentage = entry.getValue();
+
+            int percentageValue = (percentage != null) ? percentage.intValue() : 0;
 
             if (tracksByGenre.containsKey(genre)) {
                 List<Track> genreTracks = tracksByGenre.get(genre);
                 Collections.shuffle(genreTracks);
 
                 int genreDuration = 0;
-                int targetGenreDuration = (int) ((percentage / 100.0) * travelDuration);
+                int targetGenreDuration = (int) ((percentageValue / 100.0) * travelDuration);
 
                 for (Track track : genreTracks) {
                     if (genreDuration + track.getDuration().toLocalTime().getSecond() + track.getDuration().toLocalTime().getMinute() * 60 <= targetGenreDuration) {
