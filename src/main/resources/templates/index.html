@@ -82,6 +82,8 @@
                                        th:text="#{navigation.settings}">Settings</a></li>
                                 <li><a href="DashboardAdmin.html" th:if="${isAuthenticated && session.isAdmin}"
                                        th:href="@{/edit}" th:text="#{navigation.admin}">Settings</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link"
+                                                        th:if="${isAuthenticated}" th:href="@{/auth/logout}">Logout</a></li>
                             </ul>
 
                             <!-- Login/Register & Cart Button -->
@@ -121,10 +123,10 @@
                             </h2>
                             <a data-animation="fadeInUp" data-delay="500ms" th:if="${isAuthenticated}"
                                th:href="@{/generate}" th:text="#{navigation.generate-playlist}"
-                               class="btn oneMusic-btn mt-50">Discover
+                               class="btn oneMusic-btn mt-50">Generate playlist
                                 <i class="fa fa-angle-double-right"></i></a>
                             <a data-animation="fadeInUp" data-delay="500ms"
-                               th:if="${!isAuthenticated}" th:text="#{navigation.register}"
+                               th:if="${!isAuthenticated}" th:href="@{/generate}" th:text="#{navigation.register}"
                                class="btn oneMusic-btn mt-50" href="#services">Register
                                 <i class="fa fa-angle-double-right"></i></a>
                         </div>

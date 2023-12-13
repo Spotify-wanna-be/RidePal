@@ -68,10 +68,10 @@ public class PlaylistRestController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/{name}")
     public void create(
             @RequestHeader HttpHeaders headers,
-            @RequestParam String name,
+            @PathVariable String name,
             @RequestBody Map<String, Integer> genrePercentages,
             @RequestParam String origin,
             @RequestParam String destination) {

@@ -5,20 +5,20 @@ import com.example.ridepal.exceptions.EntityDuplicateException;
 import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.exceptions.UnauthorizedOperationException;
 import com.example.ridepal.helpers.AuthenticationHelper;
+import com.example.ridepal.helpers.PlaylistMapper;
 import com.example.ridepal.helpers.UserMapper;
 import com.example.ridepal.models.*;
+import com.example.ridepal.service.GenreService;
 import com.example.ridepal.service.PlaylistService;
 import com.example.ridepal.service.UserService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -31,16 +31,20 @@ public class HomeMvcController {
     private final PlaylistService playlistService;
     private final UserService userService;
     private final UserMapper userMapper;
+    private final GenreService genreService;
+    private final PlaylistMapper playlistMapper;
 
     @Autowired
     public HomeMvcController(AuthenticationHelper authenticationHelper,
                              PlaylistService playlistService,
                              UserService userService,
-                             UserMapper userMapper) {
+                             UserMapper userMapper, GenreService genreService, PlaylistMapper playlistMapper) {
         this.authenticationHelper = authenticationHelper;
         this.playlistService = playlistService;
         this.userService = userService;
         this.userMapper = userMapper;
+        this.genreService = genreService;
+        this.playlistMapper = playlistMapper;
     }
 
     @GetMapping("/about")
@@ -77,6 +81,24 @@ public class HomeMvcController {
             return "DashboardAdmin";
         }
     }
+    @GetMapping("/generate")
+    public String showGenerate(HttpSession session, Model model) {
+        User user;
+        List<Genre> genres=genreService.getAll();
+        model.addAttribute("allGenre",genres);
+        try {
+            user = authenticationHelper.tryGetCurrentUser(session);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/login";
+        }
+        try {
+            return "TripGenerate";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "ErrorView";
+        }
+    }
 
     @PostMapping("/edit")
     public String updateAdmin(
@@ -98,6 +120,32 @@ public class HomeMvcController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         } catch (UnauthorizedOperationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
+    }
+    @PostMapping("/generate")
+    public  String generatePlaylist(@Valid @RequestParam("genrePercentage") int genrePercentage,
+                                    BindingResult result,
+                                    Model model,
+                                    HttpSession httpSession){
+        User user;
+        try {
+            user = authenticationHelper.tryGetCurrentUser(httpSession);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/login";
+        }
+        if (result.hasErrors()) {
+            return "TripGenerate";
+        }
+
+        try {
+//            playlistService.create(user,);
+            return "redirect:/posts";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "ErrorView";
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/login";
         }
     }
 }
