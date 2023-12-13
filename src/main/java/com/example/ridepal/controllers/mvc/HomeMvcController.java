@@ -12,6 +12,7 @@ import com.example.ridepal.models.*;
 import com.example.ridepal.service.GenreService;
 import com.example.ridepal.service.GenreService;
 import com.example.ridepal.service.PlaylistService;
+import com.example.ridepal.service.ThymeleafUtils;
 import com.example.ridepal.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -23,7 +24,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -34,19 +38,19 @@ public class HomeMvcController {
     private final UserService userService;
     private final UserMapper userMapper;
     private final GenreService genreService;
-    private final PlaylistMapper playlistMapper;
+    private final ThymeleafUtils thymeleafUtils;
 
     @Autowired
     public HomeMvcController(AuthenticationHelper authenticationHelper,
                              PlaylistService playlistService,
                              UserService userService,
-                             UserMapper userMapper, GenreService genreService, PlaylistMapper playlistMapper) {
+                             UserMapper userMapper, GenreService genreService, ThymeleafUtils thymeleafUtils) {
         this.authenticationHelper = authenticationHelper;
         this.playlistService = playlistService;
         this.userService = userService;
         this.userMapper = userMapper;
         this.genreService = genreService;
-        this.playlistMapper = playlistMapper;
+        this.thymeleafUtils = thymeleafUtils;
     }
 
     @GetMapping("/about")
@@ -137,8 +141,14 @@ public class HomeMvcController {
     @GetMapping("/generate")
     public String showGenerate(HttpSession session, Model model) {
         User user;
+        List<String> allGenres = new ArrayList<>();
         List<Genre> genres=genreService.getAll();
-        model.addAttribute("allGenre",genres);
+        for(Genre genre: genres){
+            allGenres.add(genre.getType());
+        }
+        model.addAttribute("allGenre",allGenres);
+        model.addAttribute("travelInfoForm", new TravelInfoForm());
+        model.addAttribute("thymeleafUtils", thymeleafUtils);
         try {
             user = authenticationHelper.tryGetCurrentUser(session);
         } catch (AuthorizationException e) {
@@ -176,11 +186,12 @@ public class HomeMvcController {
         }
     }
     @PostMapping("/generate")
-    public  String generatePlaylist(@Valid @RequestParam("genrePercentage") int genrePercentage,
+    public  String generatePlaylist(@Valid @ModelAttribute("travelInfo") TravelInfoForm travelInfoForm,
                                     BindingResult result,
                                     Model model,
                                     HttpSession httpSession){
         User user;
+        model.addAttribute("travelInfo", travelInfoForm);
         try {
             user = authenticationHelper.tryGetCurrentUser(httpSession);
         } catch (AuthorizationException e) {
@@ -191,8 +202,14 @@ public class HomeMvcController {
         }
 
         try {
-//            playlistService.create(user,);
-            return "redirect:/posts";
+            user = authenticationHelper.tryGetCurrentUser(httpSession);
+            String origin = travelInfoForm.getOrigin();
+            String destination = travelInfoForm.getDestination();
+            String name = travelInfoForm.getName();
+            Map<String, Integer> genrePercentageMap = travelInfoForm.getGenrePercentages();
+            
+            playlistService.create(name, user, genrePercentageMap, origin, destination);
+            return "redirect:/users/myPlaylist";
         } catch (EntityNotFoundException e) {
             model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
             model.addAttribute("error", e.getMessage());

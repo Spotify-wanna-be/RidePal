@@ -27,6 +27,14 @@
     <link rel="stylesheet" href="../static/redMan/css/owl.carousel.min.css"
           th:href="@{/redMan/css/owl.carousel.min.css}"/>
 
+    <script th:inline="javascript">
+        var thymeleafUtils = {
+            generateAttribute: function(genre) {
+                return /*[[@{'genrePercentages[\'' + genre + '\']'}]]*/ '';
+            }
+        };
+    </script>
+
 </head>
 
 <body>
@@ -125,79 +133,43 @@
                         <h5>Travel Information</h5>
                     </div>
                     <div class="contact-form-area">
-                        <form action="#" method="post">
+                        <form action="/generate" method="post" th:object="${travelInfoForm}" >
                             <div class="row">
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-group wow fadeInUp" data-wow-delay="100ms">
-                                        <input type="text" class="form-control" placeholder="From">
+                                        <input type="text" class="form-control" th:field="*{origin}" placeholder="From">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-group wow fadeInUp" data-wow-delay="100ms">
-                                        <input type="text" class="form-control" placeholder="To">
+                                        <input type="text" class="form-control" th:field="*{destination}" placeholder="To">
                                     </div>
                                 </div>
                             </div>
-                        </form>
-                        <div class="contact-title mb-50">
-                            <h5>Preferences</h5>
-                        </div>
-                        <div class="contact-form-area">
-                            <form action="#" method="post">
+                            <div class="contact-title mb-50">
+                                <h5>Preferences</h5>
+                            </div>
+                            <div class="contact-form-area">
                                 <div class="row">
                                     <div class="col-md-6 col-lg-4">
                                         <div class="form-group wow fadeInUp" data-wow-delay="100ms">
-                                            <input type="text" class="form-control" id="playlist" placeholder="Name">
+                                            <input type="text" class="form-control" th:field="*{name}" placeholder="Name">
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-4">
-
-                                        <div th:each="genre:${allGenre}" class="col-md-6 col-lg-4">
-                                            <label th:for="percentage" th:text="${genre.getType()}">Percentage:</label>
-                                            <input type="number" id="percentage" name="genrePercentage" required >
+                                        <div class="row" th:each="genre : ${allGenre}">
+                                            <div class="col-md-6 col-lg-4" th:with="attribute=${thymeleafUtils.generateAttribute(genre)}">
+                                                <label th:for="${'genre' + genre}" th:text="${'Enter ' + genre + ' Percentage:'}"></label>
+                                                <input type="number" th:id="${'genre' + genre}" th:attr="name=${attribute}" class="form-control" value="0">
+                                            </div>
                                         </div>
-                                        <!--                                        <div class="form-group wow fadeInUp" data-wow-delay="100ms">-->
-                                        <!--                                            <label>-->
-                                        <!--                                                <input type="checkbox" checked="checked"/> Metal-->
-                                        <!--                                            </label>-->
-                                        <!--                                        </div>-->
-                                        <!--                                        <div class="form-group wow fadeInUp" data-wow-delay="100ms">-->
-                                        <!--                                            <label>-->
-                                        <!--                                                <input type="checkbox" checked="checked"/> Rock-->
-                                        <!--                                            </label>-->
-                                        <!--                                        </div>-->
-                                        <!--                                        <div class="form-group wow fadeInUp" data-wow-delay="100ms">-->
-                                        <!--                                            <label>-->
-                                        <!--                                                <input type="checkbox" checked="checked"/> Pop-->
-                                        <!--                                            </label>-->
-                                        <!--                                        </div>-->
-                                        <!--                                        <div class="form-group wow fadeInUp" data-wow-delay="100ms">-->
-                                        <!--                                            <label>-->
-                                        <!--                                                <input type="checkbox" checked="checked"/> Dance-->
-                                        <!--                                            </label>-->
-                                        <!--                                        </div>-->
-                                    </div>
-                                    <div class="col-md-6 col-lg-4">
-                                        <div class="form-group wow fadeInUp" data-wow-delay="100ms">
-                                            <label>
-                                                <input type="checkbox" checked="checked"/> Use top tracks
-                                            </label>
-                                        </div>
-                                        <div class="form-group wow fadeInUp" data-wow-delay="100ms">
-                                            <label>
-                                                <input type="checkbox" checked="checked"/> Allow tracks from the same
-                                                artist
-                                            </label>
-                                        </div>
-
                                     </div>
                                 </div>
-                            </form>
-                        </div>
-                        <div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">
-                            <button class="btn oneMusic-btn mt-30" type="submit">Generate <i
-                                    class="fa fa-angle-double-right"></i></button>
-                        </div>
+                            </div>
+                            <div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">
+                                <button class="btn oneMusic-btn mt-30" type="submit">Generate <i class="fa fa-angle-double-right"></i></button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
