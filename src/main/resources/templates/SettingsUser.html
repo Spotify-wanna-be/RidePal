@@ -125,20 +125,20 @@
                         <div class="row">
                             <form th:action="@{/settings}" th:object="${currentUser}" action="#" method="post">
                             <div class="user-box">
+                                <label>First Name</label>
                                 <input th:field="*{firstName}" type="text" name="" required="">
-                                <label th:text="*{firstName}">First Name</label>
                             </div>
                             <div class="user-box">
+                                <label>Last Name</label>
                                 <input th:field="*{lastName}" type="text" name="" required="">
-                                <label th:text="*{lastName}">Last Name</label>
                             </div>
                             <div class="user-box">
+                                <label>Email</label>
                                 <input th:field="*{email}" type="email" name="" required="">
-                                <label th:text="*{email}">Email</label>
                             </div>
                             <div class="user-box">
-                                <input th:field="*{password}" type="password" name="" required="">
                                 <label>Password</label>
+                                <input th:field="*{password}" type="password" name="" required="">
                             </div>
                             <button type="submit" value="Update">
                                 <span></span>
