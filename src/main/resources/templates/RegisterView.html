@@ -2,201 +2,293 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="description" content="">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-  <!-- Title -->
-  <title>SpotifyWannaBe</title>
+    <!-- Title -->
+    <title>SpotifyWannaBe</title>
 
-  <!-- Favicon -->
-  <link rel="icon" href="../static/redMan/img/core-img/favicon.ico">
+    <!-- Favicon -->
+    <link rel="icon" href="../static/redMan/img/core-img/favicon.ico">
 
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="../static/redMan/style.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../static/redMan/style.css" th:href="@{/redMan/style.css}"/>
+    <link rel="stylesheet" href="../static/redMan/css/animate.css" th:href="@{/redMan/css/animate.css}"/>
+    <link rel="stylesheet" href="../static/redMan/css/audioplayer.css" th:href="@{/redMan/css/audioplayer.css}"/>
+    <link rel="stylesheet" href="../static/redMan/css/bootstrap.min.css" th:href="@{/redMan/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/redMan/css/classy-nav.css" th:href="@{/redMan/css/classy-nav.css}"/>
+    <link rel="stylesheet" href="../static/redMan/css/font-awesome.min.css"
+          th:href="@{/redMan/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" href="../static/redMan/css/magnific-popup.css" th:href="@{/redMan/css/magnific-popup.css}"/>
+    <link rel="stylesheet" href="../static/redMan/css/one-music-icon.css" th:href="@{/redMan/css/one-music-icon.css}"/>
+    <link rel="stylesheet" href="../static/redMan/css/owl.carousel.min.css"
+          th:href="@{/redMan/css/owl.carousel.min.css}"/>
 
 </head>
 <body>
 <!-- Preloader -->
 <div class="preloader d-flex align-items-center justify-content-center">
-  <div class="lds-ellipsis">
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
+    <div class="lds-ellipsis">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
 </div>
 
 <!-- ##### Header Area Start ##### -->
 <header class="header-area">
-  <!-- Navbar Area -->
-  <div class="oneMusic-main-menu">
-    <div class="classy-nav-container breakpoint-off">
-      <div class="container">
-        <!-- Menu -->
-        <nav class="classy-navbar justify-content-between" id="oneMusicNav">
+    <!-- Navbar Area -->
+    <div class="oneMusic-main-menu">
+        <div class="classy-nav-container breakpoint-off">
+            <div class="container">
+                <!-- Menu -->
+                <nav class="classy-navbar justify-content-between" id="oneMusicNav">
 
-          <!-- Nav brand -->
-          <a href="index.html" class="nav-brand"><img src="../static/redMan/img/core-img/logo.png" alt=""></a>
+                    <!-- Nav brand -->
+                    <a href="index.html" class="nav-brand"><img th:src="@{/redMan/img/core-img/logo.png}" alt=""></a>
 
-          <!-- Navbar Toggler -->
-          <div class="classy-navbar-toggler">
-            <span class="navbarToggler"><span></span><span></span><span></span></span>
-          </div>
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
 
-          <!-- Menu -->
-          <div class="classy-menu">
+                    <!-- Menu -->
+                    <div class="classy-menu">
 
-            <!-- Close Button -->
-            <div class="classycloseIcon">
-              <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        <!-- Close Button -->
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <ul>
+                                <li><a href="index.html" th:href="@{/}" th:text="#{navigation.home}">Home</a></li>
+                                <li><a href="BrowsePlaylists.html" th:href="@{/playlists}"
+                                       th:text="#{navigation.browse-playlists}">Playlists</a></li>
+                                <li><a href="OurMissionPage.html" th:href="@{/about}" th:text="#{navigation.about}">About</a>
+                                </li>
+                                <li><a href="TripGenerate.html" th:if="${isAuthenticated}" th:href="@{/generate}"
+                                       th:text="#{navigation.generate-playlist}">Generate Playlist</a></li>
+                                <li><a href="MyPlaylist.html" th:href="@{/users/myPlaylist}"
+                                       th:text="#{navigation.my-playlists}">My Playlists</a></li>
+                                <li><a href="SettingsUser.html" th:if="${isAuthenticated}" th:href="@{/users/update}"
+                                       th:text="#{navigation.settings}">Settings</a></li>
+                                <li><a href="DashboardAdmin.html" th:if="${isAuthenticated && session.isAdmin}"
+                                       th:href="@{/edit}" th:text="#{navigation.admin}">Settings</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link"
+                                                        th:if="${isAuthenticated}" th:href="@{/auth/logout}">Logout</a>
+                                </li>
+                            </ul>
+
+                            <!-- Login/Register & Cart Button -->
+                            <div class="login-register-cart-button d-flex align-items-center">
+                                <!-- Login/Register -->
+                                <div class="login-register-btn mr-50">
+                                    <a href="../static/redMan/login.html" id="loginBtn" th:unless="${isAuthenticated}"
+                                       th:href="@{/auth/login}">Login </a>
+                                    <a href="../static/redMan/RegisterView.html" id="register"
+                                       th:unless="${isAuthenticated}"
+                                       th:href="@{/auth/register}"> Register</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Nav End -->
+
+                    </div>
+                </nav>
             </div>
-
-            <!-- Nav Start -->
-            <div class="classynav">
-              <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="BrowsePlaylists.html">Playlists</a></li>
-                <li><a href="OurMissionPage.html">Our mission</a></li>
-                <li><a href="TripGenerate.html">Generate Playlist</a></li>
-                <li><a href="MyPlaylist.html">My Playlists</a></li>
-                <li><a href="SettingsUser.html">Settings</a></li>
-                <li><a href="DashboardAdmin.html">Settings</a></li>
-
-
-              </ul>
-
-              <!-- Login/Register & Cart Button -->
-              <div class="login-register-cart-button d-flex align-items-center">
-                <!-- Login/Register -->
-                <div class="login-register-btn mr-50">
-                  <a href="../static/redMan/login.html" id="loginBtn">Login / Register</a>
-                </div>
-
-              </div>
-            </div>
-
-            <!-- Nav End -->
-
-          </div>
-        </nav>
-      </div>
+        </div>
     </div>
-  </div>
 </header>
 <!-- ##### Header Area End ##### -->
 
-<section class="breadcumb-area bg-img bg-overlay"
-         style="background-image: url(../static/redMan/img/bg-img/bg-2.jpg);">
-  <div class="bradcumbContent">
-    <p>Register here </p>
-    <h2>When words leave off, music begins</h2>
-    <p>Hienrich Heine</p>
-  </div>
-</section>
+<!--<section class="breadcumb-area bg-img bg-overlay"-->
+<!--         style="background-image: url(../static/redMan/img/bg-img/bg-2.jpg);">-->
+<!--  <div class="bradcumbContent">-->
+<!--    <p>Register here </p>-->
+<!--    <h2>When words leave off, music begins</h2>-->
+<!--    <p>Hienrich Heine</p>-->
+<!--  </div>-->
+<!--</section>-->
 <!-- ##### Contact Area Start ##### -->
 <section class="contact-area section-padding-100 bg-img bg-overlay bg-fixed has-bg-img"
+         th:style="'background-image: url(' + @{/redMan/img/bg-img/bg-2.jpg} + ');'"
          style="background-image: url(../static/redMan/img/bg-img/bg-2.jpg);">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="section-heading white wow fadeInUp" data-wow-delay="100ms">
-          <h2>EDIT YOUR PROFILE </h2>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-12">
-        <!-- Register Form Area -->
-        <div class="contact-form-area">
-          <form action="#" method="post">
-            <div class="row">
-              <div class="col-md-6 col-lg-4">
-                <div class="form-group wow fadeInUp" data-wow-delay="100ms">
-                  <input type="text" class="form-control" id="name" placeholder="Name">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading white wow fadeInUp" data-wow-delay="100ms">
+                    <h2>REGISTER</h2>
                 </div>
-              </div>
-              <div class="col-md-6 col-lg-4">
-                <div class="form-group wow fadeInUp" data-wow-delay="100ms">
-                  <input type="text" class="form-control" id="last_name" placeholder="Last name">
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-4">
-                <div class="form-group wow fadeInUp" data-wow-delay="200ms">
-                  <input type="email" class="form-control" id="email" placeholder="E-mail">
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="form-group wow fadeInUp" data-wow-delay="300ms">
-                  <input type="text" class="form-control" id="username" placeholder="Username">
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="form-group wow fadeInUp" data-wow-delay="300ms">
-                  <input type="text" class="form-control" id="password" placeholder="Password">
-                </div>
-              </div>
-              <div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">
-                <button class="btn oneMusic-btn mt-30" type="submit">Update profile <i
-                        class="fa fa-angle-double-right"></i></button>
-              </div>
             </div>
-          </form>
         </div>
-      </div>
-    </div>
-  </div>
+
+        <div class="row">
+            <div class="col-12">
+                <!-- Register Form Area -->
+                <div class="contact-form-area">
+                    <form action="#" th:action="@{/auth/register}" th:object="${register}" method="post">
+                        <div class="text-center"><label style="color: white;"
+                                                        th:text="#{user.label.username}">Username</label></div>
+                        <br/>
+                        <div class="text-center"><input type="text" th:field="*{username}"
+                                                        style="border-radius: 10px;"/></div>
+                        <br/>
+                        <div class="text-center"><label style="color: red;" class="error" th:errors="*{username}">Username
+                            error placeholder</label></div>
+                        <br/><br/>
+
+                        <div class="text-center"><label style="color: white;"
+                                                        th:text="#{user.label.password}">Password</label></div>
+                        <br/>
+                        <div class="text-center"><input type="password" th:field="*{password}"
+                                                        style="border-radius: 10px;"/></div>
+                        <br/>
+                        <div class="text-center"><label style="color: red;" class="error" th:errors="*{password}">Password
+                            error placeholder</label></div>
+                        <br/><br/>
+
+                        <div class="text-center"><label style="color: white;" th:text="#{user.label.password-confirm}">Confirm
+                            Password</label></div>
+                        <br/>
+                        <div class="text-center"><input type="password" th:field="*{passwordConfirm}"
+                                                        style="border-radius: 10px;"/></div>
+                        <br/>
+                        <div class="text-center"><label style="color: red;" class="error"
+                                                        th:errors="*{passwordConfirm}">Password confirm error
+                            placeholder</label></div>
+                        <br/><br/>
+
+                        <div class="text-center"><label style="color: white;" th:text="#{user.label.first-name}">First
+                            Name</label></div>
+                        <br/>
+                        <div class="text-center"><input type="text" th:field="*{firstName}"
+                                                        style="border-radius: 10px;"/></div>
+                        <br/>
+                        <div class="text-center"><label style="color: red;" class="error" th:errors="*{firstName}">First
+                            name error placeholder</label></div>
+                        <br/><br/>
+
+                        <div class="text-center"><label style="color: white;" th:text="#{user.label.last-name}">Last
+                            Name</label></div>
+                        <br/>
+                        <div class="text-center"><input type="text" th:field="*{lastName}"
+                                                        style="border-radius: 10px;"/></div>
+                        <br/>
+                        <div class="text-center"><label style="color: red;" class="error" th:errors="*{lastName}">Last
+                            name
+                            error placeholder</label></div>
+                        <br/><br/>
+
+                        <div class="text-center"><label style="color: white;"
+                                                        th:text="#{user.label.email}">Email</label></div>
+                        <br/>
+                        <div class="text-center"><input type="text" th:field="*{email}" style="border-radius: 10px;"/>
+                        </div>
+                        <br/>
+                        <div class="text-center"><label style="color: red;" class="error" th:errors="*{email}">Email
+                            error
+                            placeholder</label></div>
+                        <br/><br/>
+                        <div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">
+                            <button class="btn oneMusic-btn mt-30" type="submit">Register <i
+                                    class="fa fa-angle-double-right"></i></button>
+                        </div>
+                            <!--          <form action="#" method="post">-->
+                            <!--            <div class="row">-->
+                            <!--              <div class="col-md-6 col-lg-4">-->
+                            <!--                <div class="form-group wow fadeInUp" data-wow-delay="100ms">-->
+                            <!--                  <input type="text" class="form-control" id="name" placeholder="Name">-->
+                            <!--                </div>-->
+                            <!--              </div>-->
+                            <!--              <div class="col-md-6 col-lg-4">-->
+                            <!--                <div class="form-group wow fadeInUp" data-wow-delay="100ms">-->
+                            <!--                  <input type="text" class="form-control" id="last_name" placeholder="Last name">-->
+                            <!--                </div>-->
+                            <!--              </div>-->
+                            <!--              <div class="col-md-6 col-lg-4">-->
+                            <!--                <div class="form-group wow fadeInUp" data-wow-delay="200ms">-->
+                            <!--                  <input type="email" class="form-control" id="email" placeholder="E-mail">-->
+                            <!--                </div>-->
+                            <!--              </div>-->
+                            <!--              <div class="col-lg-4">-->
+                            <!--                <div class="form-group wow fadeInUp" data-wow-delay="300ms">-->
+                            <!--                  <input type="text" class="form-control" id="username" placeholder="Username">-->
+                            <!--                </div>-->
+                            <!--              </div>-->
+                            <!--              <div class="col-lg-4">-->
+                            <!--                <div class="form-group wow fadeInUp" data-wow-delay="300ms">-->
+                            <!--                  <input type="text" class="form-control" id="password" placeholder="Password">-->
+                            <!--                </div>-->
+                            <!--              </div>-->
+                            <!--              <div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">-->
+                            <!--                <button class="btn oneMusic-btn mt-30" type="submit">Update profile <i-->
+                            <!--                        class="fa fa-angle-double-right"></i></button>-->
+                            <!--              </div>-->
+                            <!--            </div>-->
+                            <!--          </form>-->
+                        </div>
+                </div>
+            </div>
+        </div>
 </section>
 <!-- ##### Contact Area End ##### -->
 
 <!-- ##### Footer Area Start ##### -->
 <footer class="footer-area">
-  <div class="container">
-    <div class="row d-flex flex-wrap align-items-center">
-      <div class="col-12 col-md-6">
-        <a href="#"><img src="/static/redMan/img/core-img/logo.png" alt=""></a>
-        <p class="copywrite-text"><a href="#">
-          <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-          Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-          SpotifyWannaBe |
-          <i class="fa fa-heart-o" aria-hidden="true"></i>
-          <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-      </div>
+    <div class="container">
+        <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-12 col-md-6">
+                <a href="#"><img th:src="@{/redMan/img/core-img/logo.png}" alt=""></a>
+                <p class="copywrite-text"><a href="#">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                    SpotifyWannaBe |
+                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+            </div>
 
-      <div class="col-12 col-md-6">
-        <div class="footer-nav">
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Playlists</a></li>
-            <li><a href="#">Our mission</a></li>
-            <li><a href="#">Generate Playlist</a></li>
-            <li><a href="#">My playlists</a></li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Settings</a></li>
-
-          </ul>
+            <div class="col-12 col-md-6">
+                <div class="footer-nav">
+                    <ul>
+                        <li><a href="index.html" th:href="@{/}" th:text="#{navigation.home}">Home</a></li>
+                        <li><a href="BrowsePlaylists.html" th:href="@{/playlists}"
+                               th:text="#{navigation.browse-playlists}">Playlists</a></li>
+                        <li><a href="OurMissionPage.html" th:href="@{/about}" th:text="#{navigation.about}">About</a>
+                        </li>
+                        <li><a href="TripGenerate.html" th:if="${isAuthenticated}" th:href="@{/generate}"
+                               th:text="#{navigation.generate-playlist}">Generate Playlist</a></li>
+                        <li><a href="MyPlaylist.html" th:href="@{/myplaylists}"
+                               th:text="#{navigation.my-playlists}">My Playlists</a></li>
+                        <li><a href="SettingsUser.html" th:if="${isAuthenticated}" th:href="@{/settings}"
+                               th:text="#{navigation.settings}">Settings</a></li>
+                        <li><a href="DashboardAdmin.html"
+                               th:href="@{/edit}" th:text="#{navigation.admin}">Settings
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </footer>
 <!-- ##### Footer Area Start ##### -->
 
 <!-- ##### All Javascript Script ##### -->
 <!-- jQuery-2.2.4 js -->
-<!-- jQuery-2.2.4 js -->
-<script src="../static/redMan/js/jquery/jquery-2.2.4.min.js"></script>
+<script src="../static/redMan/js/jquery/jquery-2.2.4.min.js" th:src="@{/redMan/js/jquery/jquery-2.2.4.min.js}"></script>
 <!-- Popper js -->
-<script src="../static/redMan/js/bootstrap/popper.min.js"></script>
+<script src="../static/redMan/js/bootstrap/popper.min.js" th:src="@{/redMan/js/bootstrap/popper.min.js}"></script>
 <!-- Bootstrap js -->
-<script src="../static/redMan/js/bootstrap/bootstrap.min.js"></script>
+<script src="../static/redMan/js/bootstrap/bootstrap.min.js" th:src="@{/redMan/js/bootstrap/bootstrap.min.js}"></script>
 <!-- All Plugins js -->
-<script src="../static/redMan/js/plugins/plugins.js"></script>
+<script src="../static/redMan/js/plugins/plugins.js" th:src="@{/redMan/js/plugins/plugins.js}"></script>
 <!-- Active js -->
-<script src="../static/redMan/js/active.js"></script>
+<script src="../static/redMan/js/active.js" th:src="@{/redMan/js/active.js}"></script>
 </body>
 
 </html>

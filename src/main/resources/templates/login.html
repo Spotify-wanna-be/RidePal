@@ -62,7 +62,7 @@
                 <nav class="classy-navbar justify-content-between" id="oneMusicNav">
 
                     <!-- Nav brand -->
-                    <a href="index.html" class="nav-brand"><img src="../static/redMan/img/core-img/logo.png" alt=""></a>
+                    <a href="index.html" class="nav-brand"><img th:src="@{/redMan/img/core-img/logo.png}" src="../static/redMan/img/core-img/logo.png" alt=""></a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -80,6 +80,13 @@
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul>
+<!--                                <li><a href="index.html">Home</a></li>-->
+<!--                                <li><a href="BrowsePlaylists.html">Playlists</a></li>-->
+<!--                                <li><a href="OurMissionPage.html">Our mission</a></li>-->
+<!--                                <li><a href="TripGenerate.html">Generate Playlist</a></li>-->
+<!--                                <li><a href="MyPlaylist.html">My Playlists</a></li>-->
+<!--                                <li><a href="SettingsUser.html">Settings</a></li>-->
+<!--                                <li><a href="SettingsAdmin.html">Settings</a></li>-->
                                 <li><a href="index.html" th:href="@{/}" th:text="#{navigation.home}">Home</a></li>
                                 <li><a href="BrowsePlaylists.html" th:href="@{/playlists}"
                                        th:text="#{navigation.browse-playlists}">Playlists</a></li>
@@ -99,7 +106,7 @@
                             <div class="login-register-cart-button d-flex align-items-center">
                                 <!-- Login/Register -->
                                 <div class="login-register-btn mr-50">
-                                    <a href="../static/redMan/login.html" id="loginBtn" th:unless="${isAuthenticated}"
+                                    <a  href="../static/redMan/login.html" id="loginBtn" th:unless="${isAuthenticated}"
                                        th:href="@{/auth/login}">Login / Register</a>
                                 </div>
 
@@ -118,7 +125,7 @@
 
 <!-- ##### Breadcumb Area Start ##### -->
 <section class="breadcumb-area bg-img bg-overlay"
-         th:style="'background-image: url(' + @{/redMan/img/bg-img/bg-2.jpg} + ');'"
+         th:style="'background-image: url(' + @{/redMan/img/bg-img/breadcumb.jpg} + ');'"
          style="background-image: url(../static/redMan/img/bg-img/breadcumb.jpg);">
     <div class="bradcumbContent">
         <p>See what’s new</p>
@@ -159,61 +166,61 @@
     </div>
 </section>
 <!-- ##### Login Area End ##### -->
-<section class="contact-area section-padding-100 bg-img bg-overlay bg-fixed has-bg-img"
-         th:style="'background-image: url(' + @{/redMan/img/bg-img/bg-2.jpg} + ');'"
-         style="background-image: url(../static/redMan/img/bg-img/bg-2.jpg);">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-heading white wow fadeInUp" data-wow-delay="100ms">
-                    <p>If you don't have account</p>
-                    <h2>Register </h2>
-                </div>
-            </div>
-        </div>
+<!--<section class="contact-area section-padding-100 bg-img bg-overlay bg-fixed has-bg-img"-->
+<!--         th:style="'background-image: url(' + @{/redMan/img/bg-img/bg-2.jpg} + ');'"-->
+<!--         style="background-image: url(../static/redMan/img/bg-img/bg-2.jpg);">-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-12">-->
+<!--                <div class="section-heading white wow fadeInUp" data-wow-delay="100ms">-->
+<!--                    <p>If you don't have account</p>-->
+<!--                    <h2>Register </h2>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 
-        <div class="row">
-            <div class="col-12">
-                <!-- Contact Form Area -->
-                <div class="contact-form-area">
-                    <form action="#" method="post">
-                        <div class="row">
-                            <div class="col-md-6 col-lg-4">
-                                <div class="form-group wow fadeInUp" data-wow-delay="100ms">
-                                    <input type="text" class="form-control" id="name" placeholder="Name">
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4">
-                                <div class="form-group wow fadeInUp" data-wow-delay="100ms">
-                                    <input type="text" class="form-control" id="last_name" placeholder="Last name">
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4">
-                                <div class="form-group wow fadeInUp" data-wow-delay="200ms">
-                                    <input type="email" class="form-control" id="email" placeholder="E-mail">
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form-group wow fadeInUp" data-wow-delay="300ms">
-                                    <input type="text" class="form-control" id="username" placeholder="Username">
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form-group wow fadeInUp" data-wow-delay="300ms">
-                                    <input type="text" class="form-control" id="password" placeholder="Password">
-                                </div>
-                            </div>
-                            <div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">
-                                <button class="btn oneMusic-btn mt-30" type="submit">Register <i
-                                        class="fa fa-angle-double-right"></i></button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<!--        <div class="row">-->
+<!--            <div class="col-12">-->
+<!--                &lt;!&ndash; Contact Form Area &ndash;&gt;-->
+<!--                <div class="contact-form-area">-->
+<!--                    <form action="#" method="post">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-6 col-lg-4">-->
+<!--                                <div class="form-group wow fadeInUp" data-wow-delay="100ms">-->
+<!--                                    <input type="text" class="form-control" id="name" placeholder="Name">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-6 col-lg-4">-->
+<!--                                <div class="form-group wow fadeInUp" data-wow-delay="100ms">-->
+<!--                                    <input type="text" class="form-control" id="last_name" placeholder="Last name">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-6 col-lg-4">-->
+<!--                                <div class="form-group wow fadeInUp" data-wow-delay="200ms">-->
+<!--                                    <input type="email" class="form-control" id="email" placeholder="E-mail">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-lg-4">-->
+<!--                                <div class="form-group wow fadeInUp" data-wow-delay="300ms">-->
+<!--                                    <input type="text" class="form-control" id="username" placeholder="Username">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-lg-4">-->
+<!--                                <div class="form-group wow fadeInUp" data-wow-delay="300ms">-->
+<!--                                    <input type="text" class="form-control" id="password" placeholder="Password">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">-->
+<!--                                <button class="btn oneMusic-btn mt-30" type="submit">Register <i-->
+<!--                                        class="fa fa-angle-double-right"></i></button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
 
 <!-- ##### Footer Area Start ##### -->
 <footer class="footer-area">

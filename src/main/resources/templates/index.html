@@ -104,7 +104,9 @@
                                 <!-- Login/Register -->
                                 <div class="login-register-btn mr-50">
                                     <a  href="../static/redMan/login.html" id="loginBtn" th:unless="${isAuthenticated}"
-                                       th:href="@{/auth/login}">Login / Register</a>
+                                       th:href="@{/auth/login}">Login </a>
+                                    <a href="../static/redMan/RegisterView.html" id="register" th:unless="${isAuthenticated}"
+                                       th:href="@{/auth/register}"> Register</a>
                                 </div>
                             </div>
                         </div>
@@ -741,7 +743,7 @@
                         energy and dynamism.</p>
                     <div class="song-play-area">
                         <div class="song-name">
-                            <p>Blinding Lights The Weeknd</p>
+                            <p>Blinding Lights The Weekend</p>
                         </div>
                         <audio preload="auto" controls>
                             <source th:src="@{/redMan/audio/blinding-light-weeknd.mp3}"
