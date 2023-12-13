@@ -5,6 +5,8 @@ import com.example.ridepal.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class GenreServiceImpl implements GenreService{
     private final GenreRepository genreRepository;
@@ -21,4 +23,6 @@ public class GenreServiceImpl implements GenreService{
     public void create(Genre genre){
         genreRepository.create(genre);
     }
+    public List<Genre> getAll()
+    {return genreRepository.getAll();}
 }
