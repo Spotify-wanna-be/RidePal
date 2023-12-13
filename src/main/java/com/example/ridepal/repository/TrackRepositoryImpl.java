@@ -65,7 +65,7 @@ public class TrackRepositoryImpl implements TrackRepository {
     public List<Track> getBestRanked() {
         try (Session session = sessionFactory.openSession()) {
             Query<Track> query = session.createQuery("FROM Track ORDER BY rank asc", Track.class);
-            query.setMaxResults(10);
+            query.setMaxResults(5);
             return query.list();
         }
     }

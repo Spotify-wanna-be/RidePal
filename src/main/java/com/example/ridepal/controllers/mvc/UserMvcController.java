@@ -132,7 +132,7 @@ public class UserMvcController {
             return "MyPlaylist";
 
         } catch (AuthorizationException e) {
-            return "redirect:/auth/login";
+            return "MyPlaylist";
         }
     }
 
