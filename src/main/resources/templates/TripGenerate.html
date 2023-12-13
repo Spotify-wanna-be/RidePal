@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -12,7 +12,7 @@
     <title>SpotifyWannaBe</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="../static/redMan/img/core-img/favicon.ico">
+    <link rel="icon" href="../static/redMan/img/core-img/favicon.ico" th:href="@{/redMan/img/core-img/favicon.ico}">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="../static/redMan/style.css" th:href="@{/redMan/style.css}"/>
@@ -77,28 +77,46 @@
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul>
-                                <li><a href="index.html" th:href="@{/}" th:text="#{navigation.home}">Home</a></li>
-                                <li><a href="BrowsePlaylists.html" th:href="@{/playlists}"
-                                       th:text="#{navigation.browse-playlists}">Playlists</a></li>
-                                <li><a href="OurMissionPage.html" th:href="@{/about}" th:text="#{navigation.about}">About</a>
-                                </li>
-                                <li><a href="TripGenerate.html" th:if="${isAuthenticated}" th:href="@{/generate}"
-                                       th:text="#{navigation.generate-playlist}">Generate Playlist</a></li>
-                                <li><a href="MyPlaylist.html" th:if="${isAuthenticated}" th:href="@{/myplaylists}"
-                                       th:text="#{navigation.my-playlists}">My Playlists</a></li>
-                                <li><a href="SettingsUser.html" th:if="${isAuthenticated && !session.isAdmin}" th:href="@{/settings}"
-                                       th:text="#{navigation.settings}">Settings</a></li>
-                                <li><a href="DashboardAdmin.html"
-                                       th:href="@{/edit}" th:if="${isAuthenticated && session.isAdmin}" th:text="#{navigation.admin}">Settings
+                                <li><a href="index.html" th:href="@{/}" th:text="#{navigation.home}">Home
                                 </a></li>
 
+                                <li><a href="BrowsePlaylists.html" th:href="@{/browse}"
+                                       th:text="#{navigation.browse-playlists}">Playlists
+                                </a></li>
+
+                                <li><a href="OurMissionPage.html" th:href="@{/about}"
+                                       th:text="#{navigation.about}">About
+                                </a></li>
+
+                                <li><a href="TripGenerate.html" th:if="${isAuthenticated}" th:href="@{/generate}"
+                                       th:text="#{navigation.generate-playlist}">Generate Playlist
+                                </a></li>
+
+                                <li><a href="MyPlaylist.html" th:if="${isAuthenticated}" th:href="@{/users/myPlaylist}"
+                                       th:text="#{navigation.my-playlists}">My Playlists
+                                </a></li>
+
+                                <li><a href="SettingsUser.html" th:if="${isAuthenticated && !session.isAdmin}"
+                                       th:href="@{/users/update}"
+                                       th:text="#{navigation.settings}">Settings
+                                </a></li>
+
+                                <li><a href="DashboardAdmin.html" th:if="${isAuthenticated && session.isAdmin}"
+                                       th:href="@{/edit}" th:text="#{navigation.admin}">Settings</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link"
+                                                        th:if="${isAuthenticated}" th:href="@{/auth/logout}">Logout</a>
+                                </li>
                             </ul>
 
                             <!-- Login/Register & Cart Button -->
                             <div class="login-register-cart-button d-flex align-items-center">
                                 <!-- Login/Register -->
                                 <div class="login-register-btn mr-50">
-                                    <a href="login.html" id="loginBtn">Login / Register</a>
+                                    <a href="../static/redMan/login.html" id="loginBtn" th:unless="${isAuthenticated}"
+                                       th:href="@{/auth/login}">Login </a>
+                                    <a href="../static/redMan/RegisterView.html" id="register"
+                                       th:unless="${isAuthenticated}"
+                                       th:href="@{/auth/register}">/ Register</a>
                                 </div>
                             </div>
                         </div>
@@ -114,6 +132,8 @@
 
 <!-- ##### Breadcumb Area Start ##### -->
 <section class="breadcumb-area bg-img bg-overlay"
+         th:style="'background-image: url(' + @{/redMan/img/bg-img/breadcumb3.jpg} + ');'"
+
          style="background-image: url(../static/redMan/img/bg-img/breadcumb.jpg);">
     <div class="bradcumbContent">
         <p>Generate</p>
@@ -189,60 +209,62 @@
 <!-- ##### Contact Area End ##### -->
 
 <!-- ##### Contact Area Start ##### -->
-<section class="contact-area section-padding-100 bg-img bg-overlay bg-fixed has-bg-img"
-         style="background-image: url(../static/redMan/img/bg-img/bg-2.jpg);">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-heading white wow fadeInUp" data-wow-delay="100ms">
-                    <p>Get In Touch</p>
-                    <h2>Register </h2>
-                </div>
-            </div>
-        </div>
+<!--<section class="contact-area section-padding-100 bg-img bg-overlay bg-fixed has-bg-img"-->
+<!--         th:style="'background-image: url(' + @{/redMan/img/bg-img/bg-2.jpg} + ');'"-->
 
-        <div class="row">
-            <div class="col-12">
-                <!-- Contact Form Area -->
-                <div class="contact-form-area">
-                    <form action="#" method="post">
-                        <div class="row">
-                            <div class="col-md-6 col-lg-4">
-                                <div class="form-group wow fadeInUp" data-wow-delay="100ms">
-                                    <input type="text" class="form-control" id="name" placeholder="Name">
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4">
-                                <div class="form-group wow fadeInUp" data-wow-delay="100ms">
-                                    <input type="text" class="form-control" id="last_name" placeholder="Last name">
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4">
-                                <div class="form-group wow fadeInUp" data-wow-delay="200ms">
-                                    <input type="email" class="form-control" id="email" placeholder="E-mail">
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form-group wow fadeInUp" data-wow-delay="300ms">
-                                    <input type="text" class="form-control" id="username" placeholder="Username">
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form-group wow fadeInUp" data-wow-delay="300ms">
-                                    <input type="text" class="form-control" id="password" placeholder="Password">
-                                </div>
-                            </div>
-                            <div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">
-                                <button class="btn oneMusic-btn mt-30" type="submit">Register <i
-                                        class="fa fa-angle-double-right"></i></button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<!--         style="background-image: url(../static/redMan/img/bg-img/bg-2.jpg);">-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-12">-->
+<!--                <div class="section-heading white wow fadeInUp" data-wow-delay="100ms">-->
+<!--                    <p>Get In Touch</p>-->
+<!--                    <h2>Register </h2>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="row">-->
+<!--            <div class="col-12">-->
+<!--                &lt;!&ndash; Contact Form Area &ndash;&gt;-->
+<!--                <div class="contact-form-area">-->
+<!--                    <form action="#" method="post">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-6 col-lg-4">-->
+<!--                                <div class="form-group wow fadeInUp" data-wow-delay="100ms">-->
+<!--                                    <input type="text" class="form-control" id="name" placeholder="Name">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-6 col-lg-4">-->
+<!--                                <div class="form-group wow fadeInUp" data-wow-delay="100ms">-->
+<!--                                    <input type="text" class="form-control" id="last_name" placeholder="Last name">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-6 col-lg-4">-->
+<!--                                <div class="form-group wow fadeInUp" data-wow-delay="200ms">-->
+<!--                                    <input type="email" class="form-control" id="email" placeholder="E-mail">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-lg-4">-->
+<!--                                <div class="form-group wow fadeInUp" data-wow-delay="300ms">-->
+<!--                                    <input type="text" class="form-control" id="username" placeholder="Username">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-lg-4">-->
+<!--                                <div class="form-group wow fadeInUp" data-wow-delay="300ms">-->
+<!--                                    <input type="text" class="form-control" id="password" placeholder="Password">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">-->
+<!--                                <button class="btn oneMusic-btn mt-30" type="submit">Register <i-->
+<!--                                        class="fa fa-angle-double-right"></i></button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
 <!-- ##### Contact Area End ##### -->
 
 <!-- ##### Footer Area Start ##### -->
@@ -269,13 +291,14 @@
                         </li>
                         <li><a href="TripGenerate.html" th:if="${isAuthenticated}" th:href="@{/generate}"
                                th:text="#{navigation.generate-playlist}">Generate Playlist</a></li>
-                        <li><a href="MyPlaylist.html" th:if="${isAuthenticated}" th:href="@{/myplaylists}"
+                        <li><a href="MyPlaylist.html" th:if="${isAuthenticated}" th:href="@{/myPlaylists}"
                                th:text="#{navigation.my-playlists}">My Playlists</a></li>
-                        <li><a href="SettingsUser.html" th:if="${isAuthenticated && !session.isAdmin}" th:href="@{/settings}"
+                        <li><a href="SettingsUser.html" th:if="${isAuthenticated && !session.isAdmin}"
+                               th:href="@{/settings}"
                                th:text="#{navigation.settings}">Settings</a></li>
                         <li><a href="DashboardAdmin.html"
-                               th:href="@{/edit}" th:if="${isAuthenticated && session.isAdmin}" th:text="#{navigation.admin}">Settings
-                        </a></li>
+                               th:href="@{/edit}" th:if="${isAuthenticated && session.isAdmin}"
+                               th:text="#{navigation.admin}">Settings
                     </ul>
                 </div>
             </div>

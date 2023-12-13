@@ -101,16 +101,21 @@
                                        th:text="#{navigation.settings}">Settings</a></li>
                                 <li><a href="DashboardAdmin.html" th:if="${isAuthenticated && session.isAdmin}"
                                        th:href="@{/edit}" th:text="#{navigation.admin}">Admin Portal</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link"
+                                                        th:if="${isAuthenticated}" th:href="@{/auth/logout}">Logout</a>
+                                </li>
                             </ul>
 
                             <!-- Login/Register & Cart Button -->
                             <div class="login-register-cart-button d-flex align-items-center">
                                 <!-- Login/Register -->
                                 <div class="login-register-btn mr-50">
-                                    <a th:href="@{/login}" th:text="#{navigation.login}"
-                                       href="../static/redMan/login.html" id="loginBtn">Login / Register</a>
+                                    <a href="../static/redMan/login.html" id="loginBtn" th:unless="${isAuthenticated}"
+                                       th:href="@{/auth/login}">Login </a>
+                                    <a href="../static/redMan/RegisterView.html" id="register"
+                                       th:unless="${isAuthenticated}"
+                                       th:href="@{/auth/register}">/ Register</a>
                                 </div>
-
                             </div>
                         </div>
 
@@ -187,32 +192,34 @@
                                 <!-- Register Form Area -->
                                 <div class="contact-form-area">
                                     <form action="#" method="post">
-                                        <div class="row">
+                                        <div class="row align-items-center">
                                             <form th:action="@{/edit}" th:object="${updateAdmin}" action="#"
                                                   method="post">
-                                                <div class="user-box">
+                                                <div class="user-box text-white-50 text-center">
                                                     <label>First Name</label>
-                                                    <input th:field="*{firstName}" type="text" name="" required="">
+                                                    <input th:field="*{firstName}" style="border-radius: 10px;" type="text" name="" required="">
                                                 </div>
-                                                <div class="user-box">
+                                                <div class="user-box text-white-50 text-center">
                                                     <label>Last Name</label>
-                                                    <input th:field="*{lastName}" type="text" name="" required="">
+                                                    <input th:field="*{lastName}" style="border-radius: 10px;" type="text" name="" required="">
                                                 </div>
-                                                <div class="user-box">
-                                                    <label>Email</label>
-                                                    <input th:field="*{email}" type="email" name="" required="">
+                                                <div class="user-box text-white-50 text-center">
+                                                    <label>Your email</label>
+                                                    <input th:field="*{email}" style="border-radius: 10px;" type="email" name="" required="">
                                                 </div>
-                                                <div class="user-box">
+                                                <div class="user-box text-white-50 text-center">
                                                     <label>Password</label>
-                                                    <input th:field="*{password}" type="password" name="" required="">
+                                                    <input th:field="*{password}" style="border-radius: 10px;" type="password" name="" required="">
                                                 </div>
-                                                <button type="submit" value="Update">
-                                                    <span></span>
-                                                    <span></span>
-                                                    <span></span>
-                                                    <span></span>
-                                                    Update
-                                                </button>
+                                                <div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">
+                                                    <button class="btn oneMusic-btn mt-30" type="submit" value="Update">
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                        Update
+                                                        <i class="fa fa-angle-double-right"></i></button>
+                                                </div>
                                             </form>
                                         </div>
                                     </form>
@@ -244,22 +251,32 @@
             <div class="col-12 col-md-6">
                 <div class="footer-nav">
                     <ul>
-                        <li><a href="index.html" th:href="@{/}" th:text="#{navigation.home}">Home</a></li>
-                        <li><a href="BrowsePlaylists.html" th:href="@{/playlists}"
-                               th:text="#{navigation.browse-playlists}">Playlists</a></li>
-                        <li><a href="OurMissionPage.html" th:href="@{/about}" th:text="#{navigation.about}">About</a>
-                        </li>
-                        <li><a href="TripGenerate.html" th:if="${isAuthenticated}" th:href="@{/generate}"
-                               th:text="#{navigation.generate-playlist}">Generate Playlist</a></li>
-                        <li><a href="MyPlaylist.html" th:href="@{/myplaylists}"
-                               th:text="#{navigation.my-playlists}">My Playlists</a></li>
-                        <li><a href="SettingsUser.html" th:if="${isAuthenticated && !session.isAdmin}"
-                               th:href="@{/settings}"
-                               th:text="#{navigation.settings}">Settings</a></li>
-                        <li><a href="DashboardAdmin.html"
-                               th:href="@{/edit}" th:if="${isAuthenticated && session.isAdmin}"
-                               th:text="#{navigation.admin}">Settings
+                        <li><a href="index.html" th:href="@{/}" th:text="#{navigation.home}">Home
                         </a></li>
+
+                        <li><a href="BrowsePlaylists.html" th:href="@{/browse}"
+                               th:text="#{navigation.browse-playlists}">Playlists
+                        </a></li>
+
+                        <li><a href="OurMissionPage.html" th:href="@{/about}"
+                               th:text="#{navigation.about}">About
+                        </a></li>
+
+                        <li><a href="TripGenerate.html" th:if="${isAuthenticated}" th:href="@{/generate}"
+                               th:text="#{navigation.generate-playlist}">Generate Playlist
+                        </a></li>
+
+                        <li><a href="MyPlaylist.html" th:if="${isAuthenticated}" th:href="@{/users/myPlaylist}"
+                               th:text="#{navigation.my-playlists}">My Playlists
+                        </a></li>
+
+                        <li><a href="SettingsUser.html" th:if="${isAuthenticated && !session.isAdmin}"
+                               th:href="@{/users/update}"
+                               th:text="#{navigation.settings}">Settings
+                        </a></li>
+
+                        <li><a href="DashboardAdmin.html" th:if="${isAuthenticated && session.isAdmin}"
+                               th:href="@{/edit}" th:text="#{navigation.admin}">Settings</a></li>
                     </ul>
                 </div>
             </div>
