@@ -81,7 +81,7 @@
                             <div class="login-register-cart-button d-flex align-items-center">
                                 <!-- Login/Register -->
                                 <div class="login-register-btn mr-50">
-                                    <a href="../static/redMan/login.html" id="loginBtn">Login / Register</a>
+                                    <a th:href="@{/auth/login.html}" id="loginBtn">Login / Register</a>
                                 </div>
 
                             </div>
@@ -117,13 +117,12 @@
                     <p>See what’s best</p>
                     <h2>The Best Hits</h2>
                 </div>
-                <div th:if="${bestTracks != null and not #lists.isEmpty(bestTracks)}">
+                <div th:if="${bestTracks != null}">
                     <div th:each="track : ${bestTracks}" class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="100ms">
                         <div class="first-part d-flex align-items-center">
                             <div class="content-">
-                                <!-- Directly access properties -->
-                                <h6 th:text="${track.artist}"></h6>
-                                <p th:text="${track.title}"></p>
+                                <h6 th:text="${track.getArtist().getName()}"></h6>
+                                <p th:text="${track.getTitle()}"></p>
                             </div>
                         </div>
                     </div>

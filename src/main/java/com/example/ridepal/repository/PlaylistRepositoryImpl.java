@@ -51,6 +51,7 @@ public class PlaylistRepositoryImpl implements PlaylistRepository {
     public List<Playlist> getHighestRank(){
         try (Session session = sessionFactory.openSession()) {
             Query<Playlist> query = session.createQuery("FROM Playlist ORDER BY rank DESC", Playlist.class);
+            query.setMaxResults(3);
             return query.list();
         }
     }
