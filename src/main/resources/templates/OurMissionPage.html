@@ -68,14 +68,19 @@
                         <div class="classynav">
                             <ul>
                                 <li><a href="index.html" th:href="@{/}" th:text="#{navigation.home}">Home</a></li>
-                                <li><a href="BrowsePlaylists.html" th:href="@{/playlists}" th:text="#{navigation.browse-playlists}">Playlists</a></li>
-                                <li><a href="OurMissionPage.html" th:href="@{/about}" th:text="#{navigation.about}">About</a></li>
-                                <li><a href="TripGenerate.html" th:if="${isAuthenticated}" th:href="@{/generate}" th:text="#{navigation.generate-playlist}">Generate Playlist</a></li>
-                                <li><a href="MyPlaylist.html" th:href="@{/users/myPlaylist}" th:text="#{navigation.my-playlists}">My Playlists</a></li>
-                                <li><a href="SettingsUser.html" th:if="${isAuthenticated}" th:href="@{/users/update}" th:text="#{navigation.settings}">Settings</a></li>
-                                <li><a href="SettingsAdmin.html" th:if="${isAuthenticated && session.isAdmin}" th:href="@{/adminportal}" th:text="#{navigation.admin}">Settings</a></li>
-
-
+                                <li><a href="BrowsePlaylists.html" th:href="@{/playlists}"
+                                       th:text="#{navigation.browse-playlists}">Playlists</a></li>
+                                <li><a href="OurMissionPage.html" th:href="@{/about}" th:text="#{navigation.about}">About</a>
+                                </li>
+                                <li><a href="TripGenerate.html" th:if="${isAuthenticated}" th:href="@{/generate}"
+                                       th:text="#{navigation.generate-playlist}">Generate Playlist</a></li>
+                                <li><a href="MyPlaylist.html" th:href="@{/myplaylists}"
+                                       th:text="#{navigation.my-playlists}">My Playlists</a></li>
+                                <li><a href="SettingsUser.html"  th:href="@{/settings}"
+                                       th:text="#{navigation.settings}">Settings</a></li>
+                                <li><a href="DashboardAdmin.html"
+                                       th:href="@{/edit}" th:text="#{navigation.admin}">Settings
+                                </a></li>
                             </ul>
 
                             <!-- Login/Register & Cart Button -->
@@ -97,7 +102,9 @@
 <!-- ##### Header Area End ##### -->
 
 <!-- ##### Breadcumb Area Start ##### -->
-<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(../static/redMan/img/bg-img/breadcumb3.jpg);">
+<section class="breadcumb-area bg-img bg-overlay"
+         th:style="'background-image: url(' + @{/redMan/img/bg-img/bg-1.jpg} + ');'"
+         style="background-image: url(../static/redMan/img/bg-img/breadcumb3.jpg);">
     <div class="bradcumbContent">
         <p>See about out application</p>
         <h2>SPOTIFY WANNA BE</h2>
@@ -211,6 +218,7 @@
 
 <!-- ##### Contact Area Start ##### -->
 <section class="contact-area section-padding-100 bg-img bg-overlay bg-fixed has-bg-img"
+         th:style="'background-image: url(' + @{/redMan/img/bg-img/bg-1.jpg} + ');'"
          style="background-image: url(../static/redMan/img/bg-img/bg-2.jpg);">
     <div class="container">
         <div class="row">
@@ -288,14 +296,20 @@
             <div class="col-12 col-md-6">
                 <div class="footer-nav">
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Playlists</a></li>
-                        <li><a href="#">Our mission</a></li>
-                        <li><a href="#">Generate Playlist</a></li>
-                        <li><a href="#">My playlists</a></li>
-                        <li><a href="#">Settings</a></li>
-                        <li><a href="#">Settings</a></li>
-
+                        <li><a href="index.html" th:href="@{/}" th:text="#{navigation.home}">Home</a></li>
+                        <li><a href="BrowsePlaylists.html" th:href="@{/playlists}"
+                               th:text="#{navigation.browse-playlists}">Playlists</a></li>
+                        <li><a href="OurMissionPage.html" th:href="@{/about}" th:text="#{navigation.about}">About</a>
+                        </li>
+                        <li><a href="TripGenerate.html" th:if="${isAuthenticated}" th:href="@{/generate}"
+                               th:text="#{navigation.generate-playlist}">Generate Playlist</a></li>
+                        <li><a href="MyPlaylist.html" th:href="@{/myplaylists}"
+                               th:text="#{navigation.my-playlists}">My Playlists</a></li>
+                        <li><a href="SettingsUser.html" th:if="${isAuthenticated}" th:href="@{/settings}"
+                               th:text="#{navigation.settings}">Settings</a></li>
+                        <li><a href="DashboardAdmin.html"
+                               th:href="@{/edit}" th:text="#{navigation.admin}">Settings
+                        </a></li>
                     </ul>
                 </div>
             </div>

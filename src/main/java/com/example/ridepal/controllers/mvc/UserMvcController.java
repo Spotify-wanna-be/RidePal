@@ -99,6 +99,8 @@ public class UserMvcController {
         }
 
     }
+
+
     @GetMapping("/admins")
     public String showAdmins(Model model, HttpSession httpSession) {
         try {
@@ -150,7 +152,8 @@ public class UserMvcController {
             return "SettingsUser";
 
         } catch (AuthorizationException e) {
-            return "redirect:/auth/login";
+            return "SettingsUser";
+//            return "redirect:/auth/login";
         }
     }
 

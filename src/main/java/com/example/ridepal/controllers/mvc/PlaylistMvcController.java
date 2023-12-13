@@ -81,7 +81,8 @@ public class PlaylistMvcController {
         try {
             authenticationHelper.tryGetCurrentUser(httpSession);
         } catch (AuthorizationException e) {
-            return "redirect:/auth/login";
+//            return "redirect:/auth/login";
+            return "index";
         }
         List<Playlist> playlists = playlistService.get(filterOptions);
         model.addAttribute("playlists", playlists);

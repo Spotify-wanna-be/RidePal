@@ -6,9 +6,7 @@ import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.exceptions.UnauthorizedOperationException;
 import com.example.ridepal.helpers.AuthenticationHelper;
 import com.example.ridepal.helpers.UserMapper;
-import com.example.ridepal.models.Playlist;
-import com.example.ridepal.models.UpdateUserDto;
-import com.example.ridepal.models.User;
+import com.example.ridepal.models.*;
 import com.example.ridepal.service.PlaylistService;
 import com.example.ridepal.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -60,6 +58,8 @@ public class HomeMvcController {
         // -- TODO method getHighestRankPlaylist() --
         List<Playlist> highestRankPlaylist = playlistService.getHighestRankPlaylist();
         model.addAttribute("highestRankPlaylist", highestRankPlaylist);
+        List<Playlist> playlists = playlistService.getAll();
+        model.addAttribute("playlists", playlists);
         return "index";
     }
     @GetMapping("/edit")
@@ -93,7 +93,9 @@ public class HomeMvcController {
             model.addAttribute("currentUser", user);
             return "SettingsUser";
         } catch (AuthorizationException e) {
-            return "redirect:/auth/login";
+            return "SettingsUser";
+
+//            return "redirect:/auth/login";
         }
     }
 
@@ -109,9 +111,30 @@ public class HomeMvcController {
             }
             user = authenticationHelper.tryGetCurrentUser(httpSession);
             User userToUpdate = userMapper.fromDto(user.getId(), updateUserDto, user);
-            // -- TODO about updateUserV2--
             userService.updateUserV2(user, userToUpdate, updateUserDto);
             return "redirect:/settings";
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (EntityDuplicateException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+        } catch (UnauthorizedOperationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
+    }
+    @PostMapping("/edit")
+    public String updateAdmin(
+            @ModelAttribute("updateAdmin") UpdateUserDto updateUserDto,
+            BindingResult result,
+            HttpSession httpSession) {
+        User user;
+        try {
+            if (result.hasErrors()) {
+                return "DashboardAdmin";
+            }
+            user = authenticationHelper.tryGetCurrentUser(httpSession);
+            User userToUpdate = userMapper.fromDto(user.getId(), updateUserDto, user);
+            userService.updateUserV2(user, userToUpdate, updateUserDto);
+            return "redirect:/edit";
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (EntityDuplicateException e) {

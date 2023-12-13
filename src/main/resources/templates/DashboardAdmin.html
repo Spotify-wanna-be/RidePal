@@ -150,7 +150,8 @@
                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
                          data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="AllUsersView.html" th:text="#{table.users}"  th:href="@{/users}">All users</a>
+                            <a class="nav-link" href="AllUsersView.html" th:text="#{table.users}" th:href="@{/users}">All
+                                users</a>
                             <a class="nav-link" href="AllAdminsView.html" th:href="@{/users/admins}">Admins</a>
                         </nav>
                     </div>
@@ -167,67 +168,99 @@
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item active">Edit profile</li>
                 </ol>
-            <section class="contact-area section-padding-100 bg-img bg-overlay bg-fixed has-bg-img"
-                     th:style="'background-image: url(' + @{/redMan/img/bg-img/bg-2.jpg} + ');'"
-                     style="background-image: url(../static/redMan/img/bg-img/bg-2.jpg);">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="section-heading white wow fadeInUp" data-wow-delay="100ms">
-                                <h2>EDIT YOUR PROFILE </h2>
+                <section class="contact-area section-padding-100 bg-img bg-overlay bg-fixed has-bg-img"
+                         th:style="'background-image: url(' + @{/redMan/img/bg-img/bg-2.jpg} + ');'"
+                         style="background-image: url(../static/redMan/img/bg-img/bg-2.jpg);">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="section-heading white wow fadeInUp" data-wow-delay="100ms">
+                                    <h2>EDIT YOUR PROFILE </h2>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                Register Form Area
+                                <div class="contact-form-area">
+                                    <form action="#" th:action="@{/edit}" th:object="${updateAdmin}" method="post">
+                                        <div class="row">
+                                            <div class="col-md-6 col-lg-4">
+                                                <div class="form-group wow fadeInUp" data-wow-delay="100ms">
+                                                    <label style="color: white;" th:text="#{user.label.first-name}">First
+                                                        Name</label>
+                                                    <input type="text" th:field="*{firstName}" class="form-control"
+                                                           id="name" placeholder="Name">
+                                                    <label style="color: red;" class="error" th:errors="*{firstName}">First
+                                                        name error placeholder</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-lg-4">
+                                                <div class="form-group wow fadeInUp" data-wow-delay="100ms">
+                                                    <label style="color: white;" th:text="#{user.label.last-name}">Last
+                                                        Name</label>
+
+                                                    <input type="text" th:field="*{lastName}" class="form-control"
+                                                           id="last_name"
+                                                           placeholder="Last name">
+                                                    <label style="color: red;" class="error" th:errors="*{lastName}">Last
+                                                        name error placeholder</label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-lg-4">
+                                                <div class="form-group wow fadeInUp" data-wow-delay="200ms">
+                                                    <label style="color: white;"
+                                                           th:text="#{user.label.email}">Email</label>
+
+                                                    <input type="email" th:field="*{email}" class="form-control"
+                                                           id="email"
+                                                           placeholder="E-mail">
+                                                    <label style="color: red;" class="error" th:errors="*{email}">Email
+                                                        error placeholder</label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group wow fadeInUp" data-wow-delay="300ms">
+                                                    <label style="color: white;" th:text="#{user.label.username}">Username</label>
+
+                                                    <input type="text" th:field="*{username}" class="form-control"
+                                                           id="username"
+                                                           placeholder="Username">
+                                                    <label style="color: red;" class="error" th:errors="*{username}">Password
+                                                        error placeholder</label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group wow fadeInUp" data-wow-delay="300ms">
+                                                    <label style="color: white;" th:text="#{user.label.password}">Password</label>
+
+                                                    <input type="text" th:field="*{password}" class="form-control"
+                                                           id="password"
+                                                           placeholder="Password">
+                                                    <label style="color: red;" class="error" th:errors="*{password}">Password
+                                                        error placeholder</label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">
+                                                <button class="btn oneMusic-btn mt-30" type="submit" th:href="@{/edit}">
+                                                    Update<i
+                                                        class="fa fa-angle-double-right"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </section>
+                <!-- ##### Contact Area End ##### -->
 
-                    <div class="row">
-                        <div class="col-12">
-                            <!-- Register Form Area -->
-                            <div class="contact-form-area">
-                                <form action="#" method="post">
-                                    <div class="row">
-                                        <div class="col-md-6 col-lg-4">
-                                            <div class="form-group wow fadeInUp" data-wow-delay="100ms">
-                                                <input type="text" class="form-control" id="name" placeholder="Name">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-lg-4">
-                                            <div class="form-group wow fadeInUp" data-wow-delay="100ms">
-                                                <input type="text" class="form-control" id="last_name"
-                                                       placeholder="Last name">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-lg-4">
-                                            <div class="form-group wow fadeInUp" data-wow-delay="200ms">
-                                                <input type="email" class="form-control" id="email"
-                                                       placeholder="E-mail">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="form-group wow fadeInUp" data-wow-delay="300ms">
-                                                <input type="text" class="form-control" id="username"
-                                                       placeholder="Username">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="form-group wow fadeInUp" data-wow-delay="300ms">
-                                                <input type="text" class="form-control" id="password"
-                                                       placeholder="Password">
-                                            </div>
-                                        </div>
-                                        <div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">
-                                            <button class="btn oneMusic-btn mt-30" type="submit">Update profile <i
-                                                    class="fa fa-angle-double-right"></i></button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- ##### Contact Area End ##### -->
-
-
+            </div>
         </main>
     </div>
 </div>
@@ -293,7 +326,8 @@
 <!-- * *                               SB Forms JS                               * *-->
 <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-<script th:src="@{https://cdn.startbootstrap.com/sb-forms-latest.js}" src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+<script th:src="@{https://cdn.startbootstrap.com/sb-forms-latest.js}"
+        src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 </header>
 </body>
 

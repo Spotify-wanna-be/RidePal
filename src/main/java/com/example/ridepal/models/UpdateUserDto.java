@@ -19,6 +19,9 @@ public class UpdateUserDto {
     @Email
     private String email;
 
+    private String username;
+
+
     public UpdateUserDto() {
     }
 
@@ -62,4 +65,11 @@ public class UpdateUserDto {
         this.email = email;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }
