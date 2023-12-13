@@ -1,5 +1,6 @@
 package com.example.ridepal.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.sql.Time;
@@ -25,6 +26,8 @@ public class Playlist {
     @ManyToOne
     @JoinColumn(name="user_id")
     private User createdBy;
+
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "playlist_track",

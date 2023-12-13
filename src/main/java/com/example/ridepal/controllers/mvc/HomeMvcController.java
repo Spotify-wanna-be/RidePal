@@ -226,12 +226,12 @@ public class HomeMvcController {
                 filterDto.getSortOrder());
 
         List<String> imageUrls = Arrays.asList(
-                "/static/redMan/img/bg-img/t1.jpg",
-                "/static/redMan/img/bg-img/fa.jpg",
-                "/static/redMan/img/bg-img/s1.jpg",
-                "/static/redMan/img/bg-img/pa1.jpg",
-                "/static/redMan/img/bg-img/pa2.jpg",
-                "/static/redMan/img/bg-img/fa3.jpg"
+                "/redMan/img/bg-img/t1.jpg",
+                "/redMan/img/bg-img/fa.jpg",
+                "/redMan/img/bg-img/s1.jpg",
+                "/redMan/img/bg-img/pa1.jpg",
+                "/redMan/img/bg-img/pa2.jpg",
+                "/redMan/img/bg-img/fa3.jpg"
         );
 
         try {
@@ -239,10 +239,10 @@ public class HomeMvcController {
         } catch (AuthorizationException e) {
             return "redirect:/auth/login";
         }
+        model.addAttribute("filterOptions", filterDto);
+        model.addAttribute("randomImageUrl", getRandomImageUrl(imageUrls));
         List<Playlist> playlists = playlistService.get(filterOptions);
         model.addAttribute("playlists", playlists);
-        model.addAttribute("filterOptions", filterDto);
-        model.addAttribute("imageUrls", imageUrls);
         return "BrowsePlaylists";
     }
 
@@ -264,6 +264,14 @@ public class HomeMvcController {
             model.addAttribute("error", e.getMessage());
             return "ErrorView";
         }
+    }
+
+    private String getRandomImageUrl(List<String> imageUrls) {
+        if (imageUrls != null && !imageUrls.isEmpty()) {
+            int randomIndex = new Random().nextInt(imageUrls.size());
+            return imageUrls.get(randomIndex);
+        }
+        return ""; // or handle accordingly if the list is empty
     }
 
 }

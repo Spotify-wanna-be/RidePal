@@ -69,7 +69,7 @@
                         <div class="classynav">
                             <ul>
                                 <li><a href="index.html" th:href="@{/}" th:text="#{navigation.home}">Home</a></li>
-                                <li><a href="BrowsePlaylists.html" th:href="@{/playlists}" th:text="#{navigation.browse-playlists}">Playlists</a></li>
+                                <li><a href="BrowsePlaylists.html" th:href="@{/browse}" th:text="#{navigation.browse-playlists}">Playlists</a></li>
                                 <li><a href="OurMissionPage.html" th:href="@{/about}" th:text="#{navigation.about}">About</a></li>
                                 <li><a href="TripGenerate.html" th:if="${isAuthenticated}" th:href="@{/generate}" th:text="#{navigation.generate-playlist}">Generate Playlist</a></li>
                                 <li><a href="MyPlaylist.html" th:href="@{/users/myPlaylist}" th:text="#{navigation.my-playlists}">My Playlists</a></li>
@@ -115,14 +115,13 @@
         <div class="row">
             <div class="col-12 align-items-center">
                 <div class="browse-by-catagories catagory-menu  align-items-center mb-70">
-                    <form action="#" th:action="@{/posts}" method="get" th:object="${filterOptions}">
+                    <form action="#" th:action="@{/browse}" method="get" th:object="${filterOptions}">
                         <input type="text" placeholder="Name" th:field="*{name}"/>
-                        <input type="text" placeholder="Duration" th:field="*{duration}"/>
                         <select th:field="*{sortBy}">
                             <option value="">Sort By</option>
-                            <option value="title">Name</option>
-                            <option value="content">Duration</option>
-                            <option value="createdBy">Genre</option>
+                            <option value="name">Name</option>
+                            <option value="duration">Duration</option>
+                            <option value="genre">Genre</option>
                         </select>
 
                         <select th:field="*{sortOrder}">
@@ -143,7 +142,7 @@
 
             <div th:each="playlist: ${playlists}" class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item t c p">
                 <div class="single-album">
-                    <img th:src="@{/redMan/img/bg-img/a1.jpg}" alt="">
+                    <img th:src="${randomImageUrl}" alt="Random Image">
                     <div class="album-info">
                         <a href="#">
                             <h5 th:text="${playlist.getName()}"></h5>

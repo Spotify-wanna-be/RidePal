@@ -67,7 +67,7 @@
                         <div class="classynav">
                             <ul>
                                 <li><a href="index.html" th:href="@{/}" th:text="#{navigation.home}">Home</a></li>
-                                <li><a href="BrowsePlaylists.html" th:href="@{/playlists}" th:text="#{navigation.browse-playlists}">Playlists</a></li>
+                                <li><a href="BrowsePlaylists.html" th:href="@{/browse}" th:text="#{navigation.browse-playlists}">Playlists</a></li>
                                 <li><a href="OurMissionPage.html" th:href="@{/about}" th:text="#{navigation.about}">About</a></li>
                                 <li><a href="TripGenerate.html" th:if="${isAuthenticated}" th:href="@{/generate}" th:text="#{navigation.generate-playlist}">Generate Playlist</a></li>
                                 <li><a href="MyPlaylist.html" th:href="@{/users/myPlaylist}" th:text="#{navigation.my-playlists}">My Playlists</a></li>
