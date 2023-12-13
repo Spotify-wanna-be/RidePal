@@ -4,20 +4,17 @@ import com.example.ridepal.exceptions.AuthorizationException;
 import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.exceptions.UnauthorizedOperationException;
 import com.example.ridepal.helpers.AuthenticationHelper;
-import com.example.ridepal.models.Playlist;
-import com.example.ridepal.models.PlaylistFilterDto;
-import com.example.ridepal.models.PlaylistFilterOptions;
-import com.example.ridepal.models.User;
+import com.example.ridepal.helpers.PlaylistMapper;
+import com.example.ridepal.models.*;
 import com.example.ridepal.service.PlaylistService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,9 +24,12 @@ public class PlaylistMvcController {
     private final PlaylistService playlistService;
     private final AuthenticationHelper authenticationHelper;
 
-    public PlaylistMvcController(PlaylistService playlistService, AuthenticationHelper authenticationHelper) {
+    private final PlaylistMapper playlistMapper;
+
+    public PlaylistMvcController(PlaylistService playlistService, AuthenticationHelper authenticationHelper, PlaylistMapper playlistMapper) {
         this.playlistService = playlistService;
         this.authenticationHelper = authenticationHelper;
+        this.playlistMapper = playlistMapper;
     }
 
     @ModelAttribute("isAuthenticated")
@@ -88,5 +88,6 @@ public class PlaylistMvcController {
         model.addAttribute("filterOptions", filterDto);
         return "index";
     }
+
 
 }

@@ -218,4 +218,44 @@ public class HomeMvcController {
             return "redirect:/auth/login";
         }
     }
+    @GetMapping("/browse")
+    public String showAllPlaylists(@ModelAttribute("filterOptions") PlaylistFilterDto filterDto,
+                               Model model, HttpSession httpSession) {
+        PlaylistFilterOptions filterOptions = new PlaylistFilterOptions(
+                filterDto.getName(),
+                filterDto.getDuration(),
+                filterDto.getGenres(),
+                filterDto.getSortBy(),
+                filterDto.getSortOrder());
+        try {
+            authenticationHelper.tryGetCurrentUser(httpSession);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/login";
+        }
+        List<Playlist> playlists = playlistService.get(filterOptions);
+        model.addAttribute("playlists", playlists);
+        model.addAttribute("filterOptions", filterDto);
+        return "BrowsePlaylists";
+    }
+
+    @GetMapping("/{id}")
+    public String showPlaylist(@PathVariable int id, Model model, HttpSession httpSession) {
+        User user;
+        try {
+            user = authenticationHelper.tryGetCurrentUser(httpSession);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/login";
+        }
+        try {
+            Playlist playlist = playlistService.getByPlaylistId(id);
+            model.addAttribute("playlist", playlist);
+            model.addAttribute("track", new PlaylistDto()); //todo look up
+            return "BrowsePlaylists";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "ErrorView";
+        }
+    }
+
 }
