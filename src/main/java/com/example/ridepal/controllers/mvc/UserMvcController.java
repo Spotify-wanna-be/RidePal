@@ -105,8 +105,7 @@ public class UserMvcController {
         try {
             authenticationHelper.tryGetCurrentUser(httpSession);
         } catch (AuthorizationException e) {
-//            return "redirect:/auth/login";
-            return "AllAdminsView";
+            return "redirect:/auth/login";
         }
 
         try {
