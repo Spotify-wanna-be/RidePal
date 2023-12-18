@@ -62,7 +62,7 @@ Thank you for listening. SpotifyWannaBe - your musical adventure during every jo
   Anonymous users can see 3 highest rank playlists
   and all playlists.
 
-<img width="1121" alt="about1" src="https://github.com/forumsystem/travel_forum/assets/138858462/a47b298f-984a-4283-8310-f7630054c76d">
+<img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/HomeView.png">
 
 - **About**
   Anonymous users can access the About page
