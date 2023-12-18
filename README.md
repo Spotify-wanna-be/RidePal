@@ -60,7 +60,7 @@ Thank you for listening. SpotifyWannaBe - your musical adventure during every jo
 
 ## Unauthenticated Part
 - **Home View**
-  Anonymous users can see 3 highest rank playlists
+  >Anonymous users can see 3 highest rank playlists
   and all playlists.
 
 <img width="1121" alt="HomeView" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/HomeView.png">
@@ -70,19 +70,21 @@ Thank you for listening. SpotifyWannaBe - your musical adventure during every jo
 
 
 - **About**
-  Anonymous users can access the About page
+  >Anonymous users can access the About page
 
 <img width="1121" alt="About1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/About1.png">
 <img width="1121" alt="Aout2" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/Aout2.png">
 <img width="1121" alt="About3" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/About3.png">
 
 - **Register**
-  Anonymous users can Register
+  >Anonymous users can Register
+
   <img width="1121" alt="Register1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/Register1.png">
   <img width="1121" alt="Register2" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/Register2.png">
 
 - **Login**
-  Anonymous users can Login
+  >Anonymous users can Login
+
   <img width="1121" alt="Login" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/Login.png">
 
 
@@ -94,12 +96,12 @@ Thank you for listening. SpotifyWannaBe - your musical adventure during every jo
 
 ## Authenticated Part
 - **Browse Playlist**
-  Users can browse and filter all playlists.
+  >Users can browse and filter all playlists.
 
 <img width="1121" alt="BrowsePlaylist" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/BrowsePlaylist.png">
 
 - **Generate Playlist**
-  Users can enter starting and destination address, select musical genres and clicks “Generate”.
+  >Users can enter starting and destination address, select musical genres and clicks “Generate”.
 
 <img width="1121" alt="Generate" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/Generate.png">
 <img width="1121" alt="generate2" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/generate2.png">
@@ -107,7 +109,7 @@ Thank you for listening. SpotifyWannaBe - your musical adventure during every jo
 <img width="1121" alt="generate4" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/generate4.png">
 
 - **My Playlist**
-  The user can view all their generated playlists and also see the songs included in each playlist.
+  >The user can view all their generated playlists and also see the songs included in each playlist.
 
 <img width="1121" alt="myplaylist" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/myplaylist.png">
 <img width="1121" alt="myplaylist2" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/myplaylist2.png">
@@ -117,7 +119,7 @@ Thank you for listening. SpotifyWannaBe - your musical adventure during every jo
 
 
 - **Settings**
-  User can edit their profile information
+  >User can edit their profile information
 
 <img width="1121" alt="settings" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/settings.png">
 
@@ -125,7 +127,7 @@ Thank you for listening. SpotifyWannaBe - your musical adventure during every jo
 
 ## Administrative Part
 - **Admin Portal**
-  Admins can view all users, view other admins; make other users admins, and make admins users;
+  >Admins can view all users, view other admins; make other users admins, and make admins users;
 
 <img width="1121" alt="admin1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/admin1.png">
 <img width="1121" alt="admin2" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/admin2.png">
