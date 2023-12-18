@@ -57,26 +57,33 @@ Thank you for listening. SpotifyWannaBe - your musical adventure during every jo
 - *User part* - available for registered users
 - *Administrative part* - available for administrators only
 
+
 ## Unauthenticated Part
 - **Home View**
   Anonymous users can see 3 highest rank playlists
   and all playlists.
 
 <img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/HomeView.png">
+<img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/HomeView2.png">
+<img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/HomeView3.png">
+<img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/HomeView4.png">
+
 
 - **About**
   Anonymous users can access the About page
 
-<img width="1121" alt="about1" src="https://github.com/forumsystem/travel_forum/assets/138858462/a47b298f-984a-4283-8310-f7630054c76d">
+<img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/About1.png">
+<img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/Aout2.png">
+<img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/About3.png">
 
 - **Register**
   Anonymous users can Register
-  <img width="1121" alt="about1" src="https://github.com/forumsystem/travel_forum/assets/138858462/a47b298f-984a-4283-8310-f7630054c76d">
+  <img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/Register1.png">
+  <img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/Register2.png">
 
 - **Login**
   Anonymous users can Login
-  <img width="1121" alt="about1" src="https://github.com/forumsystem/travel_forum/assets/138858462/a47b298f-984a-4283-8310-f7630054c76d">
-
+  <img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/Login.png">
 
 
 
@@ -89,23 +96,30 @@ Thank you for listening. SpotifyWannaBe - your musical adventure during every jo
 - **Browse Playlist**
   Users can browse and filter all playlists.
 
-<img width="1121" alt="about1" src="https://github.com/forumsystem/travel_forum/assets/138858462/a47b298f-984a-4283-8310-f7630054c76d">
+<img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/BrowsePlaylist.png">
 
 - **Generate Playlist**
   Users can enter starting and destination address, select musical genres and clicks “Generate”.
 
-<img width="1121" alt="about1" src="https://github.com/forumsystem/travel_forum/assets/138858462/a47b298f-984a-4283-8310-f7630054c76d">
+<img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/Generate.png">
+<img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/generate2.png">
+<img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/generate3.png">
+<img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/generate4.png">
 
 - **My Playlist**
   The user can view all their generated playlists and also see the songs included in each playlist.
 
-<img width="1121" alt="about1" src="https://github.com/forumsystem/travel_forum/assets/138858462/a47b298f-984a-4283-8310-f7630054c76d">
+<img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/myplaylist.png">
+<img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/myplaylist2.png">
+<img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/myplaylist4.png">
+<img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/myplaylist5.png">
+<img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/myplaylist6.png">
+
 
 - **Settings**
   User can edit their profile information
 
-<img width="1121" alt="about1" src="https://github.com/forumsystem/travel_forum/assets/138858462/a47b298f-984a-4283-8310-f7630054c76d">
-
+<img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/settings.png">
 
 
 
@@ -113,8 +127,10 @@ Thank you for listening. SpotifyWannaBe - your musical adventure during every jo
 - **Admin Portal**
   Admins can view all users, view other admins; make other users admins, and make admins users;
 
-<img width="1121" alt="about1" src="https://github.com/forumsystem/travel_forum/assets/138858462/a47b298f-984a-4283-8310-f7630054c76d">
-
+<img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/admin1.png">
+<img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/admin2.png">
+<img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/admin3.png">
+<img width="1121" alt="about1" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/admin4.png">
 ## 📊Database Structure
 
 <img width="1121" alt="about1" src="https://github.com/forumsystem/travel_forum/assets/138858462/a47b298f-984a-4283-8310-f7630054c76d">
