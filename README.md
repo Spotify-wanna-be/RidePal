@@ -10,7 +10,7 @@ We are pleased to introduce our group project - SpotifyWannaBe Web Application. 
 # What is SpotifyWannaBe?
 
 
-RidePal is a web application that empowers you to create personalized playlists for your journeys. The playlists consist of individual songs, each with an artist, title, album, duration, and ranking. An important feature is the ability to preview the songs with a special audio stream URL.
+SpotifyWannaBe is a web application that empowers you to create personalized playlists for your journeys. The playlists consist of individual songs, each with an artist, title, album, duration, and ranking. An important feature is the ability to preview the songs with a special audio stream URL.
 
 
 
