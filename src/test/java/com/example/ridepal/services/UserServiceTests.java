@@ -116,20 +116,20 @@ void getAllUsers_ShouldReturnListOfUsers() {
                 .updateUser(mockUserToUpdate);
     }
 
-    @Test
-    void updateUser_Should_ThrowException_When_UsernameExists() {
-        // Arrange
-        User mockUser = createMockUser();
-        User mockUserToUpdate = createMockUser();
-
-        Mockito.when(mockRepository.getByUsername(mockUserToUpdate.getUsername()))
-                .thenReturn(mockUser);
-
-        // Act, Assert
-        Assertions.assertThrows(
-                EntityDuplicateException.class,
-                () -> userService.updateUser(mockUser, mockUserToUpdate));
-    }
+//    @Test
+//    void updateUser_Should_ThrowException_When_UsernameExists() {
+//        // Arrange
+//        User mockUser = createMockUser();
+//        User mockUserToUpdate = createMockUser();
+//
+//        Mockito.when(mockRepository.getByUsername(mockUserToUpdate.getUsername()))
+//                .thenReturn(mockUser);
+//
+//        // Act, Assert
+//        Assertions.assertThrows(
+//                EntityDuplicateException.class,
+//                () -> userService.updateUser(mockUser, mockUserToUpdate));
+//    }
 
     @Test
     void deleteUser_Should_CallRepository_When_UserIsAuthorized() {

@@ -69,15 +69,30 @@ public class UserRepositoryImpl implements UserRepository {
 
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
+
+            updatePlaylist(id, session, deletedUserId);
+
             session.remove(userToDelete);
             session.getTransaction().commit();
         }
     }
 
+
+    private static void updatePlaylist(int id, Session session, int deletedUserId) {
+        Query<Void> updatePlaylist = session.createNativeQuery(
+                "UPDATE playlists SET user_id " +
+                        "= :deletedUserId WHERE user_id = :userId");
+        updatePlaylist.setParameter("deletedUserId", deletedUserId);
+        updatePlaylist.setParameter("userId", id);
+        updatePlaylist.executeUpdate();
+    }
+
+
     @Override
     public User getByUsername(String username) {
         try (Session session = sessionFactory.openSession()) {
-            Query<User> query = session.createQuery("from User where username = :username", User.class);
+            Query<User> query = session.createQuery("from User where username = :username",
+                    User.class);
             query.setParameter("username", username);
             List<User> result = query.list();
             if (result.isEmpty()) {
