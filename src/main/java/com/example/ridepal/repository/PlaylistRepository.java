@@ -13,6 +13,7 @@ public interface PlaylistRepository {
     Playlist getByPlaylistId(int id);
     List<Playlist> getUsersPlaylists(User user);
     List<Playlist> getHighestRank();
+    List<Playlist> getRanked();
     void create(Playlist playlist);
     void update(Playlist playlist);
     List<Playlist> getAll();

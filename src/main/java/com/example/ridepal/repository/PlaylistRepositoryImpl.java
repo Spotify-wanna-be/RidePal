@@ -55,6 +55,13 @@ public class PlaylistRepositoryImpl implements PlaylistRepository {
             return query.list();
         }
     }
+    @Override
+    public List<Playlist> getRanked(){
+        try (Session session = sessionFactory.openSession()) {
+            Query<Playlist> query = session.createQuery("FROM Playlist ORDER BY rank DESC", Playlist.class);
+            return query.list();
+        }
+    }
 
     @Override
     public List<Playlist> get(PlaylistFilterOptions playlistFilterOptions) {

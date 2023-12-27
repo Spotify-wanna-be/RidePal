@@ -84,6 +84,8 @@ public class PlaylistMvcController {
             return "redirect:/auth/login";
         }
         List<Playlist> playlists = playlistService.get(filterOptions);
+        List<Playlist> ranked = playlistService.getRanked();
+        model.addAttribute("ranked", ranked);
         model.addAttribute("playlists", playlists);
         model.addAttribute("filterOptions", filterDto);
         return "index";

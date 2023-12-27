@@ -53,6 +53,10 @@ public class PlaylistServiceImpl implements PlaylistService {
     public List<Playlist> getHighestRankPlaylist() {
         return playlistRepository.getHighestRank();
     }
+    @Override
+    public List<Playlist> getRanked() {
+        return playlistRepository.getRanked();
+    }
 
     @Override
     public List<Track> generatePlaylist(Map<String, Integer> genrePercentages, String origin, String destination) {

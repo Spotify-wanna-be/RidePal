@@ -57,8 +57,13 @@ public class PlaylistRestController {
             @PathVariable String origin,
             @PathVariable String destination) {
         return playlistService.generatePlaylist(genrePercentages, origin, destination);
-
     }
+
+    @GetMapping("/ranked")
+    public List<Playlist> getRanked() {
+        return playlistService.getRanked();
+    }
+
     @GetMapping("/{id}")
     public Playlist getById(@PathVariable int id) {
         try {
