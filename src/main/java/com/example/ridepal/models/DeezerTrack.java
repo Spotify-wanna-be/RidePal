@@ -3,7 +3,7 @@ package com.example.ridepal.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.sql.Time;
+import java.net.URL;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DeezerTrack {
@@ -25,8 +25,11 @@ public class DeezerTrack {
     @JsonProperty("artist")
     private Artist artist;
 
-    @JsonProperty("album_id")
-    private DeezerAlbum album;
+//    @JsonProperty("album_id")
+//    private Album album;
+    @JsonProperty("preview")
+    private String preview;
+
 
 
     public int getId() {
@@ -77,11 +80,21 @@ public class DeezerTrack {
         this.artist = artist;
     }
 
-    public DeezerAlbum getAlbum() {
-        return album;
+//    public Album getAlbum() {
+//        return album;
+//    }
+//
+//    public void setAlbum(Album album) {
+//        this.album = album;
+//    }
+
+    public String getPreview() {
+        return preview;
     }
 
-    public void setAlbum(DeezerAlbum album) {
-        this.album = album;
+    public void setPreview(String preview) {
+        this.preview = preview;
     }
+
+
 }

@@ -9,6 +9,8 @@ public interface TrackService {
     List<Track> getAll();
 
     List<Track> getAllFromAlbum(String albumName);
+    String getLinkFromTrack(Track track);
+    String getPreviewFromTrack(Track tracks);
 
     List<Track> getBestRanked();
 

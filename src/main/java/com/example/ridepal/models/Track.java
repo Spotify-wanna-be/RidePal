@@ -2,6 +2,7 @@ package com.example.ridepal.models;
 
 import jakarta.persistence.*;
 
+import java.net.URL;
 import java.sql.Time;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +26,16 @@ public class Track {
     @ManyToOne
     @JoinColumn(name = "genre")
     private Genre genre;
+
+    @JoinColumn(name = "link")
+    private String link;
+
+    @JoinColumn(name = "preview")
+    private String preview;
+
+//    @ManyToOne
+//    @JoinColumn(name = "album")
+//    private Album album;
     @ManyToMany(mappedBy = "tracks")
     private Set<Playlist> playlists = new HashSet<>();
 
@@ -78,4 +89,28 @@ public class Track {
     public void setGenre(Genre genre) {
         this.genre = genre;
     }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public String getPreview() {
+        return preview;
+    }
+
+    public void setPreview(String preview) {
+        this.preview = preview;
+    }
+
+//    public Album getAlbum() {
+//        return album;
+//    }
+//
+//    public void setAlbum(Album album) {
+//        this.album = album;
+//    }
 }

@@ -20,6 +20,8 @@ public class DeezerAlbumResponse {
 
     @JsonProperty("genre_id")
     private int genreId;
+    @JsonProperty("artist_id")
+    private int artist_id;
 
     public int getId() {
         return id;
@@ -51,6 +53,14 @@ public class DeezerAlbumResponse {
 
     public void setGenreId(int genreId) {
         this.genreId = genreId;
+    }
+
+    public int getArtist_id() {
+        return artist_id;
+    }
+
+    public void setArtist_id(int artist_id) {
+        this.artist_id = artist_id;
     }
 
     @Override

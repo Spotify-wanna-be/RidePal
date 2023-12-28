@@ -1,8 +1,6 @@
 package com.example.ridepal.service;
 
 import com.example.ridepal.jsonignore.DeezerAlbumResponse;
-import com.example.ridepal.jsonignore.DeezerArtistResponse;
-import com.example.ridepal.jsonignore.DeezerGenreListResponse;
 import com.example.ridepal.jsonignore.DeezerTrackListResponse;
 import com.example.ridepal.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +12,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.sql.Time;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 @Service
@@ -28,12 +24,14 @@ public class DeezerService {
     private final TrackService trackService;
     private final GenreService genreService;
     private final ArtistService artistService;
+//    private final AlbumService albumService;
 
     @Value("${deezer.api.accessToken}")
     private String accessToken;
 
     @Autowired
-    public DeezerService(RestTemplate restTemplate, TrackService trackService, GenreService genreService, ArtistService artistService) {
+    public DeezerService(RestTemplate restTemplate, TrackService trackService,
+                         GenreService genreService, ArtistService artistService) {
         this.restTemplate = restTemplate;
         this.trackService = trackService;
         this.genreService = genreService;
@@ -45,8 +43,8 @@ public class DeezerService {
         int count = 0;
         Random random = new Random();
 
-        while(count<100){
-            randomAlbumId = random.nextInt(0,350000);
+        while (count < 100) {
+            randomAlbumId = random.nextInt(0, 350000);
 
             String deezerApiUrl = "https://api.deezer.com/album/" + randomAlbumId + "/tracks";
 
@@ -64,6 +62,7 @@ public class DeezerService {
                 if (trackListResponse != null && trackListResponse.getData() != null) {
                     for (DeezerTrack deezerTrack : trackListResponse.getData()) {
                         artistService.create(deezerTrack.getArtist());
+//                        albumService.create(deezerTrack.getAlbum());
 
                         Track track = new Track();
                         track.setId(deezerTrack.getId());
@@ -71,6 +70,9 @@ public class DeezerService {
                         track.setRank(deezerTrack.getRank());
                         track.setArtist(deezerTrack.getArtist());
                         track.setDuration(Time.valueOf(LocalTime.ofSecondOfDay(deezerTrack.getDuration())));
+                        track.setPreview(deezerTrack.getPreview());
+                        track.setLink(deezerTrack.getLink());
+
 
                         String albumUrl = "https://api.deezer.com/album/" + randomAlbumId;
                         ResponseEntity<DeezerAlbumResponse> albumResponseEntity = restTemplate.exchange(albumUrl,
@@ -81,13 +83,13 @@ public class DeezerService {
 
                             if (albumResponse != null) {
                                 String genreUrl = "https://api.deezer.com/genre/" + albumResponse.getGenreId();
-                                ResponseEntity<DeezerGenre> genreResponseEntity = restTemplate.exchange(genreUrl,HttpMethod.GET,
+                                ResponseEntity<DeezerGenre> genreResponseEntity = restTemplate.exchange(genreUrl, HttpMethod.GET,
                                         entity, DeezerGenre.class);
 
-                                if(genreResponseEntity.getStatusCode().is2xxSuccessful()){
+                                if (genreResponseEntity.getStatusCode().is2xxSuccessful()) {
                                     DeezerGenre genreResponse = genreResponseEntity.getBody();
 
-                                    if(genreResponse != null){
+                                    if (genreResponse != null) {
                                         Genre genre = new Genre();
                                         genre.setId(Integer.parseInt(genreResponse.getId()));
                                         genre.setType(genreResponse.getName());
@@ -101,10 +103,35 @@ public class DeezerService {
                             System.out.println("Error fetching album details. Status code: " + albumResponseEntity.getStatusCodeValue());
                         }
                         trackService.create(track);
+
+//                        if (albumResponseEntity.getStatusCode().is2xxSuccessful()) {
+//                            DeezerAlbumResponse albumResponse = albumResponseEntity.getBody();
+//
+//                            if (albumResponse != null) {
+//                                String genreUrl = "https://api.deezer.com/genre/" + albumResponse.getGenreId();
+//                                ResponseEntity<DeezerGenre> genreResponseEntity = restTemplate.exchange(genreUrl, HttpMethod.GET,
+//                                        entity, DeezerGenre.class);
+//
+//
+//                                if (albumResponse != null) {
+//                                    Album album = new Album();
+//                                    album.setId(albumResponse.getId());
+//                                    album.setName(albumResponse.getTitle());
+//                                    album.setCover(albumResponse.getCover());
+//
+//                                    albumService.create(album);
+//
+//                                    track.setAlbum(album);
+//                                }
+//                            }
+//                        } else {
+//                            System.out.println("Error fetching album details. Status code: " + albumResponseEntity.getStatusCodeValue());
+//                        }
+//                        trackService.create(track);
                     }
                 }
 
-            }else {
+            } else {
                 System.out.println("Error fetching tracks. Status code: " + responseEntity.getStatusCodeValue());
             }
         }

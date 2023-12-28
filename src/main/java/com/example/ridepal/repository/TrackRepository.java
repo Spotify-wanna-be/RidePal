@@ -2,6 +2,7 @@ package com.example.ridepal.repository;
 
 import com.example.ridepal.models.Track;
 
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,8 @@ public interface TrackRepository {
     List<Track> getBestRanked();
 
     List<Track> getAllFromAlbum(String albumName);
+    String getLinkFromTrack(Track track);
+    String getPreviewFromTrack(Track tracks);
 
     Track getById(int id);
 

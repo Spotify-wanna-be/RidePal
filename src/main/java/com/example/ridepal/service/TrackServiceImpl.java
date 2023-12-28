@@ -47,9 +47,20 @@ public class TrackServiceImpl implements TrackService {
 
     }
 
-    public List<Track> getBestRanked(){
+    public List<Track> getBestRanked() {
         return trackRepository.getBestRanked();
     }
+
+    @Override
+    public String getLinkFromTrack(Track track) {
+        return trackRepository.getLinkFromTrack(track);
+    }
+
+    @Override
+    public String getPreviewFromTrack(Track tracks) {
+        return trackRepository.getPreviewFromTrack(tracks);
+    }
+
 
 
     @Override

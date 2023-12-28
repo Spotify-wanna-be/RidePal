@@ -2,12 +2,14 @@ package com.example.ridepal.repository;
 
 import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.models.Track;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -59,6 +61,25 @@ public class TrackRepositoryImpl implements TrackRepository {
             Query<String> query = session.createQuery(hql, String.class);
             query.setParameterList("tracks", tracks);
             return query.list();
+        }
+    }
+
+    @Override
+    public String getLinkFromTrack(Track tracks) {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "SELECT t.link FROM Track t WHERE t = :track";
+            Query<String> query = session.createQuery(hql, String.class);
+            query.setParameter("track", tracks);
+            return query.uniqueResult();
+        }
+    }
+    @Override
+    public String getPreviewFromTrack(Track tracks) {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "SELECT t.preview FROM Track t WHERE t = :track";
+            Query<String> query = session.createQuery(hql, String.class);
+            query.setParameter("track", tracks);
+            return query.uniqueResult();
         }
     }
 

@@ -8,21 +8,26 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class GenreServiceImpl implements GenreService{
+public class GenreServiceImpl implements GenreService {
     private final GenreRepository genreRepository;
 
     @Autowired
-    public GenreServiceImpl(GenreRepository genreRepository){
+    public GenreServiceImpl(GenreRepository genreRepository) {
         this.genreRepository = genreRepository;
     }
 
-    public Genre getByGenreId(int id){
+    @Override
+    public Genre getByGenreId(int id) {
         return genreRepository.getByGenreId(id);
     }
 
-    public void create(Genre genre){
+    @Override
+    public void create(Genre genre) {
         genreRepository.create(genre);
     }
-    public List<Genre> getAll()
-    {return genreRepository.getAll();}
+
+    @Override
+    public List<Genre> getAll() {
+        return genreRepository.getAll();
+    }
 }

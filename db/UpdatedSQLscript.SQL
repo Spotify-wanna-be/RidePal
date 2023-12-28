@@ -31,6 +31,8 @@ create table tracks
     duration time         null,
     `rank`   int          null,
     genre    int          null,
+    preview  varchar(255) not null,
+    link     varchar(255) null,
     constraint tracks_artists_id_fk
         foreign key (artist) references artists (id)
             on delete cascade,
@@ -86,5 +88,4 @@ create table playlist_track
 
 create index track_id
     on playlist_track (track_id);
-
 
