@@ -147,6 +147,9 @@
                                 <div class="content-">
                                     <h6 th:text="${track.getArtist().getName()}"></h6>
                                     <p th:text="${track.getTitle()}"></p>
+                                    <a th:href="@{'https://api.deezer.com/artist/' + ${track.getArtist().getId()}}" target="_blank">
+                                        <img th:src="@{'https://api.deezer.com/artist/' + ${track.getArtist().getId()} + '/image'}" alt="Deezer Artist Image">
+                                    </a>
                                 </div>
                             </div>
                         </div>

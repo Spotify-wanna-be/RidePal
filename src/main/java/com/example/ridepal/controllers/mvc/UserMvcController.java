@@ -124,7 +124,7 @@ public class UserMvcController {
     }
 
     @GetMapping("/myPlaylist")
-    public String showMyPlaylistPage(Model model, HttpSession session){
+    public String showMyPlaylistPage(Model model, HttpSession session) {
         try {
             User user = authenticationHelper.tryGetCurrentUser(session);
             List<Track> bestTracks = trackService.getBestRanked();
@@ -186,5 +186,22 @@ public class UserMvcController {
             return "ErrorView";
 
         }
+    }
+    @DeleteMapping("/{id}/delete")
+    public String deleteUser ( @PathVariable int id, Model model, HttpSession httpSession){
+        User user;
+        try {
+            user = authenticationHelper.tryGetCurrentUser(httpSession);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/login";
+        }
+        try {
+            userService.deleteUser(id, user);
+        } catch (UnauthorizedOperationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "ErrorView";
+        }
+        return "redirect:/users";
     }
 }
