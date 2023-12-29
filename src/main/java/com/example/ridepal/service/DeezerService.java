@@ -62,6 +62,7 @@ public class DeezerService {
                 if (trackListResponse != null && trackListResponse.getData() != null) {
                     for (DeezerTrack deezerTrack : trackListResponse.getData()) {
                         artistService.create(deezerTrack.getArtist());
+
 //                        albumService.create(deezerTrack.getAlbum());
 
                         Track track = new Track();
@@ -108,20 +109,20 @@ public class DeezerService {
 //                            DeezerAlbumResponse albumResponse = albumResponseEntity.getBody();
 //
 //                            if (albumResponse != null) {
-//                                String genreUrl = "https://api.deezer.com/genre/" + albumResponse.getGenreId();
-//                                ResponseEntity<DeezerGenre> genreResponseEntity = restTemplate.exchange(genreUrl, HttpMethod.GET,
-//                                        entity, DeezerGenre.class);
+//                                String artistUrl = "https://api.deezer.com/artist/" + albumResponse.getArtist_id() + "/image";
+//                                ResponseEntity<DeezerArtist> artistResponseEntity = restTemplate.exchange(artistUrl, HttpMethod.GET,
+//                                        entity, DeezerArtist.class);
 //
 //
 //                                if (albumResponse != null) {
-//                                    Album album = new Album();
-//                                    album.setId(albumResponse.getId());
-//                                    album.setName(albumResponse.getTitle());
-//                                    album.setCover(albumResponse.getCover());
+//                                    Artist artist = new Artist();
+//                                    artist.setId(albumResponse.getId());
+//                                    artist.setName(albumResponse.getTitle());
+//                                    artist.setPicture(albumResponse.getPicture());
 //
-//                                    albumService.create(album);
+//                                    artistService.create(artist);
 //
-//                                    track.setAlbum(album);
+//                                    track.setArtist(artist);
 //                                }
 //                            }
 //                        } else {

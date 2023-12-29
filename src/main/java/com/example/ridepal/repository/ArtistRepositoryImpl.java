@@ -35,17 +35,25 @@ public class ArtistRepositoryImpl implements ArtistRepository {
         }
     }
 
-    public Artist getByFirstName(String firstName){
+    public Artist getByFirstName(String name){
         try (Session session = sessionFactory.openSession()) {
-            Query<Artist> query = session.createQuery("from Artist where firstName = :first_name", Artist.class);
-            query.setParameter("first_name", firstName);
+            Query<Artist> query = session.createQuery("from Artist where name = :name", Artist.class);
+            query.setParameter("name", name);
 
             List<Artist> result = query.list();
             if (result.isEmpty()) {
-                throw new EntityNotFoundException("Artist", "first_name", firstName);
+                throw new EntityNotFoundException("Artist", "name", name);
             }
             return result.get(0);
         }
+    }
+    @Override
+    public String getPictureFromArtist(Artist artist) {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "SELECT a.picture FROM Artist a WHERE a.id = :artistId";
+            Query<String> query = session.createQuery(hql, String.class);
+            query.setParameter("id", artist.getId()); // Assuming artistId is the primary key
+            return query.uniqueResult();        }
     }
 
     @Override

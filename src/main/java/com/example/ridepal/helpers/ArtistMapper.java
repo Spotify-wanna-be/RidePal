@@ -18,14 +18,17 @@ public class ArtistMapper {
         Artist existingArtist=artistService.getByArtistId(id);
 
         existingArtist.setName(dto.getName());
+        existingArtist.setPicture(dto.getPicture());
 
         return existingArtist;
     }
 
-    public Artist fromDto( ArtistDto dto){
+    public Artist fromDto(ArtistDto dto){
         Artist artist=new Artist();
 
         artist.setName(dto.getName());
+        artist.setPicture(dto.getPicture());
+
         return artist;
     }
 }

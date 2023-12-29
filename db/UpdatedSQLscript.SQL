@@ -1,8 +1,9 @@
 create table artists
 (
-    id   int          not null
+    id      int          not null
         primary key,
-    name varchar(255) null
+    name    varchar(255) null,
+    picture varchar(255) null
 );
 
 create table albums

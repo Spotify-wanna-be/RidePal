@@ -30,6 +30,11 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
+    public String getPictureFromArtist(Artist artist) {
+        return artistRepository.getPictureFromArtist(artist);
+    }
+
+    @Override
     public void delete(int id) {
         artistRepository.delete(id);
     }

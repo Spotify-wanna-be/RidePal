@@ -15,8 +15,8 @@ public class DeezerAlbumResponse {
     @JsonProperty("title")
     private String title;
 
-    @JsonProperty("cover")
-    private String cover;
+    @JsonProperty("picture")
+    private String picture;
 
     @JsonProperty("genre_id")
     private int genreId;
@@ -39,12 +39,12 @@ public class DeezerAlbumResponse {
         this.title = title;
     }
 
-    public String getCover() {
-        return cover;
+    public String getPicture() {
+        return picture;
     }
 
-    public void setCover(String cover) {
-        this.cover = cover;
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public int getGenreId() {
@@ -68,7 +68,7 @@ public class DeezerAlbumResponse {
         return "DeezerAlbum{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", cover='" + cover + '\'' +
+                ", picture='" + picture + '\'' +
                 // Add other fields to the toString representation
                 '}';
     }

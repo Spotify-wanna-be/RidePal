@@ -6,13 +6,16 @@ import org.hibernate.validator.constraints.UniqueElements;
 import java.util.Objects;
 
 @Entity
-@Table(name="artists")
+@Table(name = "artists")
 public class Artist {
     @Id
     @Column(name = "id")
     private int id;
-    @Column(unique = true ,name = "name")
+    @Column(unique = true, name = "name")
     private String name;
+
+    @JoinColumn(name = "picture")
+    private String picture;
 
 
     public Artist() {
@@ -34,10 +37,19 @@ public class Artist {
         this.name = name;
     }
 
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
+
 
     @Override
     public boolean equals(Object obj) {

@@ -9,6 +9,8 @@ public class DeezerArtist {
 
     @JsonProperty("name")
     private String name;
+    @JsonProperty("picture")
+    private String picture;
 
     public String getId() {
         return id;
@@ -24,5 +26,13 @@ public class DeezerArtist {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 }
