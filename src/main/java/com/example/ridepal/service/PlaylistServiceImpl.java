@@ -59,8 +59,8 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
-    public List<Track> generatePlaylist(Map<String, Integer> genrePercentages, String origin, String destination) {
-        List<Track> selectedTracks = new ArrayList<>();
+    public Set<Track> generatePlaylist(Map<String, Integer> genrePercentages, String origin, String destination) {
+        Set<Track> selectedTracks = new HashSet<>();
         int playlistDuration = 0;
 
         Time duration = travelTimeService.getTravelTime(origin, destination);
@@ -115,7 +115,7 @@ public class PlaylistServiceImpl implements PlaylistService {
         return selectedTracks;
     }
 
-    private Time playlistDuration(List<Track> selectedTracks) {
+    private Time playlistDuration(Set<Track> selectedTracks) {
         int seconds=0;
 
         for (Track track : selectedTracks) {
@@ -143,7 +143,7 @@ public class PlaylistServiceImpl implements PlaylistService {
                        String origin, String destination) {
         Playlist playlist = new Playlist();
         checkUserAuthorization(user.getId(), user);
-        List<Track> selectedTracks = generatePlaylist(genrePercentages, origin, destination);
+        Set<Track> selectedTracks = generatePlaylist(genrePercentages, origin, destination);
         playlist.setDuration(playlistDuration(selectedTracks));
         playlist.setName(name);
         playlist.setTracks(selectedTracks);
@@ -152,7 +152,7 @@ public class PlaylistServiceImpl implements PlaylistService {
         playlistRepository.create(playlist);
     }
 
-    private int rankPlaylist(List<Track> selectedTracks) {
+    private int rankPlaylist(Set<Track> selectedTracks) {
         int totalRank = 0;
         int counter = 0;
         for (Track track : selectedTracks) {

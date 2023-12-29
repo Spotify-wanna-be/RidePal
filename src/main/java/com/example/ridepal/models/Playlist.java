@@ -34,7 +34,8 @@ public class Playlist {
             joinColumns = @JoinColumn(name = "playlist_id"),
             inverseJoinColumns = @JoinColumn(name = "track_id")
     )
-    private List<Track> tracks = new ArrayList<>();
+//    private List<Track> tracks = new ArrayList<>();
+    private Set<Track> tracks = new HashSet<>();
 
 
     public Playlist() {
@@ -82,22 +83,22 @@ public class Playlist {
         this.createdBy = createdBy;
     }
 
-//    public Set<Track> getTracks() {
-//        return tracks;
-//    }
-//
-//    public void setTracks(Set<Track> tracks) {
-//        this.tracks = tracks;
-//    }
-
-
-    public List<Track> getTracks() {
+    public Set<Track> getTracks() {
         return tracks;
     }
 
-    public void setTracks(List<Track> tracks) {
+    public void setTracks(Set<Track> tracks) {
         this.tracks = tracks;
     }
+
+
+//    public List<Track> getTracks() {
+//        return tracks;
+//    }
+//
+//    public void setTracks(List<Track> tracks) {
+//        this.tracks = tracks;
+//    }
 
     @Override
     public int hashCode() {

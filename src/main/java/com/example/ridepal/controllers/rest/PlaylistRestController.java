@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.sql.Time;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/playlists")
@@ -52,7 +53,7 @@ public class PlaylistRestController {
     }
 
     @GetMapping("/new/{origin}/{destination}")
-    public List<Track> getGeneratedPlaylist(
+    public Set<Track> getGeneratedPlaylist(
             @RequestBody Map<String, Integer> genrePercentages,
             @PathVariable String origin,
             @PathVariable String destination) {

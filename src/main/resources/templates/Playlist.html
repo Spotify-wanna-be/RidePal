@@ -15,15 +15,17 @@
     <link rel="icon" href="../static/redMan/img/core-img/favicon.ico" th:href="@{/redMan/img/core-img/favicon.ico}">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="../static/redMan/style.css" th:href="@{/redMan/style.css}" />
-    <link rel="stylesheet" href="../static/redMan/css/animate.css" th:href="@{/redMan/css/animate.css}" />
-    <link rel="stylesheet" href="../static/redMan/css/audioplayer.css" th:href="@{/redMan/css/audioplayer.css}" />
-    <link rel="stylesheet" href="../static/redMan/css/bootstrap.min.css" th:href="@{/redMan/css/bootstrap.min.css}" />
-    <link rel="stylesheet" href="../static/redMan/css/classy-nav.css" th:href="@{/redMan/css/classy-nav.css}" />
-    <link rel="stylesheet" href="../static/redMan/css/font-awesome.min.css" th:href="@{/redMan/css/font-awesome.min.css}" />
-    <link rel="stylesheet" href="../static/redMan/css/magnific-popup.css" th:href="@{/redMan/css/magnific-popup.css}" />
-    <link rel="stylesheet" href="../static/redMan/css/one-music-icon.css" th:href="@{/redMan/css/one-music-icon.css}" />
-    <link rel="stylesheet" href="../static/redMan/css/owl.carousel.min.css" th:href="@{/redMan/css/owl.carousel.min.css}" />
+    <link rel="stylesheet" href="../static/redMan/style.css" th:href="@{/redMan/style.css}"/>
+    <link rel="stylesheet" href="../static/redMan/css/animate.css" th:href="@{/redMan/css/animate.css}"/>
+    <link rel="stylesheet" href="../static/redMan/css/audioplayer.css" th:href="@{/redMan/css/audioplayer.css}"/>
+    <link rel="stylesheet" href="../static/redMan/css/bootstrap.min.css" th:href="@{/redMan/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/redMan/css/classy-nav.css" th:href="@{/redMan/css/classy-nav.css}"/>
+    <link rel="stylesheet" href="../static/redMan/css/font-awesome.min.css"
+          th:href="@{/redMan/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" href="../static/redMan/css/magnific-popup.css" th:href="@{/redMan/css/magnific-popup.css}"/>
+    <link rel="stylesheet" href="../static/redMan/css/one-music-icon.css" th:href="@{/redMan/css/one-music-icon.css}"/>
+    <link rel="stylesheet" href="../static/redMan/css/owl.carousel.min.css"
+          th:href="@{/redMan/css/owl.carousel.min.css}"/>
 
 </head>
 
@@ -82,7 +84,8 @@
                                            th:text="#{navigation.generate-playlist}">Generate Playlist
                                     </a></li>
 
-                                    <li><a href="MyPlaylist.html" th:if="${isAuthenticated}" th:href="@{/users/myPlaylist}"
+                                    <li><a href="MyPlaylist.html" th:if="${isAuthenticated}"
+                                           th:href="@{/users/myPlaylist}"
                                            th:text="#{navigation.my-playlists}">My Playlists
                                     </a></li>
 
@@ -94,21 +97,23 @@
                                     <li><a href="DashboardAdmin.html" th:if="${isAuthenticated && session.isAdmin}"
                                            th:href="@{/edit}" th:text="#{navigation.admin}">Settings</a></li>
                                     <li class="nav-item"><a href="#" class="nav-link"
-                                                            th:if="${isAuthenticated}" th:href="@{/auth/logout}">Logout</a>
+                                                            th:if="${isAuthenticated}"
+                                                            th:href="@{/auth/logout}">Logout</a>
                                     </li>
                                 </ul>
 
-                            <!-- Login/Register & Cart Button -->
-                            <div class="login-register-cart-button d-flex align-items-center">
-                                <!-- Login/Register -->
-                                <div class="login-register-btn mr-50">
-                                    <a href="../static/redMan/login.html" id="loginBtn" th:unless="${isAuthenticated}"
-                                       th:href="@{/auth/login}">Login </a>
-                                    <a href="../static/redMan/RegisterView.html" id="register"
-                                       th:unless="${isAuthenticated}"
-                                       th:href="@{/auth/register}">/ Register</a>
+                                <!-- Login/Register & Cart Button -->
+                                <div class="login-register-cart-button d-flex align-items-center">
+                                    <!-- Login/Register -->
+                                    <div class="login-register-btn mr-50">
+                                        <a href="../static/redMan/login.html" id="loginBtn"
+                                           th:unless="${isAuthenticated}"
+                                           th:href="@{/auth/login}">Login </a>
+                                        <a href="../static/redMan/RegisterView.html" id="register"
+                                           th:unless="${isAuthenticated}"
+                                           th:href="@{/auth/register}">/ Register</a>
+                                    </div>
                                 </div>
-                            </div>
                         </div>
 
                         <!-- Nav End -->
@@ -137,26 +142,73 @@
 <section class="miscellaneous-area section-padding-100-0 text-center">
     <div class="container ">
         <div class="row justify-content-center">
-            <div class="col-12 col-lg-4">
-                <div class="new-hits-area mb-100 ">
-                    <div th:object="${playlist}" class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
-                        <h2 th:text="${playlist.getName()}"></h2>
+            <!--            <div class="col-12 col-lg-4">-->
+            <!--                <div class="new-hits-area mb-100 ">-->
+            <!--                    <div th:object="${playlist}" class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">-->
+            <!--                        <h2 th:text="${playlist.getName()}"></h2>-->
+            <!--                        class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="100ms"-->
+        </div>
+        <div th:each="track, trackStat : ${tracks}">
+            <div class="col-12">
+                <div class="single-song-area mb-30 d-flex flex-wrap align-items-end">
+                    <div class="song-thumbnail">
+                        <a th:href="@{'https://api.deezer.com/artist/' + ${track.getArtist().getId()}}" target="_blank">
+                            <img th:src="@{'https://api.deezer.com/artist/' + ${track.getArtist().getId()} + '/image'}"
+                                 alt="Deezer Artist Image">
+                        </a>
                     </div>
-                        <div th:each="track : ${tracks}" class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="100ms">
-                            <div class="first-part d-flex align-items-center">
-                                <div class="content-">
-                                    <h6 th:text="${track.getArtist().getName()}"></h6>
-                                    <p th:text="${track.getTitle()}"></p>
-                                    <a th:href="@{'https://api.deezer.com/artist/' + ${track.getArtist().getId()}}" target="_blank">
-                                        <img th:src="@{'https://api.deezer.com/artist/' + ${track.getArtist().getId()} + '/image'}" alt="Deezer Artist Image">
-                                    </a>
-                                </div>
-                            </div>
+                    <div class="song-play-area">
+                        <div class="song-name">
+                            <p th:text="${track.getTitle()}"></p>
                         </div>
+                        <audio id="audioPlayer${trackStat.index}" preload="auto" controls onended="playNext(${trackStat.index})">
+                            <source th:src="@{${track.getPreview()}}" type="audio/mp3">
+                        </audio>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+<!--        <div th:each="track : ${tracks}">-->
+<!--            <div class="col-12">-->
+<!--                <div class="single-song-area mb-30 d-flex flex-wrap align-items-end">-->
+<!--                    <div class="song-thumbnail">-->
+<!--                        <a th:href="@{'https://api.deezer.com/artist/' + ${track.getArtist().getId()}}" target="_blank">-->
+<!--                            <img th:src="@{'https://api.deezer.com/artist/' + ${track.getArtist().getId()} + '/image'}"-->
+<!--                                 alt="Deezer Artist Image">-->
+<!--                        </a>-->
+<!--                        &lt;!&ndash;                                        <img th:src="@{/redMan/img/bg-img/s3.jpg}" alt="">&ndash;&gt;-->
+<!--                    </div>-->
+<!--                    <div class="song-play-area">-->
+<!--                        <div class="song-name">-->
+<!--                            <p th:text="${track.getTitle()}"></p>-->
+<!--&lt;!&ndash;                            <p>Lewis Capaldi - Someone You Loved</p>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                        <audio preload="auto" controls onended="playNext()">-->
+<!--                            <source th:src="@{${track.getPreview()}}">-->
+<!--                        </audio>-->
+<!--                        <audio id="audioPlayer" preload="auto" controls onended="playNext()">-->
+<!--                            <source th:src="@{${track.getPreview()}}" type="audio/mp3">-->
+<!--&lt;!&ndash;                        </audio>&ndash;&gt;-->
+<!--                        <audio id="audioPlayer${trackStat.index}" preload="auto" controls onended="playNext(${trackStat.index})">-->
+<!--                            <source th:src="@{${track.getPreview()}}" type="audio/mp3">-->
+<!--                        </audio>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+            <!--                            <div class="first-part d-flex align-items-center">-->
+            <!--                                <div class="content-">-->
+            <!--                                    <h6 th:text="${track.getArtist().getName()}"></h6>-->
+            <!--                                    <p th:text="${track.getTitle()}"></p>-->
+            <!--                                    <a th:href="@{'https://api.deezer.com/artist/' + ${track.getArtist().getId()}}" target="_blank">-->
+            <!--                                        <img th:src="@{'https://api.deezer.com/artist/' + ${track.getArtist().getId()} + '/image'}" alt="Deezer Artist Image">-->
+            <!--                                    </a>-->
+            <!--                                </div>-->
+            <!--                            </div>-->
+        </div>
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+<!--    </div>-->
 </section>
 <!-- ##### Miscellaneous Area End ##### -->
 
@@ -215,6 +267,31 @@
 <!-- ##### Footer Area Start ##### -->
 
 <!-- ##### All Javascript Script ##### -->
+<script th:inline="javascript">
+    var trackUrls = /*[[ ${trackUrls} ]]*/ [];
+    var currentTrackIndex = 0;
+
+    function playNext(index) {
+        // Increment the index to play the next track
+        currentTrackIndex++;
+
+        // Check if there is a next track
+        if (currentTrackIndex < trackUrls.length) {
+            // Get the audio element for the specific track
+            var audioPlayer = document.getElementById('audioPlayer' + index);
+
+            // Set the source of the audio element to the next track
+            audioPlayer.src = trackUrls[currentTrackIndex];
+
+            // Play the audio
+            audioPlayer.play();
+        } else {
+            // Optionally, you can loop back to the first track or stop playing
+            // For example, you can uncomment the line below to loop back to the first track
+            currentTrackIndex = 0;
+        }
+    }
+</script>
 <!-- jQuery-2.2.4 js -->
 <script src="../static/redMan/js/jquery/jquery-2.2.4.min.js" th:src="@{/redMan/js/jquery/jquery-2.2.4.min.js}"></script>
 <!-- Popper js -->
