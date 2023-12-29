@@ -2,6 +2,7 @@ package com.example.ridepal.repository;
 
 import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.models.Genre;
+import com.example.ridepal.repository.interfaces.GenreRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class GenreRepositoryImpl implements GenreRepository{
+public class GenreRepositoryImpl implements GenreRepository {
     private final SessionFactory sessionFactory;
 
     @Autowired

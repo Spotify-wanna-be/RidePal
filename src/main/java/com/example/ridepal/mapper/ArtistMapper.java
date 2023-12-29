@@ -1,8 +1,8 @@
-package com.example.ridepal.helpers;
+package com.example.ridepal.mapper;
 
 import com.example.ridepal.models.Artist;
 import com.example.ridepal.models.ArtistDto;
-import com.example.ridepal.service.ArtistService;
+import com.example.ridepal.service.interfaces.ArtistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

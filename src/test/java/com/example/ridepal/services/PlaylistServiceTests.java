@@ -1,11 +1,8 @@
 package com.example.ridepal.services;
 
-import com.example.ridepal.helpers.CheckPermissions;
 import com.example.ridepal.models.Playlist;
 import com.example.ridepal.models.PlaylistFilterOptions;
-import com.example.ridepal.repository.ArtistRepository;
-import com.example.ridepal.repository.PlaylistRepository;
-import com.example.ridepal.service.ArtistServiceImpl;
+import com.example.ridepal.repository.interfaces.PlaylistRepository;
 import com.example.ridepal.service.PlaylistServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import com.example.ridepal.models.User;
@@ -19,8 +16,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Arrays;
 import java.util.List;
 import static com.example.ridepal.MockHelpers.*;
-import static com.example.ridepal.helpers.CheckPermissions.checkIfSameUserOrAdmin;
-import static com.example.ridepal.helpers.CheckPermissions.checkUserAuthorization;;
+import static com.example.ridepal.helpers.CheckPermissionsHelper.checkIfSameUserOrAdmin;
+;
 
 @ExtendWith(MockitoExtension.class)
 public class PlaylistServiceTests {

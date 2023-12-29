@@ -4,7 +4,7 @@ import com.example.ridepal.exceptions.EntityDuplicateException;
 import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.exceptions.UnauthorizedOperationException;
 import com.example.ridepal.models.User;
-import com.example.ridepal.repository.UserRepository;
+import com.example.ridepal.repository.interfaces.UserRepository;
 import com.example.ridepal.service.UserServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

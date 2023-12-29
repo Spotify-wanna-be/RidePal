@@ -3,7 +3,7 @@ package com.example.ridepal.helpers;
 import com.example.ridepal.exceptions.AuthorizationException;
 import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.models.User;
-import com.example.ridepal.service.UserService;
+import com.example.ridepal.service.interfaces.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

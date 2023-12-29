@@ -1,10 +1,10 @@
 package com.example.ridepal.controllers.rest;
 
 import com.example.ridepal.exceptions.EntityNotFoundException;
-import com.example.ridepal.helpers.ArtistMapper;
+import com.example.ridepal.mapper.ArtistMapper;
 import com.example.ridepal.models.Artist;
 import com.example.ridepal.models.ArtistDto;
-import com.example.ridepal.service.ArtistService;
+import com.example.ridepal.service.interfaces.ArtistService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

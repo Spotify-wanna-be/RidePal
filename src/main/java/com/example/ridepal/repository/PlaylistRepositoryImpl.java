@@ -4,6 +4,7 @@ import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.models.Playlist;
 import com.example.ridepal.models.PlaylistFilterOptions;
 import com.example.ridepal.models.User;
+import com.example.ridepal.repository.interfaces.PlaylistRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

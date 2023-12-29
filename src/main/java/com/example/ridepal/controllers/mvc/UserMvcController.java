@@ -1,17 +1,16 @@
 package com.example.ridepal.controllers.mvc;
 
 import com.example.ridepal.exceptions.AuthorizationException;
-import com.example.ridepal.exceptions.EntityDuplicateException;
 import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.exceptions.UnauthorizedOperationException;
 import com.example.ridepal.helpers.AuthenticationHelper;
-import com.example.ridepal.helpers.UserMapper;
+import com.example.ridepal.mapper.UserMapper;
 import com.example.ridepal.models.Track;
 import com.example.ridepal.models.UpdateUserDto;
 import com.example.ridepal.models.User;
-import com.example.ridepal.service.PlaylistService;
-import com.example.ridepal.service.TrackService;
-import com.example.ridepal.service.UserService;
+import com.example.ridepal.service.interfaces.PlaylistService;
+import com.example.ridepal.service.interfaces.TrackService;
+import com.example.ridepal.service.interfaces.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;

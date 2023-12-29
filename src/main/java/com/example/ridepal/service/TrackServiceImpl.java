@@ -2,9 +2,9 @@ package com.example.ridepal.service;
 
 import com.example.ridepal.exceptions.EntityDuplicateException;
 import com.example.ridepal.exceptions.EntityNotFoundException;
-import com.example.ridepal.models.Artist;
 import com.example.ridepal.models.Track;
-import com.example.ridepal.repository.TrackRepository;
+import com.example.ridepal.repository.interfaces.TrackRepository;
+import com.example.ridepal.service.interfaces.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

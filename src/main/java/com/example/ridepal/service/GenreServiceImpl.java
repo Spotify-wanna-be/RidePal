@@ -1,7 +1,8 @@
 package com.example.ridepal.service;
 
 import com.example.ridepal.models.Genre;
-import com.example.ridepal.repository.GenreRepository;
+import com.example.ridepal.repository.interfaces.GenreRepository;
+import com.example.ridepal.service.interfaces.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

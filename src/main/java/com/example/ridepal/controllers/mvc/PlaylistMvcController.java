@@ -4,16 +4,14 @@ import com.example.ridepal.exceptions.AuthorizationException;
 import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.exceptions.UnauthorizedOperationException;
 import com.example.ridepal.helpers.AuthenticationHelper;
-import com.example.ridepal.helpers.PlaylistMapper;
+import com.example.ridepal.mapper.PlaylistMapper;
 import com.example.ridepal.models.*;
-import com.example.ridepal.service.PlaylistService;
+import com.example.ridepal.service.interfaces.PlaylistService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -4,8 +4,9 @@ import com.example.ridepal.models.Playlist;
 import com.example.ridepal.models.PlaylistFilterOptions;
 import com.example.ridepal.models.Track;
 import com.example.ridepal.models.User;
-import com.example.ridepal.repository.PlaylistRepository;
-import com.example.ridepal.repository.TrackRepository;
+import com.example.ridepal.repository.interfaces.PlaylistRepository;
+import com.example.ridepal.repository.interfaces.TrackRepository;
+import com.example.ridepal.service.interfaces.PlaylistService;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import java.sql.Time;
 import java.time.LocalTime;
 import java.util.*;
 
-import static com.example.ridepal.helpers.CheckPermissions.*;
+import static com.example.ridepal.helpers.CheckPermissionsHelper.*;
 
 @Service
 public class PlaylistServiceImpl implements PlaylistService {

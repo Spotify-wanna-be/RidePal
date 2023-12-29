@@ -2,7 +2,7 @@ package com.example.ridepal.repository;
 
 import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.models.Artist;
-import com.example.ridepal.models.Track;
+import com.example.ridepal.repository.interfaces.ArtistRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

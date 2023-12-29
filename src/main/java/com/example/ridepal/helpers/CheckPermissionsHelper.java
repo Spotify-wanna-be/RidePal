@@ -4,7 +4,7 @@ import com.example.ridepal.exceptions.UnauthorizedOperationException;
 import com.example.ridepal.models.Playlist;
 import com.example.ridepal.models.User;
 
-public class CheckPermissions {
+public class CheckPermissionsHelper {
     public static final String AUTH_ERR_MESSAGE = "You are not authorized to perform this operation";
 
 

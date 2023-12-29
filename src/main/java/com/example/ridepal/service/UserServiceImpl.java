@@ -4,13 +4,14 @@ import com.example.ridepal.exceptions.EntityDuplicateException;
 import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.models.UpdateUserDto;
 import com.example.ridepal.models.User;
-import com.example.ridepal.repository.UserRepository;
+import com.example.ridepal.repository.interfaces.UserRepository;
+import com.example.ridepal.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.example.ridepal.helpers.CheckPermissions.*;
+import static com.example.ridepal.helpers.CheckPermissionsHelper.*;
 
 @Service
 public class UserServiceImpl implements UserService {

@@ -2,14 +2,13 @@ package com.example.ridepal.repository;
 
 import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.models.Track;
-import org.hibernate.HibernateException;
+import com.example.ridepal.repository.interfaces.TrackRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

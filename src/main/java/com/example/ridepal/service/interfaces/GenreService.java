@@ -1,4 +1,4 @@
-package com.example.ridepal.service;
+package com.example.ridepal.service.interfaces;
 
 import com.example.ridepal.models.Genre;
 

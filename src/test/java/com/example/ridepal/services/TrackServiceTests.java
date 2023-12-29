@@ -3,7 +3,7 @@ package com.example.ridepal.services;
 import com.example.ridepal.exceptions.EntityDuplicateException;
 import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.models.Track;
-import com.example.ridepal.repository.TrackRepository;
+import com.example.ridepal.repository.interfaces.TrackRepository;
 import com.example.ridepal.service.TrackServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
