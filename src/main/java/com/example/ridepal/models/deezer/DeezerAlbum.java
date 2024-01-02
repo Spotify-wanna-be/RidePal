@@ -1,22 +1,23 @@
-package com.example.ridepal.models;
+package com.example.ridepal.models.deezer;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DeezerArtist {
+public class DeezerAlbum {
     @JsonProperty("id")
-    private String id;
+    private int id;
 
     @JsonProperty("name")
     private String name;
-    @JsonProperty("picture")
-    private String picture;
 
-    public String getId() {
+
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -28,11 +29,4 @@ public class DeezerArtist {
         this.name = name;
     }
 
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
 }

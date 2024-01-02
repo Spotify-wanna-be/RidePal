@@ -2,7 +2,7 @@ package com.example.ridepal.service;
 
 import com.example.ridepal.exceptions.EntityDuplicateException;
 import com.example.ridepal.exceptions.EntityNotFoundException;
-import com.example.ridepal.models.UpdateUserDto;
+import com.example.ridepal.models.dto.UpdateUserDto;
 import com.example.ridepal.models.User;
 import com.example.ridepal.repository.interfaces.UserRepository;
 import com.example.ridepal.service.interfaces.UserService;

@@ -1,6 +1,6 @@
 package com.example.ridepal.jsonignore;
 
-import com.example.ridepal.models.DeezerGenre;
+import com.example.ridepal.models.deezer.DeezerGenre;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

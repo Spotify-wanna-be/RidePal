@@ -35,6 +35,7 @@ public class ArtistRepositoryImpl implements ArtistRepository {
         }
     }
 
+    @Override
     public Artist getByFirstName(String name){
         try (Session session = sessionFactory.openSession()) {
             Query<Artist> query = session.createQuery("from Artist where name = :name", Artist.class);

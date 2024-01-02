@@ -6,7 +6,7 @@ import com.example.ridepal.exceptions.UnauthorizedOperationException;
 import com.example.ridepal.helpers.AuthenticationHelper;
 import com.example.ridepal.mapper.UserMapper;
 import com.example.ridepal.models.Track;
-import com.example.ridepal.models.UpdateUserDto;
+import com.example.ridepal.models.dto.UpdateUserDto;
 import com.example.ridepal.models.User;
 import com.example.ridepal.service.interfaces.PlaylistService;
 import com.example.ridepal.service.interfaces.TrackService;

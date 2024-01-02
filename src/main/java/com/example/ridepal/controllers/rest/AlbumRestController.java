@@ -1,10 +1,12 @@
 package com.example.ridepal.controllers.rest;
 
 import com.example.ridepal.exceptions.EntityNotFoundException;
-import com.example.ridepal.mapper.ArtistMapper;
+import com.example.ridepal.mapper.AlbumMapper;
+import com.example.ridepal.models.Album;
 import com.example.ridepal.models.Artist;
+import com.example.ridepal.models.dto.AlbumDto;
 import com.example.ridepal.models.dto.ArtistDto;
-import com.example.ridepal.service.interfaces.ArtistService;
+import com.example.ridepal.service.interfaces.AlbumService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -13,39 +15,42 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
-@RequestMapping("/api/artists")
-public class ArtistRestController {
-    private final ArtistService artistService;
-    private final ArtistMapper artistMapper;
+@RequestMapping("/api/albums")
+public class AlbumRestController {
+    private final AlbumService albumService;
+    private final AlbumMapper albumMapper;
+
     @Autowired
-    public ArtistRestController(ArtistService artistService,ArtistMapper artistMapper) {
-        this.artistService = artistService;
-        this.artistMapper=artistMapper;
+
+    public AlbumRestController(AlbumService albumService, AlbumMapper albumMapper) {
+        this.albumService = albumService;
+        this.albumMapper = albumMapper;
     }
+
     @GetMapping("/{id}")
-    public Artist getByArtistId(@PathVariable int id){
+    public Album getById(@PathVariable int id){
         try{
-            return artistService.getByArtistId(id);
+            return albumService.getById(id);
         }catch (EntityNotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
         }
     }
     @PostMapping()
-    public Artist create(@RequestHeader HttpHeaders headers,@Valid @RequestBody ArtistDto artistDto){
+    public Album create(@RequestHeader HttpHeaders headers, @Valid @RequestBody AlbumDto albumDto){
         try{
-            Artist artist=artistMapper.fromDto(artistDto);
-            artistService.create(artist);
-            return artist;
+            Album album=albumMapper.fromDto(albumDto);
+            albumService.create(album);
+            return album;
         }catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
     @PutMapping("/{id}")
-    public Artist update(@RequestHeader HttpHeaders headers,@RequestBody ArtistDto artistDto,@PathVariable int id){
+    public Album update(@RequestHeader HttpHeaders headers,@RequestBody AlbumDto albumDto,@PathVariable int id){
         try{
-            Artist artist=artistMapper.fromDto(id,artistDto);
-            artistService.update(artist);
-            return artist;
+            Album album=albumMapper.fromDto(id,albumDto);
+            albumService.update(album);
+            return album;
         }
         catch(EntityNotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
@@ -54,10 +59,9 @@ public class ArtistRestController {
     @DeleteMapping("{id}")
     public void delete(@RequestHeader HttpHeaders headers,@PathVariable int id){
         try{
-            artistService.delete(id);
+            albumService.delete(id);
         }catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
-
 }

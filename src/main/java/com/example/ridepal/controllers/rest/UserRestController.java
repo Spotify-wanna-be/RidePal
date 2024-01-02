@@ -5,7 +5,7 @@ import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.exceptions.UnauthorizedOperationException;
 import com.example.ridepal.helpers.AuthenticationHelper;
 import com.example.ridepal.mapper.UserMapper;
-import com.example.ridepal.models.RegisterDto;
+import com.example.ridepal.models.dto.RegisterDto;
 import com.example.ridepal.models.User;
 import com.example.ridepal.service.interfaces.UserService;
 import jakarta.validation.Valid;

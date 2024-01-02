@@ -3,6 +3,10 @@ package com.example.ridepal.service;
 import com.example.ridepal.jsonignore.DeezerAlbumResponse;
 import com.example.ridepal.jsonignore.DeezerTrackListResponse;
 import com.example.ridepal.models.*;
+import com.example.ridepal.models.deezer.DeezerAlbum;
+import com.example.ridepal.models.deezer.DeezerGenre;
+import com.example.ridepal.models.deezer.DeezerTrack;
+import com.example.ridepal.service.interfaces.AlbumService;
 import com.example.ridepal.service.interfaces.ArtistService;
 import com.example.ridepal.service.interfaces.GenreService;
 import com.example.ridepal.service.interfaces.TrackService;
@@ -27,18 +31,19 @@ public class DeezerService {
     private final TrackService trackService;
     private final GenreService genreService;
     private final ArtistService artistService;
-//    private final AlbumService albumService;
+    private final AlbumService albumService;
 
     @Value("${deezer.api.accessToken}")
     private String accessToken;
 
     @Autowired
     public DeezerService(RestTemplate restTemplate, TrackService trackService,
-                         GenreService genreService, ArtistService artistService) {
+                         GenreService genreService, ArtistService artistService, AlbumService albumService) {
         this.restTemplate = restTemplate;
         this.trackService = trackService;
         this.genreService = genreService;
         this.artistService = artistService;
+        this.albumService = albumService;
     }
 
     public void fetchAndInsertTracksByAlbum() {
@@ -66,8 +71,6 @@ public class DeezerService {
                     for (DeezerTrack deezerTrack : trackListResponse.getData()) {
                         artistService.create(deezerTrack.getArtist());
 
-//                        albumService.create(deezerTrack.getAlbum());
-
                         Track track = new Track();
                         track.setId(deezerTrack.getId());
                         track.setTitle(deezerTrack.getTitle());
@@ -85,6 +88,13 @@ public class DeezerService {
                         if (albumResponseEntity.getStatusCode().is2xxSuccessful()) {
                             DeezerAlbumResponse albumResponse = albumResponseEntity.getBody();
 
+                            Album album = new Album();
+                            album.setId(albumResponse.getId());
+                            album.setName(albumResponse.getTitle());
+                            albumService.create(album);
+
+                            track.setAlbum(album);
+
                             if (albumResponse != null) {
                                 String genreUrl = "https://api.deezer.com/genre/" + albumResponse.getGenreId();
                                 ResponseEntity<DeezerGenre> genreResponseEntity = restTemplate.exchange(genreUrl, HttpMethod.GET,
@@ -101,37 +111,13 @@ public class DeezerService {
 
                                         track.setGenre(genre);
                                     }
+
                                 }
                             }
                         } else {
                             System.out.println("Error fetching album details. Status code: " + albumResponseEntity.getStatusCodeValue());
                         }
                         trackService.create(track);
-
-//                        if (albumResponseEntity.getStatusCode().is2xxSuccessful()) {
-//                            DeezerAlbumResponse albumResponse = albumResponseEntity.getBody();
-//
-//                            if (albumResponse != null) {
-//                                String artistUrl = "https://api.deezer.com/artist/" + albumResponse.getArtist_id() + "/image";
-//                                ResponseEntity<DeezerArtist> artistResponseEntity = restTemplate.exchange(artistUrl, HttpMethod.GET,
-//                                        entity, DeezerArtist.class);
-//
-//
-//                                if (albumResponse != null) {
-//                                    Artist artist = new Artist();
-//                                    artist.setId(albumResponse.getId());
-//                                    artist.setName(albumResponse.getTitle());
-//                                    artist.setPicture(albumResponse.getPicture());
-//
-//                                    artistService.create(artist);
-//
-//                                    track.setArtist(artist);
-//                                }
-//                            }
-//                        } else {
-//                            System.out.println("Error fetching album details. Status code: " + albumResponseEntity.getStatusCodeValue());
-//                        }
-//                        trackService.create(track);
                     }
                 }
 

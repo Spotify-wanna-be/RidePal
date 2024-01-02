@@ -124,7 +124,7 @@ public class TrackRepositoryImpl implements TrackRepository {
 
             List<Track> result = query.list();
             if (result.isEmpty()) {
-                throw new EntityNotFoundException("Post", "title", title);
+                throw new EntityNotFoundException("Track", "title", title);
             }
 
             return result.get(0);

@@ -7,6 +7,8 @@ import com.example.ridepal.exceptions.UnauthorizedOperationException;
 import com.example.ridepal.helpers.AuthenticationHelper;
 import com.example.ridepal.mapper.UserMapper;
 import com.example.ridepal.models.*;
+import com.example.ridepal.models.dto.PlaylistFilterDto;
+import com.example.ridepal.models.dto.UpdateUserDto;
 import com.example.ridepal.service.interfaces.GenreService;
 import com.example.ridepal.service.interfaces.PlaylistService;
 import com.example.ridepal.service.ThymeleafUtils;

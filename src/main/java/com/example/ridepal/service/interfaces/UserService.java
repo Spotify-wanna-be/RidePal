@@ -1,6 +1,6 @@
 package com.example.ridepal.service.interfaces;
 
-import com.example.ridepal.models.UpdateUserDto;
+import com.example.ridepal.models.dto.UpdateUserDto;
 import com.example.ridepal.models.User;
 
 import java.util.List;

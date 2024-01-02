@@ -1,8 +1,7 @@
-package com.example.ridepal.models;
+package com.example.ridepal.models.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 
 public class RegisterDto extends LoginDto {
 

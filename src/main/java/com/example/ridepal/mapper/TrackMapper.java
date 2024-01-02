@@ -1,7 +1,7 @@
 package com.example.ridepal.mapper;
 
 import com.example.ridepal.models.Track;
-import com.example.ridepal.models.TrackDto;
+import com.example.ridepal.models.dto.TrackDto;
 import com.example.ridepal.service.interfaces.ArtistService;
 import com.example.ridepal.service.interfaces.TrackService;
 import org.springframework.stereotype.Component;

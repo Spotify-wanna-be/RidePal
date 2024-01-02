@@ -1,4 +1,4 @@
-package com.example.ridepal.models;
+package com.example.ridepal.models.dto;
 
 import java.sql.Time;
 

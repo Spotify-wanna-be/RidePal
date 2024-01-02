@@ -1,19 +1,16 @@
+create table albums
+(
+    album_id int auto_increment
+        primary key,
+    name     varchar(255) not null
+);
+
 create table artists
 (
     id      int          not null
         primary key,
     name    varchar(255) null,
     picture varchar(255) null
-);
-
-create table albums
-(
-    album_id  int auto_increment
-        primary key,
-    name      varchar(255) not null,
-    artist_id int          not null,
-    constraint albums_artists_id_fk
-        foreign key (artist_id) references artists (id)
 );
 
 create table genres
@@ -34,6 +31,9 @@ create table tracks
     genre    int          null,
     preview  varchar(255) not null,
     link     varchar(255) null,
+    albums   int          null,
+    constraint tracks_albums_fk
+        foreign key (albums) references albums (album_id),
     constraint tracks_artists_id_fk
         foreign key (artist) references artists (id)
             on delete cascade,
@@ -89,4 +89,3 @@ create table playlist_track
 
 create index track_id
     on playlist_track (track_id);
-

@@ -33,9 +33,9 @@ public class Track {
     @JoinColumn(name = "preview")
     private String preview;
 
-//    @ManyToOne
-//    @JoinColumn(name = "album")
-//    private Album album;
+    @ManyToOne
+    @JoinColumn(name = "albums")
+    private Album album;
     @ManyToMany(mappedBy = "tracks")
     private Set<Playlist> playlists = new HashSet<>();
 
@@ -106,11 +106,11 @@ public class Track {
         this.preview = preview;
     }
 
-//    public Album getAlbum() {
-//        return album;
-//    }
-//
-//    public void setAlbum(Album album) {
-//        this.album = album;
-//    }
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
 }

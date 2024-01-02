@@ -5,7 +5,7 @@ import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.helpers.AuthenticationHelper;
 import com.example.ridepal.mapper.TrackMapper;
 import com.example.ridepal.models.Track;
-import com.example.ridepal.models.TrackDto;
+import com.example.ridepal.models.dto.TrackDto;
 import com.example.ridepal.service.interfaces.TrackService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

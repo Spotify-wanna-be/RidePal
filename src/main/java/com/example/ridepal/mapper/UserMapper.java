@@ -1,7 +1,7 @@
 package com.example.ridepal.mapper;
 
-import com.example.ridepal.models.RegisterDto;
-import com.example.ridepal.models.UpdateUserDto;
+import com.example.ridepal.models.dto.RegisterDto;
+import com.example.ridepal.models.dto.UpdateUserDto;
 import com.example.ridepal.models.User;
 import com.example.ridepal.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

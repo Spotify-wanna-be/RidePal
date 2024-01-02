@@ -6,12 +6,16 @@ import com.example.ridepal.exceptions.UnauthorizedOperationException;
 import com.example.ridepal.helpers.AuthenticationHelper;
 import com.example.ridepal.mapper.PlaylistMapper;
 import com.example.ridepal.models.*;
+import com.example.ridepal.models.dto.PlaylistDto;
+import com.example.ridepal.models.dto.PlaylistFilterDto;
 import com.example.ridepal.service.interfaces.PlaylistService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -67,9 +71,10 @@ public class PlaylistMvcController {
             return "ErrorView";
         }
     }
+
     @GetMapping
     public String showAllPlaylists(@ModelAttribute("filterOptions") PlaylistFilterDto filterDto,
-                               Model model, HttpSession httpSession) {
+                                   Model model, HttpSession httpSession) {
         PlaylistFilterOptions filterOptions = new PlaylistFilterOptions(
                 filterDto.getName(),
                 filterDto.getDuration(),
@@ -104,6 +109,42 @@ public class PlaylistMvcController {
             return "Playlist";
         } catch (EntityNotFoundException e) {
             model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "ErrorView";
+        }
+
+    }
+
+    // -- todo check when front-end is finish  --
+    @PostMapping("/{id}/update")
+    public String updatePlaylist(@PathVariable int id,
+                                 @Valid @ModelAttribute("currentPlaylist") PlaylistDto playlistDto,
+                                 Model model, BindingResult bindingResult,
+                                 HttpSession httpSession) {
+        User user;
+        Playlist playlist = new Playlist();
+        try {
+            user = authenticationHelper.tryGetCurrentUser(httpSession);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/login";
+        }
+        if (bindingResult.hasErrors()) {
+            System.out.println("Hello");
+            return "Playlist";
+        }
+        try {
+            playlist = playlistMapper.fromDto(playlist.getId(), playlistDto);
+            return "redirect:/playlists";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "ErrorView";
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "redirect:/auth/login";
+        } catch (UnauthorizedOperationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
             model.addAttribute("error", e.getMessage());
             return "ErrorView";
         }
