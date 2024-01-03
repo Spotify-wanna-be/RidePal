@@ -51,12 +51,13 @@ public class PlaylistRestController {
         }
     }
 
-    @GetMapping("/new/{origin}/{destination}")
+    @GetMapping("/new/{origin}/{destination}/{repeatArtist}")
     public Set<Track> getGeneratedPlaylist(
             @RequestBody Map<String, Integer> genrePercentages,
             @PathVariable String origin,
-            @PathVariable String destination) {
-        return playlistService.generatePlaylist(genrePercentages, origin, destination);
+            @PathVariable String destination,
+            @PathVariable Boolean repeatArtist) {
+        return playlistService.generatePlaylist(genrePercentages, origin, destination,repeatArtist);
     }
 
     @GetMapping("/ranked")
@@ -79,10 +80,11 @@ public class PlaylistRestController {
             @PathVariable String name,
             @RequestBody Map<String, Integer> genrePercentages,
             @RequestParam String origin,
-            @RequestParam String destination) {
+            @RequestParam String destination,
+            @RequestParam Boolean repeatArtist) {
         try {
             User user = authenticationHelper.tryGetUser(headers);
-            playlistService.create(name, user, genrePercentages, origin, destination);
+            playlistService.create(name, user, genrePercentages, origin, destination,repeatArtist);
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (UnauthorizedOperationException e) {

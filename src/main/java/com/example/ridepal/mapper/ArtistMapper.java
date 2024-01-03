@@ -18,7 +18,7 @@ public class ArtistMapper {
         Artist existingArtist=artistService.getByArtistId(id);
 
         existingArtist.setName(dto.getName());
-        existingArtist.setPicture(dto.getPicture());
+//        existingArtist.setPicture(dto.getPicture());
 
         return existingArtist;
     }
@@ -27,7 +27,7 @@ public class ArtistMapper {
         Artist artist=new Artist();
 
         artist.setName(dto.getName());
-        artist.setPicture(dto.getPicture());
+//        artist.setPicture(dto.getPicture());
 
         return artist;
     }

@@ -14,8 +14,8 @@ public class Artist {
     @Column(unique = true, name = "name")
     private String name;
 
-    @JoinColumn(name = "picture")
-    private String picture;
+//    @JoinColumn(name = "picture")
+//    private String picture;
 
 
     public Artist() {
@@ -37,13 +37,13 @@ public class Artist {
         this.name = name;
     }
 
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
+//    public String getPicture() {
+//        return picture;
+//    }
+//
+//    public void setPicture(String picture) {
+//        this.picture = picture;
+//    }
 
     @Override
     public int hashCode() {

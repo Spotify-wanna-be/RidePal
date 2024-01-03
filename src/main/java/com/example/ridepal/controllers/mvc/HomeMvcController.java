@@ -201,10 +201,11 @@ public class HomeMvcController {
             user = authenticationHelper.tryGetCurrentUser(httpSession);
             String origin = travelInfoForm.getOrigin();
             String destination = travelInfoForm.getDestination();
+            Boolean repeatArtist = travelInfoForm.getRepeatArtist();
             String name = travelInfoForm.getName();
             Map<String, Integer> genrePercentageMap = travelInfoForm.getGenrePercentages();
-            
-            playlistService.create(name, user, genrePercentageMap, origin, destination);
+
+            playlistService.create(name, user, genrePercentageMap, origin, destination,repeatArtist);
             return "redirect:/users/myPlaylist";
         } catch (EntityNotFoundException e) {
             model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
@@ -216,7 +217,7 @@ public class HomeMvcController {
     }
     @GetMapping("/browse")
     public String showAllPlaylists(@ModelAttribute("filterOptions") PlaylistFilterDto filterDto,
-                               Model model, HttpSession httpSession) {
+                                   Model model, HttpSession httpSession) {
         PlaylistFilterOptions filterOptions = new PlaylistFilterOptions(
                 filterDto.getName(),
                 filterDto.getDuration(),

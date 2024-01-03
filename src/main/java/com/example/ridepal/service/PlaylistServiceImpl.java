@@ -60,8 +60,9 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
-    public Set<Track> generatePlaylist(Map<String, Integer> genrePercentages, String origin, String destination) {
+    public Set<Track> generatePlaylist(Map<String, Integer> genrePercentages, String origin, String destination,Boolean repeatArtist) {
         Set<Track> selectedTracks = new HashSet<>();
+        Set<Integer> Artists = new HashSet<>();
         int playlistDuration = 0;
 
         Time duration = travelTimeService.getTravelTime(origin, destination);
@@ -88,8 +89,19 @@ public class PlaylistServiceImpl implements PlaylistService {
 
                 for (Track track : genreTracks) {
                     if (genreDuration + track.getDuration().toLocalTime().getSecond() + track.getDuration().toLocalTime().getMinute() * 60 <= targetGenreDuration) {
-                        selectedTracks.add(track);
-                        genreDuration += (track.getDuration().toLocalTime().getMinute() * 60) + track.getDuration().toLocalTime().getSecond();
+                        if(!repeatArtist) {
+                            boolean containsElement = Artists.stream()
+                                    .anyMatch(element -> element == track.getArtist().getId());
+                            if (!containsElement) {
+                                selectedTracks.add(track);
+                                genreDuration += (track.getDuration().toLocalTime().getMinute() * 60) + track.getDuration().toLocalTime().getSecond();
+                                Artists.add(track.getArtist().getId());
+                            }
+                        }
+                        else  {
+                            selectedTracks.add(track);
+                            genreDuration += (track.getDuration().toLocalTime().getMinute() * 60) + track.getDuration().toLocalTime().getSecond();
+                        }
                     } else {
                         break;
                     }
@@ -107,9 +119,12 @@ public class PlaylistServiceImpl implements PlaylistService {
                 Collections.shuffle(randomGenreTracks);
 
                 Track randomTrack = randomGenreTracks.get(0);
-
-                selectedTracks.add(randomTrack);
-                playlistDuration += (randomTrack.getDuration().toLocalTime().getMinute()*60)+randomTrack.getDuration().toLocalTime().getSecond();
+                boolean containsElement =Artists.stream()
+                        .anyMatch(element -> element == randomTrack.getArtist().getId());
+                if(!containsElement) {
+                    selectedTracks.add(randomTrack);
+                    playlistDuration += (randomTrack.getDuration().toLocalTime().getMinute() * 60) + randomTrack.getDuration().toLocalTime().getSecond();
+                }
             }
         }
 
@@ -141,10 +156,10 @@ public class PlaylistServiceImpl implements PlaylistService {
     @Override
     public void create(String name, User user,
                        Map<String, Integer> genrePercentages,
-                       String origin, String destination) {
+                       String origin, String destination, Boolean repeatArtist) {
         Playlist playlist = new Playlist();
         checkUserAuthorization(user.getId(), user);
-        Set<Track> selectedTracks = generatePlaylist(genrePercentages, origin, destination);
+        Set<Track> selectedTracks = generatePlaylist(genrePercentages, origin, destination,repeatArtist);
         playlist.setDuration(playlistDuration(selectedTracks));
         playlist.setName(name);
         playlist.setTracks(selectedTracks);

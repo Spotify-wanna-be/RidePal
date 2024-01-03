@@ -14,9 +14,9 @@ public interface PlaylistService {
     List<Playlist> getRanked();
     List<Playlist> get(PlaylistFilterOptions playlistFilterOptions);
     List<Playlist> getUsersPlaylists(User user);
-    Set<Track> generatePlaylist(Map<String, Integer> genrePercentages, String origin, String destination);
+    Set<Track> generatePlaylist(Map<String, Integer> genrePercentages, String origin, String destination, Boolean repeatArtist);
     Playlist getByPlaylistId(int id);
-    void create(String name,User user, Map<String, Integer> genrePercentages, String origin, String destination);
+    void create(String name,User user, Map<String, Integer> genrePercentages, String origin, String destination,Boolean repeatArtist);
     void update(User user, Playlist playlist);
     void delete(User user, int playlistId);
     List<Playlist> getAll();

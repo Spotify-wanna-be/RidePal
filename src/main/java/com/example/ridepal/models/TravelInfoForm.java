@@ -7,6 +7,7 @@ public class TravelInfoForm {
     private String origin;
     private String destination;
     private Map<String, Integer> genrePercentages;
+    private Boolean repeatArtist;
 
     public String getName() {
         return name;
@@ -38,5 +39,13 @@ public class TravelInfoForm {
 
     public void setGenrePercentages(Map<String, Integer> genrePercentages) {
         this.genrePercentages = genrePercentages;
+    }
+
+    public Boolean getRepeatArtist() {
+        return repeatArtist;
+    }
+
+    public void setRepeatArtist(Boolean repeatArtist) {
+        this.repeatArtist = repeatArtist;
     }
 }
