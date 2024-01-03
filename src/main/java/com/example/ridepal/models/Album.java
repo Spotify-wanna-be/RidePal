@@ -11,6 +11,9 @@ public class Album {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "link")
+    private String link;
+
 
     public Album() {
     }
@@ -31,5 +34,11 @@ public class Album {
         this.name = name;
     }
 
+    public String getLink() {
+        return link;
+    }
 
+    public void setLink(String link) {
+        this.link = link;
+    }
 }

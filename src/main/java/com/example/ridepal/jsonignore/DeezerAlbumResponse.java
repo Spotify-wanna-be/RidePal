@@ -19,6 +19,9 @@ public class DeezerAlbumResponse {
     @JsonProperty("artist_id")
     private int artist_id;
 
+    @JsonProperty("link")
+    private String link;
+
     public int getId() {
         return id;
     }
@@ -57,6 +60,14 @@ public class DeezerAlbumResponse {
 
     public void setArtist_id(int artist_id) {
         this.artist_id = artist_id;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     @Override

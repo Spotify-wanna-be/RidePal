@@ -1,6 +1,7 @@
 package com.example.ridepal.service;
 
 import com.example.ridepal.models.Album;
+import com.example.ridepal.models.Track;
 import com.example.ridepal.repository.interfaces.AlbumRepository;
 import com.example.ridepal.service.interfaces.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,12 @@ public class AlbumServiceImpl implements AlbumService {
     public Album getById(int id) {
         return albumRepository.getById(id);
     }
+
+    @Override
+    public String getLinkFromAlbum(Album album) {
+        return albumRepository.getLinkFromAlbum(album);
+    }
+
 
     @Override
     public void create(Album album) {

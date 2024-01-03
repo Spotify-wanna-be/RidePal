@@ -2,15 +2,15 @@ create table albums
 (
     album_id int auto_increment
         primary key,
-    name     varchar(255) not null
+    name     varchar(255) not null,
+    link     varchar(255) null
 );
 
 create table artists
 (
-    id      int          not null
+    id   int          not null
         primary key,
-    name    varchar(255) null,
-    picture varchar(255) null
+    name varchar(255) null
 );
 
 create table genres
@@ -89,3 +89,4 @@ create table playlist_track
 
 create index track_id
     on playlist_track (track_id);
+

@@ -3,9 +3,11 @@ package com.example.ridepal.repository;
 import com.example.ridepal.exceptions.EntityNotFoundException;
 import com.example.ridepal.models.Album;
 import com.example.ridepal.models.Artist;
+import com.example.ridepal.models.Track;
 import com.example.ridepal.repository.interfaces.AlbumRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -46,6 +48,16 @@ public class AlbumRepositoryImpl implements AlbumRepository {
                 throw new EntityNotFoundException("Album", id);
             }
             return album;
+        }
+    }
+
+    @Override
+    public String getLinkFromAlbum(Album album) {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "SELECT a.link FROM Album a WHERE a = :album";
+            Query<String> query = session.createQuery(hql, String.class);
+            query.setParameter("album", album);
+            return query.uniqueResult();
         }
     }
 
