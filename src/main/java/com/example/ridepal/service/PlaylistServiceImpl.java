@@ -119,9 +119,16 @@ public class PlaylistServiceImpl implements PlaylistService {
                 Collections.shuffle(randomGenreTracks);
 
                 Track randomTrack = randomGenreTracks.get(0);
-                boolean containsElement =Artists.stream()
-                        .anyMatch(element -> element == randomTrack.getArtist().getId());
-                if(!containsElement) {
+                if(!repeatArtist) {
+                    boolean containsElement = Artists.stream()
+                            .anyMatch(element -> element == randomTrack.getArtist().getId());
+                    if (!containsElement) {
+                        selectedTracks.add(randomTrack);
+                        playlistDuration += (randomTrack.getDuration().toLocalTime().getMinute() * 60) + randomTrack.getDuration().toLocalTime().getSecond();
+                        Artists.add(randomTrack.getArtist().getId());
+                    }
+                }
+                else  {
                     selectedTracks.add(randomTrack);
                     playlistDuration += (randomTrack.getDuration().toLocalTime().getMinute() * 60) + randomTrack.getDuration().toLocalTime().getSecond();
                 }
