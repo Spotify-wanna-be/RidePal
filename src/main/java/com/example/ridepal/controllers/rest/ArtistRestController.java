@@ -5,6 +5,7 @@ import com.example.ridepal.mapper.ArtistMapper;
 import com.example.ridepal.models.Artist;
 import com.example.ridepal.models.dto.ArtistDto;
 import com.example.ridepal.service.interfaces.ArtistService;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -14,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/api/artists")
+@Hidden
 public class ArtistRestController {
     private final ArtistService artistService;
     private final ArtistMapper artistMapper;

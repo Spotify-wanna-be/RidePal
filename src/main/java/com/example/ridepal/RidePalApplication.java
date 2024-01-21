@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @SpringBootApplication
 public class RidePalApplication {
-	//test commit
 	public static void main(String[] args) {
 		SpringApplication.run(RidePalApplication.class, args);
 	}

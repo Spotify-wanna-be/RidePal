@@ -8,6 +8,7 @@ import com.example.ridepal.mapper.UserMapper;
 import com.example.ridepal.models.dto.RegisterDto;
 import com.example.ridepal.models.User;
 import com.example.ridepal.service.interfaces.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
+@Tag(name="Users")
 public class UserRestController {
 
     private final UserService userService;

@@ -7,6 +7,7 @@ import com.example.ridepal.mapper.TrackMapper;
 import com.example.ridepal.models.Track;
 import com.example.ridepal.models.dto.TrackDto;
 import com.example.ridepal.service.interfaces.TrackService;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tracks")
+@Hidden
 public class TrackRestController {
     private final TrackService trackService;
     private final AuthenticationHelper authenticationHelper;

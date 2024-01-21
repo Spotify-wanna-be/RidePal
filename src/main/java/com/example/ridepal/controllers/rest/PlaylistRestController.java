@@ -5,6 +5,7 @@ import com.example.ridepal.exceptions.UnauthorizedOperationException;
 import com.example.ridepal.helpers.AuthenticationHelper;
 import com.example.ridepal.models.*;
 import com.example.ridepal.service.interfaces.PlaylistService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/api/playlists")
+@Tag(name = "Playlists")
 public class PlaylistRestController {
     private PlaylistService playlistService;
     private final AuthenticationHelper authenticationHelper;
