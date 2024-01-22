@@ -51,6 +51,9 @@ Thank you for listening. SpotifyWannaBe - your musical adventure during every jo
 ## 🔗 Technologies
 - SpringBoot, Mockito Unit Testing, MariaDB, Hibernate, REST API, Thymeleaf, HTML, CSS
 
+## 🔗 Rest Api
+- Link to the documentation in Swagger -> http://localhost:8080/api-docs (access after you have successfully configured the project)
+
 
 ## Functionalities
 - *Guest part* - available without authentication
@@ -113,9 +116,14 @@ Thank you for listening. SpotifyWannaBe - your musical adventure during every jo
 
 <img width="1121" alt="myplaylist" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/myplaylist.png">
 <img width="1121" alt="myplaylist2" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/myplaylist2.png">
+
+  >A Playlist without repeating artists.
+
 <img width="1121" alt="myplaylist4" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/myplaylist4.png">
+
+  >A Playlist were repeating artists is allowed.
+
 <img width="1121" alt="myplaylist5" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/myplaylist5.png">
-<img width="1121" alt="myplaylist6" src="https://github.com/Spotify-wanna-be/RidePal/blob/main/src/main/resources/static/img/readme/myplaylist6.png">
 
 
 - **Settings**
