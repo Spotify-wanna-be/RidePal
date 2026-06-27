@@ -13,7 +13,7 @@ public class Track {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "track_id")
-    private int id;
+    private Integer id;
     @Column(name = "title")
     private String title;
     @ManyToOne
@@ -27,11 +27,11 @@ public class Track {
     @JoinColumn(name = "genre")
     private Genre genre;
 
-    @JoinColumn(name = "link")
-    private String link;
-
-    @JoinColumn(name = "preview")
+    @Column(name = "preview", columnDefinition = "TEXT")
     private String preview;
+
+    @Column(name = "link", columnDefinition = "TEXT")
+    private String link;
 
     @ManyToOne
     @JoinColumn(name = "albums")
@@ -42,11 +42,11 @@ public class Track {
     public Track(){
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

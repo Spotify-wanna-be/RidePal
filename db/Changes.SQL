@@ -1,0 +1,8 @@
+USE playlist;
+
+SET FOREIGN_KEY_CHECKS = 0;
+
+TRUNCATE TABLE playlist_track;
+TRUNCATE TABLE tracks;
+
+SET FOREIGN_KEY_CHECKS = 1;

@@ -1,3 +1,7 @@
+ALTER TABLE tracks
+    MODIFY COLUMN preview TEXT NULL,
+    MODIFY COLUMN link TEXT NULL;
+
 create table albums
 (
     album_id int auto_increment

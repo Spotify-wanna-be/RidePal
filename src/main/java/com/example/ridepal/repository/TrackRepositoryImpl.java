@@ -134,9 +134,18 @@ public class TrackRepositoryImpl implements TrackRepository {
     @Override
     public void create(Track track) {
         try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            Track mergedTrack = (Track) session.merge(track);
-            session.getTransaction().commit();
+            var transaction = session.beginTransaction();
+
+            try {
+                session.persist(track);
+                transaction.commit();
+            } catch (RuntimeException e) {
+                if (transaction.isActive()) {
+                    transaction.rollback();
+                }
+
+                throw e;
+            }
         }
     }
 

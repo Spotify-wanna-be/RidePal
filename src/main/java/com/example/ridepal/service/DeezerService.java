@@ -9,16 +9,21 @@ import com.example.ridepal.service.interfaces.AlbumService;
 import com.example.ridepal.service.interfaces.ArtistService;
 import com.example.ridepal.service.interfaces.GenreService;
 import com.example.ridepal.service.interfaces.TrackService;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-
 import org.springframework.web.client.RestTemplate;
 
 import java.sql.Time;
 import java.time.LocalTime;
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
 @Service
 public class DeezerService {
 
@@ -31,9 +36,6 @@ public class DeezerService {
     private final ArtistService artistService;
     private final AlbumService albumService;
 
-    @Value("${deezer.api.accessToken}")
-    private String accessToken;
-
     @Autowired
     public DeezerService(RestTemplate restTemplate, TrackService trackService,
                          GenreService genreService, ArtistService artistService, AlbumService albumService) {
@@ -44,110 +46,147 @@ public class DeezerService {
         this.albumService = albumService;
     }
 
+    /**
+     * Imports tracks from real Deezer albums.
+     *
+     * Instead of guessing random album IDs (most of which don't exist), this
+     * pulls the top albums from Deezer's per-genre charts, so the data we
+     * insert is real and already genre-tagged. Each album is imported inside
+     * its own try/catch, so a single failing request never aborts the whole run.
+     */
     public void fetchAndInsertTracksByAlbum() {
-        int randomAlbumId;
-        int count = 0;
-        Random random = new Random();
+        HttpEntity<String> entity = buildPublicEntity();
 
-        while (count < 100) {
-            randomAlbumId = random.nextInt(0, 350000);
+        List<String> albumIds = fetchChartAlbumIds(entity, 100);
 
-            String deezerApiUrl = "https://api.deezer.com/album/" + randomAlbumId + "/tracks";
+        for (String albumId : albumIds) {
+            try {
+                importAlbum(albumId, entity);
+            } catch (Exception e) {
+                System.out.println("Skipping album " + albumId + ": " + e.getMessage());
+            }
+        }
+    }
 
-            HttpHeaders headers = new HttpHeaders();
-            headers.set("Authorization", "Bearer " + accessToken);
+    private HttpEntity<String> buildPublicEntity() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
 
-            HttpEntity<String> entity = new HttpEntity<>(headers);
+        return new HttpEntity<>(headers);
+    }
 
-            ResponseEntity<DeezerTrackListResponse> responseEntity = restTemplate.exchange(deezerApiUrl,
-                    HttpMethod.GET, entity, DeezerTrackListResponse.class);
+    /**
+     * Collects up to {@code targetCount} distinct album IDs by walking the
+     * genre list and reading the top albums of each genre's chart.
+     */
+    private List<String> fetchChartAlbumIds(HttpEntity<String> entity, int targetCount) {
+        Set<String> ids = new LinkedHashSet<>();
+        try {
+            ObjectMapper mapper = new ObjectMapper();
 
-            if (responseEntity.getStatusCode().is2xxSuccessful()) {
-                DeezerTrackListResponse trackListResponse = responseEntity.getBody();
+            String genresUrl = deezerApiUrl + "/genre";
+            ResponseEntity<String> genresResponse =
+                    restTemplate.exchange(genresUrl, HttpMethod.GET, entity, String.class);
+            JsonNode genres = mapper.readTree(genresResponse.getBody()).path("data");
 
-                if (trackListResponse != null && trackListResponse.getData() != null) {
-                    for (DeezerTrack deezerTrack : trackListResponse.getData()) {
-                        artistService.create(deezerTrack.getArtist());
+            for (JsonNode genre : genres) {
+                if (ids.size() >= targetCount) {
+                    break;
+                }
+                String genreId = genre.path("id").asText();
+                String chartUrl = deezerApiUrl + "/chart/" + genreId + "/albums?limit=25";
 
-//                        albumService.create(deezerTrack.getAlbum());
+                ResponseEntity<String> chartResponse =
+                        restTemplate.exchange(chartUrl, HttpMethod.GET, entity, String.class);
+                JsonNode albums = mapper.readTree(chartResponse.getBody()).path("data");
 
-                        Track track = new Track();
-                        track.setId(deezerTrack.getId());
-                        track.setTitle(deezerTrack.getTitle());
-                        track.setRank(deezerTrack.getRank());
-                        track.setArtist(deezerTrack.getArtist());
-                        track.setDuration(Time.valueOf(LocalTime.ofSecondOfDay(deezerTrack.getDuration())));
-                        track.setPreview(deezerTrack.getPreview());
-                        track.setLink(deezerTrack.getLink());
-
-
-                        String albumUrl = "https://api.deezer.com/album/" + randomAlbumId;
-                        ResponseEntity<DeezerAlbumResponse> albumResponseEntity = restTemplate.exchange(albumUrl,
-                                HttpMethod.GET, entity, DeezerAlbumResponse.class);
-
-                        if (albumResponseEntity.getStatusCode().is2xxSuccessful()) {
-                            DeezerAlbumResponse albumResponse = albumResponseEntity.getBody();
-                            Album album = new Album();
-                            album.setId(albumResponse.getId());
-                            album.setName(albumResponse.getTitle());
-                            album.setLink(albumResponse.getLink());
-                            albumService.create(album);
-
-
-                            track.setAlbum(album);
-                            if (albumResponse != null) {
-                                String genreUrl = "https://api.deezer.com/genre/" + albumResponse.getGenreId();
-                                ResponseEntity<DeezerGenre> genreResponseEntity = restTemplate.exchange(genreUrl, HttpMethod.GET,
-                                        entity, DeezerGenre.class);
-
-                                if (genreResponseEntity.getStatusCode().is2xxSuccessful()) {
-                                    DeezerGenre genreResponse = genreResponseEntity.getBody();
-
-                                    if (genreResponse != null) {
-                                        Genre genre = new Genre();
-                                        genre.setId(Integer.parseInt(genreResponse.getId()));
-                                        genre.setType(genreResponse.getName());
-                                        genreService.create(genre);
-
-                                        track.setGenre(genre);
-                                    }
-                                }
-                            }
-                        } else {
-                            System.out.println("Error fetching album details. Status code: " + albumResponseEntity.getStatusCodeValue());
-                        }
-                        trackService.create(track);
-
-//                        if (albumResponseEntity.getStatusCode().is2xxSuccessful()) {
-//                            DeezerAlbumResponse albumResponse = albumResponseEntity.getBody();
-//
-//                            if (albumResponse != null) {
-//                                String artistUrl = "https://api.deezer.com/artist/" + albumResponse.getArtist_id() + "/image";
-//                                ResponseEntity<DeezerArtist> artistResponseEntity = restTemplate.exchange(artistUrl, HttpMethod.GET,
-//                                        entity, DeezerArtist.class);
-//
-//
-//                                if (albumResponse != null) {
-//                                    Artist artist = new Artist();
-//                                    artist.setId(albumResponse.getId());
-//                                    artist.setName(albumResponse.getTitle());
-//                                    artist.setPicture(albumResponse.getPicture());
-//
-//                                    artistService.create(artist);
-//
-//                                    track.setArtist(artist);
-//                                }
-//                            }
-//                        } else {
-//                            System.out.println("Error fetching album details. Status code: " + albumResponseEntity.getStatusCodeValue());
-//                        }
-//                        trackService.create(track);
+                for (JsonNode album : albums) {
+                    if (ids.size() >= targetCount) {
+                        break;
+                    }
+                    String id = album.path("id").asText(null);
+                    if (id != null && !id.isEmpty()) {
+                        ids.add(id);
                     }
                 }
-
-            } else {
-                System.out.println("Error fetching tracks. Status code: " + responseEntity.getStatusCodeValue());
             }
+        } catch (Exception e) {
+            System.out.println("Failed to fetch chart album IDs: " + e.getMessage());
+        }
+        return new ArrayList<>(ids);
+    }
+
+    /**
+     * Imports one album: its tracks, the album record, and its genre.
+     */
+    private void importAlbum(String albumId, HttpEntity<String> entity) {
+        String tracksUrl = deezerApiUrl + "/album/" + albumId + "/tracks";
+        ResponseEntity<DeezerTrackListResponse> tracksResponse =
+                restTemplate.exchange(tracksUrl, HttpMethod.GET, entity, DeezerTrackListResponse.class);
+
+        if (!tracksResponse.getStatusCode().is2xxSuccessful()
+                || tracksResponse.getBody() == null
+                || tracksResponse.getBody().getData() == null) {
+            return;
+        }
+
+        // Fetch album + genre once per album (the original code did this once
+        // per track, repeating the same two calls for every track on the album).
+        Album album = null;
+        Genre genre = null;
+
+        String albumUrl = deezerApiUrl + "/album/" + albumId;
+        ResponseEntity<DeezerAlbumResponse> albumResponseEntity =
+                restTemplate.exchange(albumUrl, HttpMethod.GET, entity, DeezerAlbumResponse.class);
+
+        if (albumResponseEntity.getStatusCode().is2xxSuccessful()
+                && albumResponseEntity.getBody() != null) {
+            DeezerAlbumResponse albumResponse = albumResponseEntity.getBody();
+
+            album = new Album();
+            album.setId(albumResponse.getId());
+            album.setName(albumResponse.getTitle());
+            album.setLink(albumResponse.getLink());
+            albumService.create(album);
+
+            String genreUrl = deezerApiUrl + "/genre/" + albumResponse.getGenreId();
+            ResponseEntity<DeezerGenre> genreResponseEntity =
+                    restTemplate.exchange(genreUrl, HttpMethod.GET, entity, DeezerGenre.class);
+
+            if (genreResponseEntity.getStatusCode().is2xxSuccessful()
+                    && genreResponseEntity.getBody() != null
+                    && genreResponseEntity.getBody().getId() != null) {
+                DeezerGenre genreResponse = genreResponseEntity.getBody();
+                genre = new Genre();
+                genre.setId(Integer.parseInt(genreResponse.getId()));
+                genre.setType(genreResponse.getName());
+                genreService.create(genre);
+            }
+        } else {
+            System.out.println("Error fetching album details for album " + albumId
+                    + ". Status code: " + albumResponseEntity.getStatusCodeValue());
+        }
+
+        for (DeezerTrack deezerTrack : tracksResponse.getBody().getData()) {
+            // The artist comes straight from the track payload (correct id/name).
+            artistService.create(deezerTrack.getArtist());
+
+            Track track = new Track();
+            track.setTitle(deezerTrack.getTitle());
+            track.setRank(deezerTrack.getRank());
+            track.setArtist(deezerTrack.getArtist());
+            track.setDuration(Time.valueOf(LocalTime.ofSecondOfDay(deezerTrack.getDuration())));
+            track.setPreview(deezerTrack.getPreview());
+            track.setLink(deezerTrack.getLink());
+
+            if (album != null) {
+                track.setAlbum(album);
+            }
+            if (genre != null) {
+                track.setGenre(genre);
+            }
+
+            trackService.create(track);
         }
     }
 }
